@@ -20,7 +20,9 @@ ActiveRecord::Schema.define(version: 20160310030824) do
     t.integer  "white_player_id"
     t.integer  "black_player_id"
     t.integer  "winning_player_id"
-    t.string   "turn"
+    t.integer  "turn"
+    t.integer  "game_id"
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
