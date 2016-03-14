@@ -17,7 +17,7 @@ RSpec.describe Piece, :type => :model do
       # checking A6 C4 => false
     end
 
-    it "should return 'true' if there is a piece on the destination coordinate" do 
+    it "should return 'true' if there is a piece ON the destination coordinate" do 
     	black_rook = Rook.create(
 				x_coordinate: 6,
 				y_coordinate: 4,
@@ -38,7 +38,7 @@ RSpec.describe Piece, :type => :model do
     	expect(@white_rook.is_obstructed?(6,4)).to eq false
     end
 
-    it "should return 'true' if there is a piece on the way to the destination coordinate in the SAME ROW: left => right" do 
+    it "should return 'TRUE' if there is a piece ON THE WAY to the destination coordinate in the SAME ROW moving left => right" do 
     	black_rook = Rook.create(
 				x_coordinate: 4,
 				y_coordinate: 1,
@@ -48,7 +48,7 @@ RSpec.describe Piece, :type => :model do
     	expect(@white_rook.is_obstructed?(5,1)).to eq true
     end
 
-    it "should return 'true' if there is a piece on the way to the destination coordinate in the SAME ROW: right => left" do 
+    it "should return 'TRUE' if there is a piece ON THE WAY to the destination coordinate in the SAME ROW moving right => left" do 
     	black_rook = Rook.create(
 				x_coordinate: 7,
 				y_coordinate: 1,
@@ -64,7 +64,7 @@ RSpec.describe Piece, :type => :model do
     	expect(black_rook.is_obstructed?(4,1)).to eq true
     end
 
-    it "should return 'false' if there is a piece on the way to the destination coordinate in another row" do 
+    it "should return 'FALSE' if there is a piece ON THE WAY to the destination coordinate in another row" do 
     	black_rook = Rook.create(
 				x_coordinate: 4,
 				y_coordinate: 2,
@@ -74,7 +74,7 @@ RSpec.describe Piece, :type => :model do
     	expect(@white_rook.is_obstructed?(5,1)).to eq false
     end
 
-    it "should return 'TRUE' if there is a piece on the way to the destination coordinate in the SAME COLUMN" do 
+    it "should return 'TRUE' if there is a piece ON THE WAY to the destination coordinate in the SAME COLUMN moving bottom => top" do 
     	black_rook = Rook.create(
 				x_coordinate: 1,
 				y_coordinate: 5,
@@ -82,6 +82,22 @@ RSpec.describe Piece, :type => :model do
 				color: "black"
 			)
     	expect(@white_rook.is_obstructed?(1,7)).to eq true
+    end
+
+    it "should return 'TRUE' if there is a piece ON THE WAY to the destination coordinate in the SAME COLUMN moving top => bottom" do 
+    	black_rook = Rook.create(
+				x_coordinate: 1,
+				y_coordinate: 7,
+				game: @game, 
+				color: "black"
+			)
+			white_knight = Knight.create(
+				x_coordinate: 1,
+				y_coordinate: 6,
+				game: @game,
+				color: "black"
+			)
+    	expect(black_rook.is_obstructed?(1,4)).to eq true
     end
   end
 end
