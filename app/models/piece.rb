@@ -18,7 +18,7 @@ class Piece < ActiveRecord::Base
 		# create integer range from origin.upto.destination e.g. 2...5 => [2,3,4,5]
 		# query database through entire range
 
-		# Horizontal movement from left to right
+		# horizontal movement: left => right
 		(self.x_coordinate + 1).upto(destination_x - 1).each do |x|
 			between_squares = game.pieces.where(x_coordinate: x, y_coordinate: destination_y).first
 			if between_squares.present? 
@@ -28,7 +28,17 @@ class Piece < ActiveRecord::Base
 		end
 		found
 
-		# Vertical movement bottom to top 
+		# horizontal movement: right => left 
+		(self.x_coordinate - 1).downto(destination_x).each do |x|
+		between_squares = game.pieces.where(x_coordinate: x, y_coordinate: destination_y).first
+			if between_squares.present? 
+				found = true
+				break 
+			end
+		end
+		found
+
+		# vertical movement: bottom => top 
 		(self.y_coordinate + 1).upto(destination_y).each do |y|
 			between_squares = game.pieces.where(x_coordinate: destination_x, y_coordinate: y).first
 			if between_squares.present? 
