@@ -10,7 +10,7 @@ class Piece < ActiveRecord::Base
 			return true
 		end
 		
-		# make the default return false 
+		# default return false 
 		found = false  
 
 		# Psuedocode
@@ -28,7 +28,7 @@ class Piece < ActiveRecord::Base
 		found
 
 		# horizontal movement: right => left 
-		(self.x_coordinate - 1).downto(destination_x).each do |x|
+		(self.x_coordinate - 1).downto(destination_x - 1).each do |x|
 		between_squares = game.pieces.where(x_coordinate: x, y_coordinate: destination_y).first
 			if between_squares.present? 
 				found = true
@@ -38,7 +38,7 @@ class Piece < ActiveRecord::Base
 		found
 
 		# vertical movement: bottom => top 
-		(self.y_coordinate + 1).upto(destination_y).each do |y|
+		(self.y_coordinate + 1).upto(destination_y - 1).each do |y|
 			between_squares = game.pieces.where(x_coordinate: destination_x, y_coordinate: y).first
 			if between_squares.present? 
 				found = true
@@ -48,7 +48,7 @@ class Piece < ActiveRecord::Base
 		found
 
 		# vertical movement: top => bottom
-		(self.y_coordinate - 1).downto(destination_y).each do |y|
+		(self.y_coordinate - 1).downto(destination_y - 1).each do |y|
 			between_squares = game.pieces.where(x_coordinate: destination_x, y_coordinate: y).first
 			if between_squares.present? 
 				found = true
