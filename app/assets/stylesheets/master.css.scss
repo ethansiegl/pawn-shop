@@ -1,0 +1,24 @@
+/* Board styling */
+table, th, td {
+    border: 3px solid black;
+}
+
+body {
+	
+	padding: 30px;
+}
+
+table {
+	margin: 50px auto;
+	border-collapse: collapse;
+	background: #804000;
+}
+
+td {
+    width: 72px; height: 72px;
+}
+
+tr:nth-child(odd) td:nth-child(even), tr:nth-child(even) td:nth-child(odd) {
+	background: white;
+}
+
