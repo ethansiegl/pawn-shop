@@ -12,7 +12,7 @@ RSpec.describe Piece, :type => :model do
 	end
 
   describe "tests 'is_obstructed' method," do
-    it "should return 'false' if there is no obstruction" do 	
+    it "should return 'FALSE' if there is NO OBSTRUCTION" do 	
       expect(@white_rook.is_obstructed?(4,4)).to eq false
       # checking A6 C4 => false
     end
@@ -27,7 +27,7 @@ RSpec.describe Piece, :type => :model do
     	expect(@white_rook.is_obstructed?(6,4)).to eq true
     end
 
-    it "should return 'false' if there is a piece on the destination coordinate in another game" do 
+    it "should return 'FALSE' if there is a piece on the destination coordinate in another game" do 
     	other_game = Game.create
     	black_rook = Rook.create(
 				x_coordinate: 6,
@@ -56,6 +56,16 @@ RSpec.describe Piece, :type => :model do
 				color: "black"
 			)
     	expect(@white_rook.is_obstructed?(5,1)).to eq false
+    end
+
+    it "should return 'true' if there is a piece on the way to the destination coordinate in the SAME COLUMN" do 
+    	black_rook = Rook.create(
+				x_coordinate: 1,
+				y_coordinate: 5,
+				game: @game, 
+				color: "black"
+			)
+    	expect(@white_rook.is_obstructed?(1,7)).to eq true
     end
   end
 end
