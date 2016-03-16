@@ -6,6 +6,7 @@
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
+
 <body>
 
 <nav class="navbar navbar-inverse">
@@ -41,14 +42,18 @@
   </div><!-- /.container-fluid -->
 </nav>
 
-<% if notice.present? %>
+  <!-- Notices -->
+  <% if notice.present? %>
   	<p class="alert alert-info"><%= notice %></p>
-<% end %>
-<% if alert.present? %>
-  <p class="alert alert-danger"><%= alert %></p>
-<% end %>
 
-<%= yield %>
+  <% end %>
+  
+  <% if alert.present? %>
+    <p class="alert alert-danger"><%= alert %></p>
+  <% end %>
+
+
+  <%= yield %>
 
 </body>
 </html>
