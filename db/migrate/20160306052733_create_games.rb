@@ -4,7 +4,9 @@ class CreateGames < ActiveRecord::Migration
     	t.integer :white_player_id
     	t.integer :black_player_id
     	t.integer :winning_player_id
-    	t.string :turn
+    	t.integer :turn
+    	t.integer :game_id
+    	t.string :name
       t.timestamps
     end
   end
