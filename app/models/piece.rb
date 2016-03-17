@@ -1,8 +1,10 @@
 class Piece < ActiveRecord::Base
 	belongs_to :game
 	
-	# piece accepts destination coordinates
 	def move_to!(destination_x, destination_y)
+		# allows pieces to move and capture opposite color pieces
+		# will return false if piece attempts to move onto a square occupied by a piece of the same color
+
 		# check for white piece on destination square 
 		white_destination_square_piece = game.pieces.where(x_coordinate: destination_x, y_coordinate: destination_y, color: "white").first
 
@@ -19,14 +21,19 @@ class Piece < ActiveRecord::Base
 			return false
 		end
 
-		# if origin is white and destination is black, return true
+		# piece capture logic
+		
+
+		# if piece is captured, change origin piece coordinates
+
 		true
 	end
 
-	# method accepts destination coordinates & returns a boolean
-	# returning 'true' means there is a piece b/t the origin and destination
-		# ex: white_pawn.is_obstructed?(1,2) => false
 	def is_obstructed?(destination_x, destination_y)
+		# method accepts destination coordinates & returns a boolean
+		# returning 'true' means there is a piece b/t the origin and destination
+		# ex: white_pawn.is_obstructed?(1,2) => false
+		
 		# create integer range from origin to destination
 		# create database queries based on integer range and destination coordinates
 		# check for pieces
