@@ -11,10 +11,15 @@ RSpec.describe Piece, :type => :model do
 		)
 	end
 
+	describe "tests 'move_to!' method," do
+		it "should return true' if there is no piece on the destination square" do
+			expect(@white_rook.move_to!(2,1)).to eq true
+		end
+	end
+
   describe "tests 'is_obstructed' method," do
     it "should return 'FALSE' if there is NO OBSTRUCTION" do 	
       expect(@white_rook.is_obstructed?(4,4)).to eq false
-      # checking A6 C4 => false
     end
 
     it "should return 'true' if there is a piece ON the destination coordinate" do 
