@@ -35,6 +35,16 @@ RSpec.describe Piece, :type => :model do
 				)
 			expect(@white_rook.move_to!(2,2)).to eq true
 		end
+
+		it "should update piece coordinates after capturing opposite color piece" do 
+			@black_pawn = Pawn.create(
+				x_coordinate: 2,
+				y_coordinate: 2,
+				game: @game,
+				color: "black"
+				)
+			expect(@white_rook).to have_attributes(x_coordinate: 2, y_coordinate: 2)
+		end
 	end
 
   describe "tests 'is_obstructed' method," do

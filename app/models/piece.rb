@@ -6,6 +6,7 @@ class Piece < ActiveRecord::Base
 		# check for white piece on destination square 
 		white_destination_square_piece = game.pieces.where(x_coordinate: destination_x, y_coordinate: destination_y, color: "white").first
 
+		# check for black piece on destination square 
 		black_destination_square_piece = game.pieces.where(x_coordinate: destination_x, y_coordinate: destination_y, color: "black").first
 		
 		# if origin and destination pieces are white, do not allow move
@@ -18,6 +19,7 @@ class Piece < ActiveRecord::Base
 			return false
 		end
 
+		# if origin is white and destination is black, return true
 		true
 	end
 
