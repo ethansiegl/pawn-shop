@@ -1,7 +1,7 @@
 class GamesController < ApplicationController
 
 
-	def index 
+	def index
 		@games = Game.all
 	end
 
@@ -22,6 +22,4 @@ class GamesController < ApplicationController
 		params.require(:game).permit(:game_id, :white_player_id, :black_player_id)
 	end
 
-	def params
-		params.require(:game).permit(:game_id, :white_player_id, :black_player_id)
 end
