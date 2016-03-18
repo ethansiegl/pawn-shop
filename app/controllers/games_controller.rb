@@ -1,12 +1,12 @@
 class GamesController < ApplicationController
 
 
-	def index 
+	def index
 		@games = Game.all
 	end
 
 	def new
-		@new_game = Game.new
+		@game = Game.new
 	end
 
 	def create
@@ -15,13 +15,13 @@ class GamesController < ApplicationController
 	end
 
 	def show
-		#@game = Game.find(params[:id])
+		@game = Game.find(params[:id])
 	end
 
-	def params
+	private
+
+	def game_params
 		params.require(:game).permit(:game_id, :white_player_id, :black_player_id)
 	end
 
-	def params
-		params.require(:game).permit(:game_id, :white_player_id, :black_player_id)
 end
