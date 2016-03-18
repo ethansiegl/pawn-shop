@@ -2,9 +2,10 @@ class Piece < ActiveRecord::Base
 	belongs_to :game
 	
 	def move_to!(destination_x, destination_y)
-		# allows pieces to move and capture opposite color pieces
-		# will return false if piece attempts to move onto a square occupied by a piece of the same color
-
+		# allows pieces to move and capture
+		# returns false if piece attempts to move onto a square occupied by a piece of the same color
+		# updates coordinates of pieces 
+		# changes 'taken' status of taken pieces 
 		# check for white piece on destination square 
 		white_destination_square_piece = game.pieces.where(x_coordinate: destination_x, y_coordinate: destination_y, color: "white").first
 
@@ -21,10 +22,11 @@ class Piece < ActiveRecord::Base
 			return false
 		end
 
-		# piece capture logic
-		
+		# change taken piece status (taken => true)
+
 
 		# if piece is captured, change origin piece coordinates
+		self.update(x_coordinate: 2, y_coordinate: 2)
 
 		true
 	end
