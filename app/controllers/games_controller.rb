@@ -6,7 +6,7 @@ class GamesController < ApplicationController
 	end
 
 	def new
-		@new_game = Game.new
+		@game = Game.new
 	end
 
 	def create
@@ -17,6 +17,8 @@ class GamesController < ApplicationController
 	def show
 		@game = Game.find(params[:id])
 	end
+
+	private
 
 	def params
 		params.require(:game).permit(:game_id, :white_player_id, :black_player_id)
