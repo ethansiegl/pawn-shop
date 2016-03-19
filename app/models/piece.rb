@@ -1,35 +1,36 @@
 class Piece < ActiveRecord::Base
 	belongs_to :game
 	
-	def move_to!(destination_x, destination_y)
-		# allows pieces to move and capture
-		# returns false if piece attempts to move onto a square occupied by a piece of the same color
-		destination_piece = destination_square_piece(destination_x, destination_y)
-
-		# check if their is a piece on destination square
-		# if no (false), exit method 
-		return true if destination_piece.present? == false
-		# return false if destination_piece.blank?
-
-		# if origin and destination pieces are the same color, do not allow move
-		return false if color == destination_piece.color 
-
-		# else if color == destination.color
-		capture(destination_piece, destination_x, destination_y)
-		true
+	# lookup helper method
+	def destination_square_piece(destination_x, destination_y)
+		game.pieces.where(x_coordinate: destination_x, y_coordinate: destination_y).take
 	end
 
-# white pawn is on (3,1)
-# @white_pawn.move_to(3,3) 
-# nothing on 3,3
-# =>
-
-  def capture(target_piece, target_x, target_y)
+	def capture(target_piece, target_x, target_y)
     update(x_coordinate: target_x, y_coordinate: target_y)
-    
     target_piece.update(taken: true, x_coordinate: nil, y_coordinate: nil)
   end
 
+	def move_to!(destination_x, destination_y)
+		destination_piece = destination_square_piece(destination_x, destination_y)
+		
+		# if origin an destination are the same color, don't allow move
+		if destination_piece.present? && color == destination_piece.color
+			return false
+
+		# return true and update coordinates if no piece on destination sqaure
+		elsif destination_piece.present? == false
+			update(x_coordinate: destination_x, y_coordinate: destination_y)
+			return true
+
+		# if destination square has opposite color piece, return true and update coordinates
+		elsif destination_piece.present? && color != destination_piece.color
+			update(x_coordinate: destination_x, y_coordinate: destination_y)
+    	destination_piece.update(taken: true, x_coordinate: nil, y_coordinate: nil)
+	  	return true
+	  end
+	end
+  
 	def is_obstructed?(destination_x, destination_y)
 		# accepts destination coordinates & returns a boolean
 		# 'true' means there is a piece b/t the origin and destination
@@ -126,9 +127,5 @@ class Piece < ActiveRecord::Base
 			end
 		end
 		found
-	end
-
-	def destination_square_piece(destination_x, destination_y)
-		game.pieces.where(x_coordinate: destination_x, y_coordinate: destination_y).take
 	end
 end

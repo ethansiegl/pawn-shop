@@ -47,7 +47,7 @@ RSpec.describe Piece, :type => :model do
 		# 	expect(@black_pawn).to have_attributes(taken: true)
 		# end
 
-		it "should update piece coordinates after capturing opposite color piece" do 
+		it "should update piece coordinates after capture and return true" do 
 			@black_pawn = Pawn.create(
 				x_coordinate: 2,
 				y_coordinate: 2,
@@ -57,6 +57,7 @@ RSpec.describe Piece, :type => :model do
 			@white_rook.move_to!(2,2)
 			expect(@white_rook.x_coordinate).to eq 2 
 			expect(@white_rook.y_coordinate).to eq 2
+			expect(@white_rook.move_to!(2,2)).to eq true
 		end
 	end
 
