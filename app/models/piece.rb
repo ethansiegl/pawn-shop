@@ -6,7 +6,7 @@ class Piece < ActiveRecord::Base
 		game.pieces.where(x_coordinate: destination_x, y_coordinate: destination_y).take
 	end
 
-	def capture(target_piece, target_x, target_y)
+	def capture!(target_piece, target_x, target_y)
     update(x_coordinate: target_x, y_coordinate: target_y)
     target_piece.update(taken: true, x_coordinate: nil, y_coordinate: nil)
   end
@@ -14,20 +14,16 @@ class Piece < ActiveRecord::Base
 	def move_to!(destination_x, destination_y)
 		destination_piece = destination_square_piece(destination_x, destination_y)
 		
-		# if origin an destination are the same color, don't allow move
-		if destination_piece.present? && color == destination_piece.color
-			return false
+		# if origin and destination pieces are the same color, don't allow move
+		return false if destination_piece.present? && color == destination_piece.color
 
 		# return true and update coordinates if no piece on destination sqaure
+		if destination_piece.present? && color != destination_piece.color
+			capture!(destination_piece, destination_x, destination_y)
+			return true
 		elsif destination_piece.present? == false
 			update(x_coordinate: destination_x, y_coordinate: destination_y)
 			return true
-
-		# if destination square has opposite color piece, return true and update coordinates
-		elsif destination_piece.present? && color != destination_piece.color
-			update(x_coordinate: destination_x, y_coordinate: destination_y)
-    	destination_piece.update(taken: true, x_coordinate: nil, y_coordinate: nil)
-	  	return true
 	  end
 	end
   

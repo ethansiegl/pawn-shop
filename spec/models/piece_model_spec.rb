@@ -47,7 +47,7 @@ RSpec.describe Piece, :type => :model do
 		# 	expect(@black_pawn).to have_attributes(taken: true)
 		# end
 
-		it "should update piece coordinates after capture and return true" do 
+		it "should when capturing a piece, update origin piece coordinates and return true" do 
 			@black_pawn = Pawn.create(
 				x_coordinate: 2,
 				y_coordinate: 2,
