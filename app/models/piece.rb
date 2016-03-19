@@ -1,12 +1,13 @@
 class Piece < ActiveRecord::Base
 	belongs_to :game
 	
+	def destination_square_piece
+		destination_square_piece = game.pieces.where(x_coordinate: destination_x, y_coordinate: destination_y).take
+	end
+
 	def move_to!(destination_x, destination_y)
 		# allows pieces to move and capture
 		# returns false if piece attempts to move onto a square occupied by a piece of the same color
-
-		# check for piece on destination square 
-		destination_square_piece = game.pieces.where(x_coordinate: destination_x, y_coordinate: destination_y).first
 		
 		# if there is no piece on the destination square, allow move
 		return true if destination_square_piece.present? == false
@@ -33,7 +34,6 @@ class Piece < ActiveRecord::Base
 		# query database and check for pieces
 
 		# check for piece on destination square
-		destination_square_piece = game.pieces.where(x_coordinate: destination_x, y_coordinate: destination_y ).first
 		if destination_square_piece.present? 
 			return true
 		end
