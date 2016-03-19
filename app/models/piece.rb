@@ -4,41 +4,33 @@ class Piece < ActiveRecord::Base
 	def move_to!(destination_x, destination_y)
 		# allows pieces to move and capture
 		# returns false if piece attempts to move onto a square occupied by a piece of the same color
-		# updates coordinates of pieces 
-		# changes 'taken' status of taken pieces 
-		# check for white piece on destination square 
-		white_destination_square_piece = game.pieces.where(x_coordinate: destination_x, y_coordinate: destination_y, color: "white").first
 
-		# check for black piece on destination square 
-		black_destination_square_piece = game.pieces.where(x_coordinate: destination_x, y_coordinate: destination_y, color: "black").first
+		# check for piece on destination square 
+		destination_square_piece = game.pieces.where(x_coordinate: destination_x, y_coordinate: destination_y).first
 		
-		# if origin and destination pieces are white, do not allow move
-		if white_destination_square_piece.present? && self.color == white_destination_square_piece.color
-			return false
-		end
+		# if there is no piece on the destination square, allow move
+		return true if destination_square_piece.present? == false
 
-		# if origin and destination pieces are black, do not allow move
-		if black_destination_square_piece.present? && self.color == black_destination_square_piece.color
-			return false
-		end
+		# if origin and destination pieces are the same color, do not allow move
+		return false if color == destination_square_piece.color 
 
-		# change taken piece status (taken => true)
-
-
-		# if piece is captured, change origin piece coordinates
-		self.update(x_coordinate: 2, y_coordinate: 2)
-
+		# else if color == destination.color
+		capture(destination_square_piece, destination_x, destination_y)
 		true
 	end
 
+  def capture(target_piece, target_x, target_y)
+    update(x_coordinate: target_x, y_coordinate: target_y)
+    
+    target_piece.update(taken: true, x_coordinate: nil, y_coordinate: nil)
+  end
+
 	def is_obstructed?(destination_x, destination_y)
-		# method accepts destination coordinates & returns a boolean
-		# returning 'true' means there is a piece b/t the origin and destination
-		# ex: white_pawn.is_obstructed?(1,2) => false
+		# accepts destination coordinates & returns a boolean
+		# 'true' means there is a piece b/t the origin and destination
 		
 		# create integer range from origin to destination
-		# create database queries based on integer range and destination coordinates
-		# check for pieces
+		# query database and check for pieces
 
 		# check for piece on destination square
 		destination_square_piece = game.pieces.where(x_coordinate: destination_x, y_coordinate: destination_y ).first
