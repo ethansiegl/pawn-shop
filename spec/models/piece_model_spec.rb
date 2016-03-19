@@ -55,7 +55,6 @@ RSpec.describe Piece, :type => :model do
 				color: "black"
 				)
 			@white_rook.move_to!(2,2)
-
 			expect(@white_rook.x_coordinate).to eq 2 
 			expect(@white_rook.y_coordinate).to eq 2
 		end
