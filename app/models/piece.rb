@@ -12,15 +12,16 @@ class Piece < ActiveRecord::Base
 		# move origin piece if destination square is empty
 		if !destination_piece.present?
 			update_coordinates(destination_x, destination_y)
+		
+		# capture destination piece if opposite color
 		else 
-			# capture if destination piece is opposite color
 			capture!(destination_piece)
 			update_coordinates(destination_x, destination_y)
 		end
 	end
   
 	def is_obstructed?(destination_x, destination_y)
-		# method checks if there is an obstruction between origin square and destination square 
+		# returns boolean
 
 		destination_piece = piece_at(destination_x, destination_y)
 
