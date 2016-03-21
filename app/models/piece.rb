@@ -2,6 +2,8 @@ class Piece < ActiveRecord::Base
 	belongs_to :game
 	
 	def move_to!(destination_x, destination_y)
+		# moves piece from one square to another
+
 		destination_piece = piece_at(destination_x, destination_y)
 		
 		# do not allow move if origin and destination piece are the same color
@@ -11,17 +13,14 @@ class Piece < ActiveRecord::Base
 		if !destination_piece.present?
 			update_coordinates(destination_x, destination_y)
 		else 
+			# capture if destination piece is opposite color
 			capture!(destination_piece)
 			update_coordinates(destination_x, destination_y)
 		end
 	end
   
 	def is_obstructed?(destination_x, destination_y)
-		# accepts destination coordinates & returns a boolean
-		# 'true' means there is a piece b/t the origin and destination
-		
-		# create integer range from origin to destination
-		# query database and check for pieces
+		# method checks if there is an obstruction between origin square and destination square 
 
 		destination_piece = piece_at(destination_x, destination_y)
 
