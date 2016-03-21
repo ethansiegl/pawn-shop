@@ -1,9 +1,8 @@
 class King < Piece
 
-	def valid_move?(x_coor, y_coor)
-		start_pos_x = start_x
-		start_pos_y = start_y
-		if w == x + 1 || w == x - 1 || z == y + 1 || z == y - 1
+	def valid_move?(move_x, move_y)
+
+		if abs(move_x - x_coordinate) <= 1 && abs(move_y - y_coordinate) <= 1 && (move_x =! x_coordinate || move_y =! y_coordinate)
 			return true
 		else
 				return false
