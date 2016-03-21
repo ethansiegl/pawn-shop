@@ -1,6 +1,6 @@
-require rails_helper
+require 'rails_helper'
 
-Rspec.describe King, type => :model do
+RSpec.describe King, type: :model do
   before :each do
     @game = Game.new
   end
@@ -17,7 +17,7 @@ Rspec.describe King, type => :model do
     it "should return false if King stays in one place" do
 
     end
-      
+
   end
 
 
