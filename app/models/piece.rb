@@ -2,8 +2,6 @@ class Piece < ActiveRecord::Base
 	belongs_to :game
 	
 	def move_to!(destination_x, destination_y)
-		# moves piece from one square to another
-
 		destination_piece = piece_at(destination_x, destination_y)
 		
 		# do not allow move if origin and destination piece are the same color
