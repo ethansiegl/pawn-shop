@@ -1,33 +1,16 @@
-require 'pry'
 class Piece < ActiveRecord::Base
 	belongs_to :game
 	
-	# lookup helper method
-	def piece_at(x, y)
-		game.pieces.where(x_coordinate: x, y_coordinate: y).take
-	end
-
-	def capture!(target_piece)
-    # binding.pry
-    target_piece.update(taken: true, x_coordinate: nil, y_coordinate: nil)
-  end
-
-  def friendly_piece?(piece)
-  	piece.present? && color == piece.color
-  end
-
-  def update_coordinates(new_x, new_y)
-  	update(x_coordinate: new_x, y_coordinate: new_y)
-  end
-
 	def move_to!(destination_x, destination_y)
 		destination_piece = piece_at(destination_x, destination_y)
 		
+		# do not allow move if origin and destination piece are the same color
 		return false if friendly_piece?(destination_piece)
 
+		# move origin piece if destination square is empty
 		if !destination_piece.present?
 			update_coordinates(destination_x, destination_y)
-		else
+		else 
 			capture!(destination_piece)
 			update_coordinates(destination_x, destination_y)
 		end
@@ -130,4 +113,21 @@ class Piece < ActiveRecord::Base
 		end
 		found
 	end
+
+	# helper methods 
+	def piece_at(x, y)
+		game.pieces.where(x_coordinate: x, y_coordinate: y).take
+	end
+
+	def capture!(target_piece)
+    target_piece.update(taken: true, x_coordinate: nil, y_coordinate: nil)
+  end
+
+  def friendly_piece?(piece)
+  	piece.present? && color == piece.color
+  end
+
+  def update_coordinates(new_x, new_y)
+  	update(x_coordinate: new_x, y_coordinate: new_y)
+  end
 end
