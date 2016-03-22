@@ -13,4 +13,13 @@
 	tr:nth-child(odd) td:nth-child(even), tr:nth-child(even) td:nth-child(odd) {
 		background: white;
 	}
-	
+
+	.piece img{
+		max-width: 55px;
+		max-height: 55px;
+		height: auto;
+		width: auto;
+		position: relative;
+		margin: auto;
+		display: block;
+	}
