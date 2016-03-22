@@ -12,6 +12,7 @@ class GamesController < ApplicationController
 	def create
 		@game = Game.create(game_params)
 		@game.white_player_id = current_user.id
+		@game.initiate_new_board
 		@game.save
 		redirect_to game_path(@game)
 	end
