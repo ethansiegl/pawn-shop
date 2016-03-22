@@ -6,11 +6,13 @@ class GamesController < ApplicationController
 	end
 
 	def new
-		@game = Game.new(:white_player_id => current_user.id)
+		# @game = Game.new
 	end
 
 	def create
 		@game = Game.create(game_params)
+		@game.white_player_id = current_user.id
+		@game.save
 		redirect_to game_path(@game)
 	end
 

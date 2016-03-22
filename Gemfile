@@ -46,6 +46,7 @@ group :doc do
 end
 
 gem 'simple_form'
+gem 'byebug'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
