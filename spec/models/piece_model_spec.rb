@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Piece, :type => :model do
 	before :each do 
 		@game = Game.create
-		@game.pieces.destroy_all
+		@game.pieces.each(&:delete)
 		@white_rook = Rook.create(
 			x_coordinate: 1,
 			y_coordinate: 1,
