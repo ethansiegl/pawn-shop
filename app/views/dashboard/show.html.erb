@@ -10,28 +10,23 @@
         <% if @my_games.present? %>
           <h2>My Games</h2>
           <% @my_games.each do |my_game| %>
-          <%= link_to my_game.name, game_path(my_game) %>
-          <br />
+            <%= link_to my_game.name, game_path(my_game) %>
+            <br />
           <% end %>
         <% end %>
       <% end %>
-
     </div>
-
   </div>
+
 
   <div>
     <div>
       <% if @open_games.present? %>
         <h2>Open games</h2>
-        <%= @open_games.each do |game| %>
-          <%= link_to game.name, game_path(game) %>
-          <%= user_email_from_id(game.white_player_id) %>
+        <%= @open_games.each do |open_game| %>
+          <%= link_to open_game.name, game_path(open_game), :class => 'btn btn-success' %>
         <% end %>
-      <% end %>
+      <% end %> 
     </div>
-
   </div>
-
-
 </div>
