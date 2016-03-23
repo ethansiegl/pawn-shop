@@ -9,51 +9,86 @@
 
 <body>
 
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <%= link_to image_tag('pawn-shop-logo.png'), root_url, class: 'navbar-brand' %>
+<div id = "wrap">
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <%= link_to image_tag('pawn-shop-logo.png'), root_url, class: 'navbar-brand' %>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <!-- Button Trigger -->
+          <% if user_signed_in? %>
+            <li><%= link_to 'NEW GAME', '#', :data => {:toggle => 'modal', :target => '#myModal'} %></li>
+          <% end %>  
+        </ul>
+
+
+        <ul class="nav navbar-nav navbar-right">
+          <% if user_signed_in? %>
+              <li><%= link_to 'DASHBOARD', dashboard_path(current_user) %></li>
+              <li><%= link_to 'SIGN OUT', destroy_user_session_path, :method => :delete %></li>
+          <% else %>
+              <li><%= link_to 'SIGN IN', new_user_session_path %></li>
+              <li><%= link_to 'SIGN UP', new_user_registration_path %></li>
+          <% end %>
+
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+    <!-- Notices -->
+    <% if notice.present? %>
+    	<p class="alert alert-info"><%= notice %></p>
+
+    <% end %>
+    
+    <% if alert.present? %>
+      <p class="alert alert-danger"><%= alert %></p>
+    <% end %>
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Create Game</h4>
+        </div>
+        <%= simple_form_for Game.new do |f| %>
+        <div class="modal-body">
+          <%= f.input :name,  :label => "Enter a Game Name" %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <%= f.submit 'Create', :class => 'btn btn-danger' %> 
+        </div>
+        <% end %>  
+      </div>
     </div>
+  </div>  
+  <%= yield %>         
+</div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
+<div id="footer">
+  <div class="container">
+    <div class = "img pull-right">
+    <%= link_to image_tag('github1.png'), 'https://github.com/firehose-project-chessapp/pawn-shop' %>
+  </div>
+</div>
 
-      </ul>
-
-      <ul class="nav navbar-nav navbar-right">
-        <% if user_signed_in? %>
-            <li><%= link_to 'DASHBOARD', dashboard_path(current_user) %></li>
-            <li><%= link_to 'SIGN OUT', destroy_user_session_path, :method => :delete %></li>
-        <% else %>
-            <li><%= link_to 'SIGN IN', new_user_session_path %></li>
-            <li><%= link_to 'SIGN UP', new_user_registration_path %></li>
-        <% end %>
-
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
-
-  <!-- Notices -->
-  <% if notice.present? %>
-  	<p class="alert alert-info"><%= notice %></p>
-
-  <% end %>
-  
-  <% if alert.present? %>
-    <p class="alert alert-danger"><%= alert %></p>
-  <% end %>
-
-
-  <%= yield %>
 
 </body>
 </html>
