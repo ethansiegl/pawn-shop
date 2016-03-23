@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe Piece, :type => :model do
 	before :each do 
 		@game = Game.create
+		@game.pieces.delete_all
 		@white_rook = Rook.create(
 			x_coordinate: 1,
 			y_coordinate: 1,
@@ -11,10 +12,47 @@ RSpec.describe Piece, :type => :model do
 		)
 	end
 
+	describe "tests 'move_to!' method," do
+		it "should return 'true' if there is no piece on the destination square" do
+			expect(@white_rook.move_to!(2,1)).to eq true
+		end
+
+		it "should return 'false' if there is a piece of the same color on the destination square" do 
+			@white_pawn = Pawn.create(
+				x_coordinate: 2,
+				y_coordinate: 2,
+				game: @game,
+				color: "white"
+				)
+			expect(@white_rook.move_to!(2,2)).to eq false
+		end
+
+		it "should return 'true' if there is a piece of the opposite color on the destination square" do 
+			@white_pawn = Pawn.create(
+				x_coordinate: 2,
+				y_coordinate: 2,
+				game: @game,
+				color: "black"
+				)
+			expect(@white_rook.move_to!(2,2)).to eq true
+		end
+
+		it "should when capturing a piece, update origin piece coordinates and return true" do 
+			@black_pawn = Pawn.create(
+				x_coordinate: 2,
+				y_coordinate: 2,
+				game: @game,
+				color: "black"
+				)
+			@white_rook.move_to!(2,2)
+			expect(@white_rook.x_coordinate).to eq 2 
+			expect(@white_rook.y_coordinate).to eq 2
+		end
+	end
+
   describe "tests 'is_obstructed' method," do
     it "should return 'FALSE' if there is NO OBSTRUCTION" do 	
       expect(@white_rook.is_obstructed?(4,4)).to eq false
-      # checking A6 C4 => false
     end
 
     it "should return 'true' if there is a piece ON the destination coordinate" do 
