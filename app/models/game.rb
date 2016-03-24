@@ -46,4 +46,9 @@ class Game < ActiveRecord::Base
 	 	Rook.create(x_coordinate: 8, y_coordinate: 1, color: 'white', game_id: id)
 
 	 end
+
+	 def update_player(user)
+		update_attribute(:black_player_id, user) if black_player_id.nil?
+	 end
+
 end
