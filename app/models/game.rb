@@ -1,6 +1,5 @@
 class Game < ActiveRecord::Base
 	after_create :initiate_new_board
-
 	has_many :pieces
 	belongs_to :user
 
@@ -47,7 +46,11 @@ class Game < ActiveRecord::Base
 
 	 end
 
-	 def update_player(user)
+	 def set_white_player(user)
+	 	update_attributes(:white_player_id => user, :turn => user) if white_player_id.nil?
+	 end
+
+	 def set_black_player(user)
 		update_attribute(:black_player_id, user) if black_player_id.nil?
 	 end
 
