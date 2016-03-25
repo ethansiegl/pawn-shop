@@ -45,5 +45,15 @@ class Game < ActiveRecord::Base
 	 	Knight.create(x_coordinate: 7, y_coordinate: 1, color: 'white', game: self)
 	 	Rook.create(x_coordinate: 8, y_coordinate: 1, color: 'white', game: self)
 
-	 end
+	end
+
+	def set_white_player(user)
+	 	update_attributes(:white_player_id => user, :turn => user) if white_player_id.nil?
+	end
+
+	def set_black_player(user)
+		update_attribute(:black_player_id, user) if black_player_id.nil?
+	end
+
 end
+
