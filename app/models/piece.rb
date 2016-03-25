@@ -1,6 +1,7 @@
 class Piece < ActiveRecord::Base
 	belongs_to :game
-	
+
+
 	# method accepts destination coordinates & returns a boolean
 	# returning 'true' means there is a piece b/t the origin and destination
 		# ex: white_pawn.is_obstructed?(1,2) => false
