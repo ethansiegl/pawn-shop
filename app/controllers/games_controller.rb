@@ -6,11 +6,12 @@ class GamesController < ApplicationController
 	end
 
 	def new
-		@game = Game.new
+		# @game = Game.new
 	end
 
 	def create
 		@game = Game.create(game_params)
+		@game.set_white_player(current_user.id)
 		redirect_to game_path(@game)
 	end
 
@@ -18,9 +19,28 @@ class GamesController < ApplicationController
 		@game = Game.find(params[:id])
 	end
 
+	def update
+		@game = Game.find(params[:id])		
+		@game.set_black_player(current_user.id)
+		redirect_to game_path(@game)
+	end
+		
+
 	private
 
 	def game_params
-		params.require(:game).permit(:name, :white_player_id, :black_player_id)
+		params.require(:game).permit(:name, :white_player_id, :black_player_id, :turn)
 	end
+
+	def current_game
+		@game ||= Game.find(params[:id])
+	end
+
+	
+
+
+
 end
+		# @game.white_player_id = current_user.id
+		# @game.initiate_new_board
+		# @game.save

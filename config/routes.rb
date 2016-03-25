@@ -5,7 +5,9 @@ Pawnshop::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'pages#index'
-  resources :games, only: [:create, :show, :index, :new]
+  resources :games, only: [:new, :create, :show, :index, :update] do
+    resources :pieces, only: [:show, :update]
+  end
   resources :dashboard, only: [:show]
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
