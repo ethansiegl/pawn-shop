@@ -18,7 +18,8 @@
             <!--check to see if there is a piece-->
           	<% if piece = @game.pieces.detect { |piece| piece.y_coordinate == row && piece.x_coordinate == column } %>           
 
-              <div class="piece" id="piece-<%= piece.id %>">  
+              <div class="piece" id="piece-<%= piece.id %>">
+                <%= image_tag ("#{piece.color}#{piece.type.downcase}.png") %>
               </div>
           
             <% end %>

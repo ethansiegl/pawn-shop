@@ -1,5 +1,5 @@
 class Piece < ActiveRecord::Base
-	belongs_to :game
+	belongs_to :game	
 	
 	def move_to!(destination_x, destination_y)
 		destination_piece = piece_at(destination_x, destination_y)
