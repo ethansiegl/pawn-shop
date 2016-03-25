@@ -1,18 +1,33 @@
 class Piece < ActiveRecord::Base
 	belongs_to :game
 
+	
+	def move_to!(destination_x, destination_y)
+		destination_piece = piece_at(destination_x, destination_y)
+		
+		# do not allow move if origin and destination piece are the same color
+		return false if friendly_piece?(destination_piece)
 
-	# method accepts destination coordinates & returns a boolean
-	# returning 'true' means there is a piece b/t the origin and destination
-		# ex: white_pawn.is_obstructed?(1,2) => false
+		# move origin piece if destination square is empty
+		if !destination_piece.present?
+			update_coordinates(destination_x, destination_y)
+		
+		# capture destination piece if opposite color
+		else 
+			capture!(destination_piece)
+			update_coordinates(destination_x, destination_y)
+		end
+	end
+  
+
 	def is_obstructed?(destination_x, destination_y)
-		# create integer range from origin to destination
-		# create database queries based on integer range and destination coordinates
-		# check for pieces
+		# returns boolean
+		# does NOT work for knight movement
+
+		destination_piece = piece_at(destination_x, destination_y)
 
 		# check for piece on destination square
-		destination_square_piece = game.pieces.where(x_coordinate: destination_x, y_coordinate: destination_y ).first
-		if destination_square_piece.present? 
+		if destination_piece.present? 
 			return true
 		end
 		
@@ -99,4 +114,21 @@ class Piece < ActiveRecord::Base
 		end
 		found
 	end
+
+	# helper methods 
+	def piece_at(x, y)
+		game.pieces.where(x_coordinate: x, y_coordinate: y).take
+	end
+
+	def capture!(target_piece)
+    	target_piece.update(taken: true, x_coordinate: nil, y_coordinate: nil)
+  	end
+
+  	def friendly_piece?(piece)
+  		piece.present? && color == piece.color
+  	end
+
+  	def update_coordinates(new_x, new_y)
+  		update(x_coordinate: new_x, y_coordinate: new_y)
+ 	 end
 end
