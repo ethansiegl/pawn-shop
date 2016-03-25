@@ -6,7 +6,6 @@ class King < Piece
 		else
 			return false
 		end
-
 	end
 
 end
