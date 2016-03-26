@@ -10,96 +10,24 @@
 
 		<h1>Welcome to Pawn Shop</h1>
 		
-		<table id="board">
-			<tr>
-		    	<td id="a8"><%= link_to image_tag('blackrook.png'), '#', class: 'blackbishop piece' %></td>
-		    	<td id="b8"><%= link_to image_tag('blackknight.png'), '#', class: 'blackbishop piece' %></td>
-		    	<td id="c8"><%= link_to image_tag('blackbishop.png'), '#', class: 'blackbishop piece' %></td>
-		    	<td id="d8"><%= link_to image_tag('blackking.png'), '#', class: 'blackking piece' %></td>
-		    	<td id="e8"><%= link_to image_tag('blackqueen.png'), '#', class: 'blackqueen piece' %></td>
-		    	<td id="f8"><%= link_to image_tag('blackbishop.png'), '#', class: 'blackbishop piece' %></td>
-		    	<td id="g8"><%= link_to image_tag('blackknight.png'), '#', class: 'blackknight piece' %></td>
-		    	<td id="h8"><%= link_to image_tag('blackrook.png'), '#', class: 'blackrook piece' %></td>
-			</tr>
+		<table>
+			<% 8.downto(1) do |row| %>
+      <tr class="row <%= row %>">
+        <% 1.upto(8) do |column| %>
+          <td class="<%= column %> <%= row %>">
+            <!--check to see if there is a piece-->
+          	<% if piece = @game.pieces.detect { |piece| piece.y_coordinate == row && piece.x_coordinate == column } %>           
 
-			<tr>
-		    	<td id="a7"><%= link_to image_tag('blackpawn.png'), '#', class: 'blackpawn piece' %></td>
-		    	<td id="b7"><%= link_to image_tag('blackpawn.png'), '#', class: 'blackpawn piece' %></td>
-		    	<td id="c7"><%= link_to image_tag('blackpawn.png'), '#', class: 'blackpawn piece' %></td>
-		    	<td id="d7"><%= link_to image_tag('blackpawn.png'), '#', class: 'blackpawn piece' %></td>
-		    	<td id="e7"><%= link_to image_tag('blackpawn.png'), '#', class: 'blackpawn piece' %></td>
-		    	<td id="f7"><%= link_to image_tag('blackpawn.png'), '#', class: 'blackpawn piece' %></td>
-		    	<td id="g7"><%= link_to image_tag('blackpawn.png'), '#', class: 'blackpawn piece' %></td>
-		    	<td id="h7"><%= link_to image_tag('blackpawn.png'), '#', class: 'blackpawn piece' %></td>
-			</tr>
-
-			<tr>
-		    	<td id="a6"></td>
-		    	<td id="b6"></td>
-		    	<td id="c6"></td>
-		    	<td id="d6"></td>
-		    	<td id="e6"></td>
-		    	<td id="f6"></td>
-		    	<td id="g6"></td>
-		    	<td id="h6"></td>
-			</tr>
-
-			<tr>
-		    	<td id="a5"></td>
-		    	<td id="b5"></td>
-		    	<td id="c5"></td>
-		    	<td id="d5"></td>
-		    	<td id="e5"></td>
-		    	<td id="f5"></td>
-		    	<td id="g5"></td>
-		    	<td id="h5"></td>
-			</tr>
-
-			<tr>
-		    	<td id="a4"></td>
-		    	<td id="b4"></td>
-		    	<td id="c4"></td>
-		    	<td id="d4"></td>
-		    	<td id="e4"></td>
-		    	<td id="f4"></td>
-		    	<td id="g4"></td>
-		    	<td id="h4"></td>
-			</tr>
-
-			<tr>
-		    	<td id="a3"></td>
-		    	<td id="b3"></td>
-		    	<td id="c3"></td>
-		    	<td id="d3"></td>
-		    	<td id="e3"></td>
-		    	<td id="f3"></td>
-		    	<td id="g3"></td>
-		    	<td id="h3"></td>
-			</tr>
-
-			<tr>
-		    	<td id="a2"><%= link_to image_tag('whitepawn.png'), '#', class: 'whitepawn piece' %></td>
-		    	<td id="b2"><%= link_to image_tag('whitepawn.png'), '#', class: 'whitepawn piece' %></td>
-		    	<td id="c2"><%= link_to image_tag('whitepawn.png'), '#', class: 'whitepawn piece' %></td>
-		    	<td id="d2"><%= link_to image_tag('whitepawn.png'), '#', class: 'whitepawn piece' %></td>
-		    	<td id="e2"><%= link_to image_tag('whitepawn.png'), '#', class: 'whitepawn piece' %></td>
-		    	<td id="f2"><%= link_to image_tag('whitepawn.png'), '#', class: 'whitepawn piece' %></td>
-		    	<td id="g2"><%= link_to image_tag('whitepawn.png'), '#', class: 'whitepawn piece' %></td>
-		    	<td id="h2"><%= link_to image_tag('whitepawn.png'), '#', class: 'whitepawn piece' %></td>
-			</tr>
-
-			<tr>
-		    	<td id="a1"><%= link_to image_tag('whiterook.png'), '#', class: 'whiterook piece' %></td>
-		    	<td id="b1"><%= link_to image_tag('whiteknight.png'), '#', class: 'whiteknight piece' %></td>
-		    	<td id="c1"><%= link_to image_tag('whitebishop.png'), '#', class: 'whitebishop piece' %></td>
-		    	<td id="d1"><%= link_to image_tag('whiteking.png'), '#', class: 'whiteking piece' %></td>
-		    	<td id="e1"><%= link_to image_tag('whitequeen.png'), '#', class: 'whitequeen piece' %></td>
-		    	<td id="f1"><%= link_to image_tag('whitebishop.png'), '#', class: 'whitebishop piece' %></td>
-		    	<td id="g1"><%= link_to image_tag('whiteknight.png'), '#', class: 'whitepawn piece' %></td>
-		    	<td id="h1"><%= link_to image_tag('whiterook.png'), '#', class: 'whiterook piece' %></td>
-			</tr>
-
-		</table>
+              <div class="piece" id="piece-<%= piece.id %>">
+                <%= image_tag ("#{piece.color}#{piece.type.downcase}.png") %>
+              </div>
+          
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
 
 	</body>
 
