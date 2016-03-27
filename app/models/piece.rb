@@ -132,7 +132,20 @@ class Piece < ActiveRecord::Base
 
  	def is_white?(piece)
  		return false if piece.color == "black"
+ 	else 
+ 		return true
  	end	
 
+ 	def on_board?(x, y)
+ 		if (x > 8 || y > 8 || x < 1 || y < 1)
+ 			return false 
+ 		else 
+ 			true
+ 		end
+ 	end
 
+ 	def horizontal_move?(x, y)
+ 		return true if (x != x_coordinate) && (y == y_coordinate)
+ 	end
+ 
 end
