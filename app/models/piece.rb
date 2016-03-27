@@ -131,6 +131,6 @@ class Piece < ActiveRecord::Base
   end
 
   def on_board?(x, y)
-  	return false if x > 7 || y > 7 
+  	return false if x > 7 || y > 7 || x < 0 || y < 0
   end
 end
