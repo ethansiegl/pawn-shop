@@ -1,23 +1,28 @@
 class Piece < ActiveRecord::Base
-	belongs_to :game	
-	
+<<<<<<< HEAD
+	belongs_to :game
+
+=======
+	belongs_to :game
+
+>>>>>>> 946a9735a377c08d5c6d16d781507051d478561e
 	def move_to!(destination_x, destination_y)
 		destination_piece = piece_at(destination_x, destination_y)
-		
+
 		# do not allow move if origin and destination piece are the same color
 		return false if friendly_piece?(destination_piece)
 
 		# move origin piece if destination square is empty
 		if !destination_piece.present?
 			update_coordinates(destination_x, destination_y)
-		
+
 		# capture destination piece if opposite color
-		else 
+		else
 			capture!(destination_piece)
 			update_coordinates(destination_x, destination_y)
 		end
 	end
-  
+
 	def is_obstructed?(destination_x, destination_y)
 		# returns boolean
 		# does NOT work for knight movement
@@ -25,39 +30,39 @@ class Piece < ActiveRecord::Base
 		destination_piece = piece_at(destination_x, destination_y)
 
 		# check for piece on destination square
-		if destination_piece.present? 
+		if destination_piece.present?
 			return true
 		end
-		
-		# default return false 
-		found = false  
+
+		# default return false
+		found = false
 
 		# moving horizontally left => right
 		(self.x_coordinate + 1).upto(destination_x).each do |x|
 			between_squares = game.pieces.where(x_coordinate: x, y_coordinate: destination_y).first
-			if between_squares.present? 
+			if between_squares.present?
 				found = true
-				break 
+				break
 			end
 		end
 		found
 
-		# moving horizontally right => left 
+		# moving horizontally right => left
 		(self.x_coordinate - 1).downto(destination_x).each do |x|
 		between_squares = game.pieces.where(x_coordinate: x, y_coordinate: destination_y).first
-			if between_squares.present? 
+			if between_squares.present?
 				found = true
-				break 
+				break
 			end
 		end
 		found
 
-		# moving vertically bottom => top 
+		# moving vertically bottom => top
 		(self.y_coordinate + 1).upto(destination_y).each do |y|
 			between_squares = game.pieces.where(x_coordinate: destination_x, y_coordinate: y).first
-			if between_squares.present? 
+			if between_squares.present?
 				found = true
-				break 
+				break
 			end
 		end
 		found
@@ -65,9 +70,9 @@ class Piece < ActiveRecord::Base
 		# moving vertically top => bottom
 		(self.y_coordinate - 1).downto(destination_y).each do |y|
 			between_squares = game.pieces.where(x_coordinate: destination_x, y_coordinate: y).first
-			if between_squares.present? 
+			if between_squares.present?
 				found = true
-				break 
+				break
 			end
 		end
 		found
@@ -75,9 +80,9 @@ class Piece < ActiveRecord::Base
 		# moving diagonally right + up
 		(self.y_coordinate + 1).upto(destination_y).each do |y|
 			between_squares = game.pieces.where(x_coordinate: self.x_coordinate + 1, y_coordinate: y).first
-			if between_squares.present? 
+			if between_squares.present?
 				found = true
-				break 
+				break
 			end
 		end
 		found
@@ -85,9 +90,9 @@ class Piece < ActiveRecord::Base
 		# moving diagonally right + down
 		(self.y_coordinate - 1).downto(destination_y).each do |y|
 			between_squares = game.pieces.where(x_coordinate: self.x_coordinate + 1, y_coordinate: y).first
-			if between_squares.present? 
+			if between_squares.present?
 				found = true
-				break 
+				break
 			end
 		end
 		found
@@ -95,9 +100,9 @@ class Piece < ActiveRecord::Base
 		# moving diagonally left + up
 		(self.y_coordinate + 1).upto(destination_y).each do |y|
 			between_squares = game.pieces.where(x_coordinate: self.x_coordinate - 1, y_coordinate: y).first
-			if between_squares.present? 
+			if between_squares.present?
 				found = true
-				break 
+				break
 			end
 		end
 		found
@@ -105,15 +110,36 @@ class Piece < ActiveRecord::Base
 		# moving diagonally left + down
 		(self.y_coordinate - 1).downto(destination_y).each do |y|
 			between_squares = game.pieces.where(x_coordinate: self.x_coordinate - 1, y_coordinate: y).first
-			if between_squares.present? 
+			if between_squares.present?
 				found = true
-				break 
+				break
 			end
 		end
 		found
 	end
 
-	# helper methods 
+	def on_board?(x, y)
+ 		return false if x > 8 || y > 8 || x < 1 || y < 1
+		else true
+  end
+
+	def no_move?(x, y)
+		(x == x_coordinate) && (y == y_coordinate)
+	end
+
+	def horizontal_move(x, y)
+		return true if (x == x_coordinate) && (y != y_coordinate)
+	end
+
+	def vertical_move(x, y)
+		return true if (x != x_coordinate) && (y == y_coordinate)
+	end
+
+	def diagonal_move(x, y)
+		return true if (x - x_coordinate).abs == (y - y_coordinate).abs
+	end
+
+	# helper methods
 	def piece_at(x, y)
 		game.pieces.where(x_coordinate: x, y_coordinate: y).take
 	end
@@ -126,7 +152,7 @@ class Piece < ActiveRecord::Base
   		piece.present? && color == piece.color
   	end
 
-  	def update_coordinates(new_x, new_y)
-  		update(x_coordinate: new_x, y_coordinate: new_y)
- 	 end
+  def update_coordinates(new_x, new_y)
+  	update(x_coordinate: new_x, y_coordinate: new_y)
+  end
 end
