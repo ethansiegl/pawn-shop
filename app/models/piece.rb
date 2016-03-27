@@ -1,11 +1,6 @@
 class Piece < ActiveRecord::Base
-<<<<<<< HEAD
 	belongs_to :game
 
-=======
-	belongs_to :game
-
->>>>>>> 946a9735a377c08d5c6d16d781507051d478561e
 	def move_to!(destination_x, destination_y)
 		destination_piece = piece_at(destination_x, destination_y)
 
