@@ -113,8 +113,25 @@ class Piece < ActiveRecord::Base
 		found
 	end
 
+	def on_board?(x, y)
+ 		return false if x > 8 || y > 8 || x < 1 || y < 1
+		else true
+  end
+
 	def no_move?(x, y)
 		(x == x_coordinate) && (y == y_coordinate)
+	end
+
+	def horizontal_move(x, y)
+		return true if (x == x_coordinate) && (y != y_coordinate)
+	end
+
+	def vertical_move(x, y)
+		return true if (x != x_coordinate) && (y == y_coordinate)
+	end
+
+	def diagonal_move(x, y)
+		return true if (x - x_coordinate).abs == (y - y_coordinate).abs
 	end
 
 	# helper methods
