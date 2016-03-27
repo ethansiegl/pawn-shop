@@ -13,7 +13,7 @@ RSpec.describe Rook, :type => :model do
   end
 
   describe "valid move for Rook piece" do
-    it "should return true if Rook moves one square horizontially" do
+    it "should return true if Rook moves three squares vertically" do
       expect(@white_rook.valid_move?(2, 5)).to eq true
     end
 
@@ -21,7 +21,7 @@ RSpec.describe Rook, :type => :model do
     	expect(@white_rook.valid_move?(5,5)).to eq false
     end
 
-    it "should return false if Rook movement is obstrcted" do 
+    it "should return false if Rook movement is obstructed" do 
     	@white_pawn = Pawn.create(
     		x_coordinate: 2,
     		y_coordinate: 4,
@@ -29,6 +29,14 @@ RSpec.describe Rook, :type => :model do
     		color: "white"
     		)
     	expect(@white_rook.valid_move?(2,5)).to eq false
+    end
+
+    it "should return false if Rook movement is off board" do 
+      expect(@white_rook.valid_move?(15,2)).to eq false
+    end
+
+    it "should return false if Rook doesn't move" do 
+      expect(@white_rook.valid_move?(2,2)).to eq false
     end
 	end
 end
