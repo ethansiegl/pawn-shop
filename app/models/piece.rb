@@ -128,5 +128,11 @@ class Piece < ActiveRecord::Base
 
   	def update_coordinates(new_x, new_y)
   		update(x_coordinate: new_x, y_coordinate: new_y)
- 	 end
+ 	end
+
+ 	def is_white?(piece)
+ 		return false if piece.color == "black"
+ 	end	
+
+
 end
