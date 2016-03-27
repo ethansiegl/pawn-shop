@@ -1,5 +1,5 @@
 class Piece < ActiveRecord::Base
-	belongs_to :game
+	belongs_to :game	
 	
 	def move_to!(destination_x, destination_y)
 		destination_piece = piece_at(destination_x, destination_y)
@@ -119,14 +119,14 @@ class Piece < ActiveRecord::Base
 	end
 
 	def capture!(target_piece)
-    target_piece.update(taken: true, x_coordinate: nil, y_coordinate: nil)
-  end
+    	target_piece.update(taken: true, x_coordinate: nil, y_coordinate: nil)
+  	end
 
-  def friendly_piece?(piece)
-  	piece.present? && color == piece.color
-  end
+  	def friendly_piece?(piece)
+  		piece.present? && color == piece.color
+  	end
 
-  def update_coordinates(new_x, new_y)
-  	update(x_coordinate: new_x, y_coordinate: new_y)
-  end
+  	def update_coordinates(new_x, new_y)
+  		update(x_coordinate: new_x, y_coordinate: new_y)
+ 	 end
 end
