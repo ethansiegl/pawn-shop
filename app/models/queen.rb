@@ -1,13 +1,11 @@
 class Queen < Piece
 
-	def valid_move?(move_x, move_y)
-		if ((move_x + x_coordinate).abs <= 8) &&
-			((move_y + y_coordinate).abs <= 8) &&
-			((move_x != x_coordinate) || (move_y != y_coordinate))
-			return true
-		else
-			return false
-		end
+	def valid_move?(x,y)
+		return false if is_obstructed?(x,y)
+		return false if !on_board(x,y)
+		return false if no_move?(x,y)
+
+		return true if (x - x_coordinate) == (y - y_coordinate)
 	end
 
 end
