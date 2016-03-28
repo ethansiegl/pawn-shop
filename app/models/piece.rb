@@ -171,4 +171,3 @@ class Piece < ActiveRecord::Base
  	end
 
 end
->>>>>>> 9cd009d24a5e5272ccfbe010dfbbae10b88d174e
