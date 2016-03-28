@@ -147,7 +147,28 @@ class Piece < ActiveRecord::Base
   		piece.present? && color == piece.color
   	end
 
-  def update_coordinates(new_x, new_y)
-  	update(x_coordinate: new_x, y_coordinate: new_y)
-  end
+
+  	def update_coordinates(new_x, new_y)
+  		update(x_coordinate: new_x, y_coordinate: new_y)
+ 		end
+
+ 	def is_white?(piece)
+ 		return false if piece.color == "black"
+ 	else
+ 		return true
+ 	end
+
+ 	def on_board?(x, y)
+ 		if (x > 8 || y > 8 || x < 1 || y < 1)
+ 			return false
+ 		else
+ 			true
+ 		end
+ 	end
+
+ 	def horizontal_move?(x, y)
+ 		return true if (x != x_coordinate) && (y == y_coordinate)
+ 	end
+
 end
+>>>>>>> 9cd009d24a5e5272ccfbe010dfbbae10b88d174e
