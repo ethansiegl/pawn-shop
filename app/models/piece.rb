@@ -122,15 +122,12 @@ class Piece < ActiveRecord::Base
 		(x == x_coordinate) && (y == y_coordinate)
 	end
 
-	def horizontal_move(x, y)
-		return true if (x == x_coordinate) && (y != y_coordinate)
-	end
 
-	def vertical_move(x, y)
+	def vertical_move?(x, y)
 		return true if (x != x_coordinate) && (y == y_coordinate)
 	end
 
-	def diagonal_move(x, y)
+	def diagonal_move?(x, y)
 		return true if (x - x_coordinate).abs == (y - y_coordinate).abs
 	end
 
