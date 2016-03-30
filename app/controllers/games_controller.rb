@@ -11,6 +11,7 @@ class GamesController < ApplicationController
 
 	def create
 		@game = Game.create(game_params)
+		@game.set_white_player(current_user.id)
 		redirect_to game_path(@game)
 	end
 
@@ -18,7 +19,13 @@ class GamesController < ApplicationController
 		@game = Game.find(params[:id])
 	end
 
-	private
+	def update
+		@game = Game.find(params[:id])		
+		@game.set_black_player(current_user.id)
+		redirect_to game_path(@game)
+	end
+
+private
 
 	def game_params
 		params.require(:game).permit(:name, :white_player_id, :black_player_id)

@@ -1,4 +1,5 @@
 class Game < ActiveRecord::Base
+
 	after_create :initiate_new_board
 
 	has_many :pieces
@@ -10,7 +11,7 @@ class Game < ActiveRecord::Base
 	 	(1..8).each do |n|
 	 		Pawn.create(
 	 			x_coordinate: n,
-	 			y_coordinate: 6,
+	 			y_coordinate: 7,
 	 			color: 'black',
 	 			game: self)
 	 	end
@@ -26,12 +27,12 @@ class Game < ActiveRecord::Base
 	 	Rook.create(x_coordinate: 8, y_coordinate: 8, color: 'black', game: self)
 
 	 	#white pawns
-	 	(0..7).each do |n|
+	 	(1..8).each do |n|
 	 		Pawn.create(
 	 			x_coordinate: n,
 	 			y_coordinate: 2,
 	 			color: 'white',
-	 	 		game: self)
+	 			game: self)
 	 			
 	 	end
 
@@ -45,5 +46,15 @@ class Game < ActiveRecord::Base
 	 	Knight.create(x_coordinate: 7, y_coordinate: 1, color: 'white', game: self)
 	 	Rook.create(x_coordinate: 8, y_coordinate: 1, color: 'white', game: self)
 
-	 end
+	end
+
+	def set_white_player(user)
+	 	update_attributes(:white_player_id => user, :turn => user) if white_player_id.nil?
+	end
+
+	def set_black_player(user)
+		update_attribute(:black_player_id, user) if black_player_id.nil?
+	end
+
 end
+
