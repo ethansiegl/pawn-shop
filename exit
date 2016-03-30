@@ -1,0 +1,688 @@
+commit 94dd0bd7f235ef8fb72493e6a1c18966c7a968b7
+Merge: 3645f5f c4796c5
+Author: Laura Umana <laurau1107@gmail.com>
+Date:   Thu Mar 24 23:06:25 2016 -0400
+
+    Merge pull request #23 from firehose-project-chessapp/king-move
+    
+    King move
+
+commit 3645f5f03e6c88818bd2a713413de230a8ba7b6f
+Merge: e5df018 97fcfad
+Author: ethansiegl <09esiegel@gmail.com>
+Date:   Wed Mar 23 19:17:10 2016 -0400
+
+    Merge pull request #28 from firehose-project-chessapp/move-to
+    
+    Move to
+
+commit 97fcfada3083d294e0967d311ee75f2ba429cb9e
+Author: Ethan <09esiegel@gmail.com>
+Date:   Wed Mar 23 23:07:04 2016 +0000
+
+    destroy to &:delete
+
+commit 330325af5f9a816db21888ad3ceb23b544333b12
+Author: Ethan <09esiegel@gmail.com>
+Date:   Wed Mar 23 23:02:27 2016 +0000
+
+    delete to destroy
+
+commit 23c1ba8c43cfc445225c7c7497e6f6ae130ae273
+Author: Ethan <09esiegel@gmail.com>
+Date:   Wed Mar 23 22:46:13 2016 +0000
+
+    travis CI error fixed
+
+commit 3a45f03343c53f7561faef27605d184efac01e60
+Author: Ethan <09esiegel@gmail.com>
+Date:   Wed Mar 23 15:05:50 2016 +0000
+
+    move to logic
+
+commit e5df018df2d5ece96d8a53864e2ba65e638d2df0
+Merge: ccb5157 2a8e9cc
+Author: Jeff Kingswood <jeffreyckingswood@gmail.com>
+Date:   Tue Mar 22 14:17:56 2016 -0400
+
+    Merge pull request #24 from firehose-project-chessapp/visiblepieces
+    
+    Pieces are now on the board
+
+commit 2a8e9cc863d227ecb956f5475f3ccdf0858a5215
+Author: LauraUmana <laurau1107@gmail.com>
+Date:   Tue Mar 22 16:47:02 2016 +0000
+
+    added some code in game.rb to add pieces to board
+
+commit b889c783ec5e317d07f3359d0d6fb3c18371a8b4
+Author: LauraUmana <laurau1107@gmail.com>
+Date:   Tue Mar 22 15:48:05 2016 +0000
+
+    Pieces are now on the board
+
+commit c4796c51d155b6ceee4770d16035d82097b64a7f
+Author: Jeff <Dostoyevsky25@gmail.com>
+Date:   Tue Mar 22 15:13:57 2016 +0000
+
+    reconfigured valid_move? method in King model
+
+commit ff2a25eb5e5758f4ab8f597ffd3766ceeae7936b
+Merge: eb0e023 ccb5157
+Author: Jeff <Dostoyevsky25@gmail.com>
+Date:   Mon Mar 21 22:19:27 2016 +0000
+
+    Merge branch 'master' of https://github.com/firehose-project-chessapp/pawn-shop into king-move
+
+commit eb0e0238817129226a550796cf8fd4a6ec269eeb
+Author: Jeff <Dostoyevsky25@gmail.com>
+Date:   Mon Mar 21 22:17:50 2016 +0000
+
+    added passing rspec tests
+
+commit ccb51576a62d0d8c089d3f710b804d00429b04ca
+Merge: e792366 c25656a
+Author: Zoheb Salam <zoheb_391@hotmail.com>
+Date:   Mon Mar 21 13:37:04 2016 -0500
+
+    Merge pull request #22 from firehose-project-chessapp/footer
+    
+    Footer + Link to Github
+
+commit c25656a170de49f45712d77c46415355df0fb435
+Merge: a8d0ecd e792366
+Author: Zoheb <zoheb_391@hotmail.com>
+Date:   Mon Mar 21 18:24:23 2016 +0000
+
+    fixed footer on devise pages
+
+commit fe3284b2b2e6b990eaaf9c02a8d944d8686f7958
+Author: Jeff <Dostoyevsky25@gmail.com>
+Date:   Mon Mar 21 16:45:18 2016 +0000
+
+    fixed RSpec run errors
+
+commit cd7bf1bf0d4fdf2839419c50dc7b8f354457fc31
+Author: Jeff <Dostoyevsky25@gmail.com>
+Date:   Mon Mar 21 16:19:43 2016 +0000
+
+    continuing rspec tests for king move
+
+commit a8d0ecd21f8548feace9807d1a1af5b68435391d
+Author: Zoheb <zoheb_391@hotmail.com>
+Date:   Mon Mar 21 15:29:26 2016 +0000
+
+    Footer + Link to Github
+
+commit 6233ea767d39f87c461d0ffbd899d54f1cc9771f
+Author: LauraUmana <laurau1107@gmail.com>
+Date:   Mon Mar 21 04:50:03 2016 +0000
+
+    Added images to chessboard
+
+commit 1cd5f25521650e6595fe507c1ab0b0ed2ea2df6d
+Merge: 69607fb e792366
+Author: Jeff <Dostoyevsky25@gmail.com>
+Date:   Mon Mar 21 04:07:52 2016 +0000
+
+    Merge branch 'master' of https://github.com/firehose-project-chessapp/pawn-shop into king-move
+
+commit 69607fbccca9263dfa498f1c56434a6d75448897
+Author: Jeff <Dostoyevsky25@gmail.com>
+Date:   Mon Mar 21 04:07:11 2016 +0000
+
+    added valid move method and started rspec tests
+
+commit 4006f2b8b07f67e18344475f25a7cd51c9c08da7
+Merge: 6e6873a e792366
+Author: LauraUmana <laurau1107@gmail.com>
+Date:   Mon Mar 21 02:25:40 2016 +0000
+
+    Merge branch 'master' of github.com:firehose-project-chessapp/pawn-shop into visiblepieces
+
+commit e7923663b1c623ac8c01eb3e8aa4cc97c598ad57
+Merge: 6dbb806 4c48378
+Author: Laura Umana <laurau1107@gmail.com>
+Date:   Sun Mar 20 22:24:38 2016 -0400
+
+    Merge pull request #20 from firehose-project-chessapp/newgametest
+    
+    Added new game test using rspec
+
+commit 6dbb806652de5a2d3238b7ec90ca55edf7cfe0f7
+Merge: 143cb70 1e2d7a4
+Author: Laura Umana <laurau1107@gmail.com>
+Date:   Sun Mar 20 22:23:48 2016 -0400
+
+    Merge pull request #19 from firehose-project-chessapp/new-game
+    
+    New game
+
+commit 6e6873a1f4c5e6476bb13ea21310e24c54b38aec
+Merge: 4c48378 143cb70
+Author: LauraUmana <laurau1107@gmail.com>
+Date:   Mon Mar 21 02:04:26 2016 +0000
+
+    Merge branch 'master' of github.com:firehose-project-chessapp/pawn-shop into visiblepieces
+
+commit 9b36d8ca555d4404ced14f89f1ea7cf864394c60
+Merge: 9727173 143cb70
+Author: Jeff <Dostoyevsky25@gmail.com>
+Date:   Sun Mar 20 16:29:27 2016 +0000
+
+    Merge branch 'master' of https://github.com/firehose-project-chessapp/pawn-shop into king-move
+
+commit 97271733ec32538d194e4061745f7cc5b6be19dd
+Author: Jeff <Dostoyevsky25@gmail.com>
+Date:   Sun Mar 20 16:28:12 2016 +0000
+
+    started valid move checks for king piece
+
+commit 143cb70dd70614477c41916607780fe2cf7be687
+Merge: 836c11a b0e37f3
+Author: Laura Umana <laurau1107@gmail.com>
+Date:   Sun Mar 20 00:37:59 2016 -0400
+
+    Merge pull request #18 from firehose-project-chessapp/devise_styling
+    
+    Devise styling
+
+commit 4c48378614855173e541bf886564347532d91f40
+Author: LauraUmana <laurau1107@gmail.com>
+Date:   Sun Mar 20 04:31:12 2016 +0000
+
+    Added new game test using rspec
+
+commit 1e2d7a48e8eb195066c1354ead5d613990febbab
+Author: Zoheb <zoheb_391@hotmail.com>
+Date:   Sun Mar 20 00:47:53 2016 +0000
+
+    New Game Set-up
+
+commit b0e37f3c862f6cfdfa2210550d4906ceac420949
+Merge: 836c11a 3f4d9c1
+Author: Ethan <09esiegel@gmail.com>
+Date:   Sat Mar 19 17:04:15 2016 +0000
+
+    Merge branch 'devise_styling' of github.com:firehose-project-chessapp/pawn-shop into devise_styling
+    
+    Conflicts:
+    	app/controllers/games_controller.rb
+
+commit 4002055e6edb8dd98c8fee425257123ad70a6e7d
+Author: Zoheb <zoheb_391@hotmail.com>
+Date:   Sat Mar 19 01:54:59 2016 +0000
+
+    Add a New Game
+
+commit 836c11a11b7966f4752d4517787c3a120de421f0
+Merge: 8489154 28902dc
+Author: Zoheb Salam <zoheb_391@hotmail.com>
+Date:   Fri Mar 18 12:52:39 2016 -0500
+
+    Merge pull request #17 from firehose-project-chessapp/king-valid-move
+    
+    King valid move
+
+commit 3f4d9c147844d7e088fe3411985ccd9a54a4804f
+Author: Ethan <09esiegel@gmail.com>
+Date:   Fri Mar 18 17:08:16 2016 +0000
+
+    missing end in games controller
+
+commit 28902dc6f7c1302790eed3eeb376ecef79349619
+Author: Jeff <Dostoyevsky25@gmail.com>
+Date:   Fri Mar 18 04:49:32 2016 +0000
+
+    changed params method in games controller and fixed loop
+
+commit 12d011440109c6d9666e0e6a012f53b7b691a5cc
+Author: Jeff <Dostoyevsky25@gmail.com>
+Date:   Fri Mar 18 03:57:53 2016 +0000
+
+    made games params private and changed new method in games controller
+
+commit e09f1c4f404cb788253e1e111a84248270635ff1
+Author: Jeff <Dostoyevsky25@gmail.com>
+Date:   Fri Mar 18 02:58:49 2016 +0000
+
+    pulled from master
+
+commit 8e9627c1ee5e64a4618171ff9d5fd47b153ec6f1
+Merge: 0f39026 8489154
+Author: Jeff <Dostoyevsky25@gmail.com>
+Date:   Fri Mar 18 02:49:56 2016 +0000
+
+    Merge branch 'master' of https://github.com/firehose-project-chessapp/pawn-shop into king-valid-move
+
+commit b8baadcf3a6d06a8bf11ddf0c09ae9d480cf5da9
+Author: Ethan <09esiegel@gmail.com>
+Date:   Fri Mar 18 01:28:58 2016 +0000
+
+    forgot password page styling
+
+commit 5aa6983c66a473c11736b567f35c435208f4d829
+Author: Ethan <09esiegel@gmail.com>
+Date:   Fri Mar 18 01:25:52 2016 +0000
+
+    log in page styling
+
+commit 12438f09d3d4f897b11e2ca974572f4b0fc88661
+Author: Ethan <09esiegel@gmail.com>
+Date:   Fri Mar 18 01:19:56 2016 +0000
+
+    sign in page tweaks
+
+commit 84b34a8a3bd5f757a5ab02b71eec822f829a6f5d
+Author: Ethan <09esiegel@gmail.com>
+Date:   Fri Mar 18 01:15:32 2016 +0000
+
+    sign in page styling
+
+commit 848915404a3d48b01b9305e58492961f3cb77bec
+Merge: 3a7119d e47dcac
+Author: Zoheb Salam <zoheb_391@hotmail.com>
+Date:   Thu Mar 17 12:03:07 2016 -0500
+
+    Merge pull request #16 from firehose-project-chessapp/move-css
+    
+    Moved css from show.html.erb into game.css
+
+commit e47dcac32effc8c9b38ebcf6b8add8c1178780bb
+Merge: 7df7abc 3a7119d
+Author: Zoheb <zoheb_391@hotmail.com>
+Date:   Thu Mar 17 16:55:40 2016 +0000
+
+    Merge branch 'master' into test_javascript
+
+commit 3a7119ddc7b2cb5233884b8c23edf4093b1ec79f
+Merge: 6e4b75b c7ae482
+Author: ethansiegl <09esiegel@gmail.com>
+Date:   Thu Mar 17 10:22:06 2016 -0600
+
+    Merge pull request #15 from firehose-project-chessapp/new-game
+    
+    Added chess pieces to chess board
+
+commit 0f3902622aaa2fc178a2b5f0ed31b14fb1b1ba27
+Author: Jeff <Dostoyevsky25@gmail.com>
+Date:   Thu Mar 17 05:00:21 2016 +0000
+
+    added comments for king valid move method
+
+commit 64a821c85eb0cf7a1d0b8283774a58cc6f5c961d
+Author: Jeff <Dostoyevsky25@gmail.com>
+Date:   Thu Mar 17 04:56:23 2016 +0000
+
+    uncommented show method in games controller
+
+commit 7df7abc28be574318861ddedd92bf87c10f31b90
+Author: Zoheb <zoheb_391@hotmail.com>
+Date:   Thu Mar 17 04:54:40 2016 +0000
+
+    Moved CSS to games.css + Fixed a css styling problem with padding
+
+commit 9ab7acefd7cc4df2869eedf6c67cb72ed194d579
+Merge: 3583c9b 6e4b75b
+Author: Jeff <Dostoyevsky25@gmail.com>
+Date:   Thu Mar 17 04:39:44 2016 +0000
+
+    merge conflicts resolution
+
+commit 3583c9b5d8b1c8570327dcf7fa9a163a6f5f8808
+Author: Jeff <Dostoyevsky25@gmail.com>
+Date:   Thu Mar 17 04:37:35 2016 +0000
+
+    uncomment show method in games controller
+
+commit c7ae48284de5ba83f1ac85e4857b66c6422790a6
+Merge: 6e4b75b 97a6806
+Author: Zoheb <zoheb_391@hotmail.com>
+Date:   Thu Mar 17 02:36:26 2016 +0000
+
+    Merge branch 'new-game' of github.com:firehose-project-chessapp/pawn-shop into new-game
+    
+    Conflicts:
+    	Gemfile
+    	app/controllers/games_controller.rb
+
+commit 6e4b75b82c852c9d89216918307d0d51147ab78b
+Merge: e0510aa 6f192c0
+Author: ethansiegl <09esiegel@gmail.com>
+Date:   Wed Mar 16 11:58:14 2016 -0400
+
+    Merge pull request #13 from firehose-project-chessapp/dashboard
+    
+    Dashboard
+
+commit 6f192c098330a4412c10337229be19be36a0fe6d
+Merge: 0c0c9c4 e0510aa
+Author: Jeff <Dostoyevsky25@gmail.com>
+Date:   Wed Mar 16 15:32:41 2016 +0000
+
+    addressed merge conflicts
+
+commit e0510aa8c8ae7ce88544dc307d22bbb28ade4130
+Merge: 7649a59 eb47629
+Author: Zoheb Salam <zoheb_391@hotmail.com>
+Date:   Wed Mar 16 01:31:24 2016 -0500
+
+    Merge pull request #12 from firehose-project-chessapp/is_obstructed
+    
+    Fixed the merge conflicts. It's good now
+
+commit eb4762965e3dfdda1fa4694f847bd0d817ac2bcf
+Merge: 7649a59 615dce1
+Author: Zoheb <zoheb_391@hotmail.com>
+Date:   Wed Mar 16 06:25:10 2016 +0000
+
+    Merge branch 'is_obstructed' of github.com:firehose-project-chessapp/pawn-shop into is_obstructed
+    
+    Conflicts:
+    	app/assets/stylesheets/master.css.scss
+    	app/views/layouts/application.html.erb
+
+commit 97a68069ceddbbbd89d3741c0f9f6fd1307ee3c5
+Author: LauraUmana <laurau1107@gmail.com>
+Date:   Wed Mar 16 05:42:54 2016 +0000
+
+    Added pieces to chess board
+
+commit 0f419393ee30d4617443f2ddb26746b5cf2e42a3
+Author: LauraUmana <laurau1107@gmail.com>
+Date:   Wed Mar 16 03:58:25 2016 +0000
+
+    Added pieces to chess board
+
+commit 0c0c9c4e713ac912dc4cebd50d5cb617f09ec862
+Author: Jeff <Dostoyevsky25@gmail.com>
+Date:   Wed Mar 16 01:38:40 2016 +0000
+
+    added game listings on dashboard
+
+commit 56278bfcdbd75be517a0742409879db66f91c359
+Author: Jeff <Dostoyevsky25@gmail.com>
+Date:   Tue Mar 15 23:03:22 2016 +0000
+
+    set up navbar links to sign in/ out and go to dashboard
+
+commit 338d69aae026c44ce851d7183ff7a083afdedeb4
+Author: Jeff <Dostoyevsky25@gmail.com>
+Date:   Tue Mar 15 22:15:42 2016 +0000
+
+    updated dashboard controller
+
+commit 2d7b7da49ff4c5216f7e449b3fe554a4549937ab
+Author: Jeff <Dostoyevsky25@gmail.com>
+Date:   Tue Mar 15 21:53:48 2016 +0000
+
+    set up games controller
+
+commit 7bf705226d05686399a41baa62775966867a4b75
+Author: Jeff <Dostoyevsky25@gmail.com>
+Date:   Tue Mar 15 19:39:11 2016 +0000
+
+    added link to homepage in navbar
+
+commit 13e068b9042d7e67059687dd0778c97b3803d300
+Merge: 7170414 7649a59
+Author: Jeff <Dostoyevsky25@gmail.com>
+Date:   Tue Mar 15 19:01:47 2016 +0000
+
+    Merge branch 'master' of https://github.com/firehose-project-chessapp/pawn-shop into dashboard
+
+commit 7649a59efad1a6a68593b44b2ad2fddd81cfc731
+Merge: 296aa12 82f9400
+Author: ethansiegl <09esiegel@gmail.com>
+Date:   Tue Mar 15 14:11:26 2016 -0400
+
+    Merge pull request #10 from firehose-project-chessapp/navbar
+    
+    navbar + logo + background image + invite-box
+
+commit 7170414d6d2d1aaa37080ddcb87183fba4f84279
+Author: Jeff <Dostoyevsky25@gmail.com>
+Date:   Tue Mar 15 16:58:55 2016 +0000
+
+    added dashboard controller and dashboard show route
+
+commit 615dce12b46338fc52504aca8ab3ef9633423739
+Author: Ethan <09esiegel@gmail.com>
+Date:   Mon Mar 14 18:03:38 2016 +0000
+
+    rollback change on game/show file
+
+commit c06603d95cf5472f544e9212aca98b026da9a5e8
+Author: Ethan <09esiegel@gmail.com>
+Date:   Mon Mar 14 17:13:23 2016 +0000
+
+    added better comments
+
+commit 3e8224f894f47577ca28f08dc6c1ec598fe3ccb2
+Author: Ethan <09esiegel@gmail.com>
+Date:   Mon Mar 14 17:07:02 2016 +0000
+
+    diagnoal movement working
+
+commit aacaaf2e69585d22ad0656e3a19fbb8b21c2c1bf
+Author: Ethan <09esiegel@gmail.com>
+Date:   Mon Mar 14 16:43:39 2016 +0000
+
+    vertical movement working both directions
+
+commit 456d8ed4d91030c7d868f846f42072afb45ddd18
+Author: Ethan <09esiegel@gmail.com>
+Date:   Mon Mar 14 16:42:36 2016 +0000
+
+    vertical movement working both directions
+
+commit 735eb666f7535615742fd53c5cba8ba25f1619b0
+Author: Ethan <09esiegel@gmail.com>
+Date:   Mon Mar 14 16:32:16 2016 +0000
+
+    horizontal movement both directions working
+
+commit 12c03097e0795eed93bcad59a8c285b493974a78
+Author: Ethan <09esiegel@gmail.com>
+Date:   Mon Mar 14 16:15:44 2016 +0000
+
+    vertical movement bottom to top working
+
+commit 82f940032e0e63a0ba56f34bfd022f777c97f812
+Author: Zoheb <zoheb_391@hotmail.com>
+Date:   Mon Mar 14 06:26:18 2016 +0000
+
+    navbar + logo + background image + invite-box
+
+commit 810cda77bc71b3b506b5cb09087a9400b466f96d
+Author: Ethan <09esiegel@gmail.com>
+Date:   Mon Mar 14 03:15:45 2016 +0000
+
+    horizontal x movement working
+
+commit 296aa12d05bc673236258cf597303af068db88cd
+Merge: 1711c69 36d02e0
+Author: Zoheb Salam <zoheb_391@hotmail.com>
+Date:   Sun Mar 13 16:14:07 2016 -0500
+
+    Merge pull request #9 from firehose-project-chessapp/test
+    
+    Changed ruby v in Travis
+
+commit 36d02e0accacfbf75eb4f680c22f3f8055b03771
+Author: Zoheb <zoheb_391@hotmail.com>
+Date:   Sun Mar 13 18:22:35 2016 +0000
+
+    Changed ruby v in Travis
+
+commit 1711c69d70fa4fa4aa21ca51d7557965163f759e
+Merge: a008228 58af16a
+Author: Jeff Kingswood <jeffreyckingswood@gmail.com>
+Date:   Sat Mar 12 22:52:09 2016 -0500
+
+    Merge pull request #8 from firehose-project-chessapp/games-show
+    
+    Games show
+
+commit 58af16ab1b492a4b33baf92d666af71e23cc13e2
+Author: Jeff <Dostoyevsky25@gmail.com>
+Date:   Sat Mar 12 17:07:35 2016 +0000
+
+    changed table coordinates to a1-h8 system
+
+commit a008228504c8dd30903e6f1d2cab7f6f0862ce7f
+Merge: 79a81d4 282bd88
+Author: Zoheb <zoheb_391@hotmail.com>
+Date:   Sat Mar 12 16:42:55 2016 +0000
+
+    Merge branch 'master' of github.com:firehose-project-chessapp/pawn-shop
+
+commit 79a81d40e7d3453088f5843aafb339e2e4a33d50
+Author: Zoheb <zoheb_391@hotmail.com>
+Date:   Sat Mar 12 06:56:15 2016 +0000
+
+    Travis Implementation
+
+commit 12b6b61fcaa0b04c55cdff89066fa89641a1b582
+Author: Jeff <Dostoyevsky25@gmail.com>
+Date:   Sat Mar 12 04:41:26 2016 +0000
+
+    added game board html file to games show page
+
+commit 3a4b06f9422fa950c1e1e21f15a6f99e838ebc3d
+Author: Jeff <Dostoyevsky25@gmail.com>
+Date:   Sat Mar 12 04:34:25 2016 +0000
+
+    added show method to games controller and shomw page in games view
+
+commit 282bd889ecc64d66703f74f7c7db9d82b1a448a3
+Merge: 949f40d af7f14f
+Author: Jeff Kingswood <jeffreyckingswood@gmail.com>
+Date:   Fri Mar 11 23:14:52 2016 -0500
+
+    Merge pull request #6 from firehose-project-chessapp/create-piece
+    
+    Create-piece
+
+commit 949f40d1b8031daaf53a36428221a54f827901da
+Author: Zoheb <zoheb_391@hotmail.com>
+Date:   Fri Mar 11 22:04:17 2016 +0000
+
+    Deleted .travis for testing
+
+commit af7f14f633625c916226e5f3d43073d1635afad1
+Author: Zoheb <zoheb_391@hotmail.com>
+Date:   Thu Mar 10 17:56:52 2016 +0000
+
+    Create piece model + Individual sub-class for each piece type
+
+commit 96d280f476abb708e71304d891a6f63906f03d30
+Author: Zoheb <zoheb_391@hotmail.com>
+Date:   Thu Mar 10 05:38:35 2016 +0000
+
+    Create piece model + Individual sub-class for each piece type
+
+commit 8b2953b5a0888b02a5c817b86fd90858ddcdbd8d
+Merge: 99476ef 31940a3
+Author: ethansiegl <09esiegel@gmail.com>
+Date:   Tue Mar 8 11:57:26 2016 -0500
+
+    Merge pull request #4 from firehose-project-chessapp/bootstrap
+    
+    Added bootstrap and devise
+
+commit 31940a3c73704b3e941ee0245db43cbc7d7dd596
+Author: LauraUmana <laurau1107@gmail.com>
+Date:   Tue Mar 8 00:11:57 2016 +0000
+
+    Added bootstrap and devise
+
+commit dae998ce74f8f014bd121b255ebc812c2c012c1b
+Author: LauraUmana <laurau1107@gmail.com>
+Date:   Mon Mar 7 21:46:54 2016 +0000
+
+    Added Twitter Bootstrap 3
+
+commit 99476ef2c5746e2972742b9d06bdf4498de66119
+Merge: e742b20 3ce8d77
+Author: Jeff Kingswood <jeffreyckingswood@gmail.com>
+Date:   Mon Mar 7 10:01:47 2016 -0500
+
+    Merge pull request #2 from zoheb391/dev
+    
+    Travis Integration
+
+commit 3ce8d7703d4bf142f38bca819c773d897d334a92
+Author: Zoheb <zoheb_391@hotmail.com>
+Date:   Mon Mar 7 05:42:13 2016 +0000
+
+    Edited games model to include two players, a winner and turn
+
+commit 9a612c18fb969f1285d0562c73ac68ba7f6cd9f0
+Author: Zoheb <zoheb_391@hotmail.com>
+Date:   Mon Mar 7 05:11:53 2016 +0000
+
+    comment rvm in travis.yml
+
+commit 686eb02d7034055d7fcffb9d7610da14390a5aa2
+Author: Zoheb <zoheb_391@hotmail.com>
+Date:   Mon Mar 7 04:57:52 2016 +0000
+
+    Edited travis.yml to include language and rvm
+
+commit d4db3f9cca103ba5a5f357c43f16b8ebc687ca53
+Author: Zoheb <zoheb_391@hotmail.com>
+Date:   Mon Mar 7 03:07:53 2016 +0000
+
+    Add Travis yml file
+
+commit e742b2004216f15ad2fdec8c0dcc0ad70d6ac537
+Merge: 854366c 7f85d2b
+Author: Jeff Kingswood <jeffreyckingswood@gmail.com>
+Date:   Sun Mar 6 12:46:57 2016 -0500
+
+    Merge pull request #1 from zoheb391/dev
+    
+    Dev
+
+commit 7f85d2b35db3164028f5808100886bd07c985d87
+Author: Zoheb <zoheb_391@hotmail.com>
+Date:   Sun Mar 6 05:40:53 2016 +0000
+
+    Created a game model and controller. Included player_id in game table
+
+commit 64e2d88c7816cae718e4568874dc5fa6fc0eeff6
+Author: Zoheb <zoheb_391@hotmail.com>
+Date:   Sun Mar 6 05:24:39 2016 +0000
+
+    Adjust production.rb so it compiles assets
+
+commit def2cd736b61ddfacceff787f0d753fc08f9a931
+Author: Zoheb <zoheb_391@hotmail.com>
+Date:   Sun Mar 6 05:21:22 2016 +0000
+
+    deleted test file
+
+commit 5928fa96ef8a351e1ffe6f323772ddd3729a9bb9
+Author: Zoheb <zoheb_391@hotmail.com>
+Date:   Sun Mar 6 05:13:29 2016 +0000
+
+    Added Test file
+
+commit 854366c9146cfcd5dea64d6b172fbf3d80e13382
+Author: Jeff <Dostoyevsky25@gmail.com>
+Date:   Thu Mar 3 04:34:40 2016 +0000
+
+    deleted unnecessary show method in pages controller
+
+commit 4b31d0c94c726b1e4530188a98ac097f7967c01d
+Author: Jeff <Dostoyevsky25@gmail.com>
+Date:   Wed Mar 2 20:54:34 2016 +0000
+
+    static page added
+
+commit 0c2f474e1f29793986a6f6ed7022fc683716b1d4
+Author: Jeff <Dostoyevsky25@gmail.com>
+Date:   Wed Mar 2 20:27:43 2016 +0000
+
+    initial commit
