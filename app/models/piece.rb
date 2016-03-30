@@ -18,6 +18,7 @@ class Piece < ActiveRecord::Base
 		end
 	end
   
+ 	# helper methods 
 	def is_obstructed?(destination_x, destination_y)
 		# returns boolean
 		# does NOT work for knight movement
@@ -113,7 +114,6 @@ class Piece < ActiveRecord::Base
 		found
 	end
 
-	# helper methods 
 	def piece_at(x, y)
 		game.pieces.where(x_coordinate: x, y_coordinate: y).take
 	end
@@ -130,24 +130,16 @@ class Piece < ActiveRecord::Base
 		update(x_coordinate: new_x, y_coordinate: new_y)
  	end
 
- 	def on_board?(x, y)
- 		if x > 8 || y > 8 || x < 1 || y < 1
- 			return false 
- 		else 
- 			true
- 		end
- 	end
+  def on_board?(x, y)
+  	if x > 8 || y > 8 || x < 1 || y < 1
+  		return false
+  	else
+  		return true
+  	end
+  end
 
- 	def no_move?(x, y)
+  def no_move?(x, y)
  		x == x_coordinate && y == y_coordinate
- 	end
-
- 	def horizontal_move?(x, y)
- 		return true if (x != x_coordinate) && (y == y_coordinate)
- 	end
-
- 	def vertical_move(x, y)
- 		return true if (x != x_coordinate) && (y == y_coordinate)
  	end
 
  	def is_white?(piece)
@@ -156,5 +148,13 @@ class Piece < ActiveRecord::Base
  		else 
  			return true
  		end
-	end	
+ 	end	
+
+ 	def horizontal_move?(x, y)
+ 		return true if (x != x_coordinate) && (y == y_coordinate)
+ 	end
+
+ 	def vertical_move(x, y)
+ 		return true if (x != x_coordinate) && (y == y_coordinate)
+ 	end
 end
