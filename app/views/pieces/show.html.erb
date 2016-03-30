@@ -1,0 +1,40 @@
+<DOCTYPE html>
+<html>
+
+<head>
+
+
+</head>	
+
+	<body>
+
+		<h1>Welcome to Pawn Shop</h1>
+		
+		<table>
+			<% 8.downto(1) do |row| %>
+        <tr class="row <%= row %>">
+          <% 1.upto(8) do |column| %>
+            <td class="<%= column %> <%= row %>">
+              <!--check to see if there is a piece-->
+            	<% if piece = current_game.pieces.detect { |piece| piece.y_coordinate == row && piece.x_coordinate == column } %>           
+
+                <div class="piece" id="piece-<%= piece.id %>">
+                  <%= link_to image_tag ("#{piece.color}#{piece.type.downcase}.png") %>
+                </div> 
+                
+                <% else %>
+                
+                <%= link_to "move here", game_path(current_game, current_piece.update_attributes(:y_coordinate => column, :x_coordinate => row)), :method => :put %>
+            
+              <% end %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </table>
+
+	</body>
+
+
+</html>	
+	
