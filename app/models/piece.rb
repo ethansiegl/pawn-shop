@@ -116,9 +116,12 @@ class Piece < ActiveRecord::Base
 	end
 
 	def on_board?(x, y)
- 		return false if x > 8 || y > 8 || x < 1 || y < 1
-		else true
-  end
+-  	if x > 8 || y > 8 || x < 1 || y < 1
+-  		return false
+-  	else
+-  		return true
+-  	end
+- end
 
 	def no_move?(x, y)
 		(x == x_coordinate) && (y == y_coordinate)
