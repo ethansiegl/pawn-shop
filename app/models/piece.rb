@@ -116,12 +116,12 @@ class Piece < ActiveRecord::Base
 	end
 
 	def on_board?(x, y)
--  	if x > 8 || y > 8 || x < 1 || y < 1
--  		return false
--  	else
--  		return true
--  	end
-- end
+  	if x > 8 || y > 8 || x < 1 || y < 1
+ 			return false
+ 		else
+ 			return true
+	  end
+ end
 
 	def no_move?(x, y)
 		(x == x_coordinate) && (y == y_coordinate)
@@ -160,11 +160,11 @@ class Piece < ActiveRecord::Base
 
   def update_coordinates(new_x, new_y)
   	update(x_coordinate: new_x, y_coordinate: new_y)
+	end
 
- 	def is_white?(piece)
- 		return false if piece.color == "black"
- 	else
- 		return true
- 	end
+	def is_white?(piece)
+	 return false if piece.color == "black"
+		else return true
+	end
 
 end
