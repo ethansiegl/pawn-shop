@@ -124,19 +124,26 @@ class Piece < ActiveRecord::Base
 		(x == x_coordinate) && (y == y_coordinate)
 	end
 
+	# helper methods
+	def piece_at(x, y)
+		game.pieces.where(x_coordinate: x, y_coordinate: y).take
+	end
+
+  def update_coordinates(new_x, new_y)
+  	update(x_coordinate: new_x, y_coordinate: new_y)
+  end
+
+	def horizontal_move?(x, y)
+		return true if (x == x_coordinate) && (y != y_coordinate)
+	end
+
 	def vertical_move?(x, y)
 		return true if (x != x_coordinate) && (y == y_coordinate)
 	end
 
-	def horizontal_move?(x, y)
- 		return true if (x == x_coordinate) && (y != y_coordinate)
- 	end
-
 	def diagonal_move?(x, y)
 		return true if (x - x_coordinate).abs == (y - y_coordinate).abs
 	end
-
-	# helper methods
 
 	def piece_at(x, y)
 		game.pieces.where(x_coordinate: x, y_coordinate: y).take
@@ -150,10 +157,6 @@ class Piece < ActiveRecord::Base
 		piece.present? && color == piece.color
 	end
 
-  def update_coordinates(new_x, new_y)
-  	update(x_coordinate: new_x, y_coordinate: new_y)
-  end
-
   def on_board?(x, y)
   	if x > 8 || y > 8 || x < 1 || y < 1
   		return false
@@ -161,7 +164,6 @@ class Piece < ActiveRecord::Base
   		return true
   	end
   end
-
 
   def update_coordinates(new_x, new_y)
   	update(x_coordinate: new_x, y_coordinate: new_y)
@@ -172,7 +174,5 @@ class Piece < ActiveRecord::Base
  	else
  		return true
  	end
-
-
 
 end
