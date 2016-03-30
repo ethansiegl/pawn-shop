@@ -151,9 +151,11 @@ class Piece < ActiveRecord::Base
  	end
 
  	def is_white?(piece)
- 		return false if piece.color == "black"
- 	else 
- 		return true
+ 		if piece.color == "black"
+ 			return false 
+ 		else 
+ 			return true
+ 		end
  	end	
 
  	def horizontal_move?(x, y)
