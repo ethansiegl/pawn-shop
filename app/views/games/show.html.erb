@@ -11,15 +11,15 @@
 		<h1>Welcome to Pawn Shop</h1>
 		
 		<table>
-			<% 8.downto(1) do |row| %>
-        <tr class="row <%= row %>">
-          <% 1.upto(8) do |column| %>
-            <td class="<%= column %> <%= row %>">
+      <% 8.downto(1) do |column| %>
+        <tr class="column <%= column %>">
+          <% 1.upto(8) do |row| %>
+            <td class="<%= row %> <%= column %>">
               <!--check to see if there is a piece-->
-            	<% if piece = @game.pieces.detect { |piece| piece.y_coordinate == row && piece.x_coordinate == column } %>           
+              <% if piece = @game.pieces.detect { |piece| piece.x_coordinate == row && piece.y_coordinate == column } %>        
 
                 <div class="piece" id="piece-<%= piece.id %>">
-                  <%= link_to image_tag("#{piece.color}#{piece.type.downcase}.png"), game_piece_path(@game, piece.id) %>
+                  <%= link_to image_tag("#{piece.color}#{piece.type.downcase}.png"), game_piece_path(id: @game, id: piece) %>
                 </div>
             
               <% end %>

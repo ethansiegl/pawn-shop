@@ -126,8 +126,8 @@ class Piece < ActiveRecord::Base
 		piece.present? && color == piece.color
 	end
 
-  def update_coordinates(new_x, new_y)
-  	update(x_coordinate: new_x, y_coordinate: new_y)
+  def update_coordinates!(new_x, new_y)
+  	update_attributes(x_coordinate: new_x, y_coordinate: new_y)
   end
 
   def on_board?(x, y)
