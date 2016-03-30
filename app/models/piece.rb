@@ -145,9 +145,6 @@ class Piece < ActiveRecord::Base
 		return true if (x - x_coordinate).abs == (y - y_coordinate).abs
 	end
 
-	def piece_at(x, y)
-		game.pieces.where(x_coordinate: x, y_coordinate: y).take
-	end
 
   def capture!(target_piece)
   	target_piece.update(taken: true, x_coordinate: nil, y_coordinate: nil)
