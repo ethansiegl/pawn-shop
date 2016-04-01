@@ -1,6 +1,5 @@
 class GamesController < ApplicationController
 
-
 	def index
 		@games = Game.all
 	end
@@ -24,6 +23,8 @@ class GamesController < ApplicationController
 		@game.set_black_player(current_user.id)
 		redirect_to game_path(@game)
 	end
+
+
 
 private
 
