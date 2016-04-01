@@ -35,7 +35,8 @@
 			$('.piece').sortable({
 			  update: function( event, ui ) {
 					$.ajax({
-						type: ui.item.data('update-url'),
+						type: 'PUT',
+						url: ui.item.data('update-url'),
 						dataType: 'json',
 						data: {  }
 						})
