@@ -4,24 +4,24 @@
 <head>
 
 
-</head>	
+</head>
 
 	<body>
 
 		<h1>Welcome to Pawn Shop</h1>
-		
+
 		<table>
 			<% 8.downto(1) do |row| %>
         <tr class="row <%= row %>">
           <% 1.upto(8) do |column| %>
             <td class="<%= column %> <%= row %>">
               <!--check to see if there is a piece-->
-            	<% if piece = @game.pieces.detect { |piece| piece.y_coordinate == row && piece.x_coordinate == column } %>           
+            	<% if piece = @game.pieces.detect { |piece| piece.y_coordinate == row && piece.x_coordinate == column } %>
 
                 <div class="piece" id="piece-<%= piece.id %>">
                   <%= image_tag ("#{piece.color}#{piece.type.downcase}.png") %>
                 </div>
-            
+
               <% end %>
             </td>
           <% end %>
@@ -32,5 +32,4 @@
 	</body>
 
 
-</html>	
-	
+</html>
