@@ -24,14 +24,15 @@
                 
                 <% else %>
                 <%= "#{row}, #{column}" %>
-                <%= link_to "move here", game_path(current_game, current_piece.update_coordinates!(row,column)), :method => :put %>
+                
+                <%= link_to "move here", game_piece_path(current_game, current_piece, :piece => current_piece, :row => row, :column => column), :method => :put %>
                 
               <% end %>
                 
             </td>
           <% end %>
         </tr>
-      <% end %>
+      <% end %> 
     </table>
 
 	</body>
