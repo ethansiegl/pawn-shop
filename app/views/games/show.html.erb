@@ -14,7 +14,7 @@
 			<% 8.downto(1) do |row| %>
         <tr class="row <%= row %>">
           <% 1.upto(8) do |column| %>
-            <td class="<%= column %> <%= row %>">
+            <td class="square" id="<%= column %> <%= row %>">
               <!--check to see if there is a piece-->
             	<% if piece = @game.pieces.detect { |piece| piece.y_coordinate == row && piece.x_coordinate == column } %>
 
@@ -30,17 +30,19 @@
     </table>
 
 		<script>
-			$('.piece').sortable({
-			  update: function( event, ui ) {
-					$.ajax({
-						type: 'PUT',
-						url: ui.item.data('update-url'),
-						dataType: 'json',
-						data: {  }
-						})
-				}
+			$(function() {
+				$('.piece').draggable({ snap: ".square" });
+				$('.square').droppable({
+				  drop: function( event, ui ) {
+						$.ajax({
+							type: 'PUT',
+							url: ui.item.data('update-url'),
+							dataType: 'json',
+							data: {  }
+							})
+					}
+				});
 			});
-
 			var chessPiece = $('.piece').attr('id');
 
 		</script>

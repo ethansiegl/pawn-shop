@@ -1,11 +1,12 @@
 	table, th, td {
 	    border: 3px solid black;
 	}
-	
+
 	table {
 		margin: 50px auto;
 		border-collapse: collapse;
 		background: #804000;
+		align-self: center;
 	}
 	td {
 	    width: 72px; height: 72px;
@@ -22,4 +23,5 @@
 		position: relative;
 		margin: auto;
 		display: block;
+		text-align: center;
 	}
