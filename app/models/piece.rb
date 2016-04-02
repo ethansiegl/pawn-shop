@@ -120,7 +120,7 @@ class Piece < ActiveRecord::Base
 
 	def capture!(target_piece)
   		target_piece.update(taken: true, x_coordinate: nil, y_coordinate: nil)
-	end
+  	end
 
 	def friendly_piece?(piece)
 		return true if piece.present? && color == piece.color  
