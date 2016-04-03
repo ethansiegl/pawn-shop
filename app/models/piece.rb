@@ -1,24 +1,19 @@
 class Piece < ActiveRecord::Base
 	belongs_to :game	
 	
-	def move_to!(destination_x, destination_y)
-		destination_piece = piece_at(destination_x, destination_y)
-		
-		# do not allow move if origin and destination piece are the same color
+	def move_to!(x,y)
+		destination_piece = piece_at(x,y)
+
 		return false if friendly_piece?(destination_piece)
 
-		# move origin piece if destination square is empty
 		if !destination_piece.present?
-			update_coordinates(destination_x, destination_y)
-		
-		# capture destination piece if opposite color
+			update_coordinates(x,y)
 		else 
 			capture!(destination_piece)
-			update_coordinates(destination_x, destination_y)
+			update_coordinates(x,y)
 		end
 	end
   
- 	# helper methods 
 	def is_obstructed?(destination_x, destination_y)
 		# returns boolean
 		# does NOT work for knight movement
@@ -120,6 +115,10 @@ class Piece < ActiveRecord::Base
 
 	def capture!(target_piece)
   		target_piece.update(taken: true, x_coordinate: nil, y_coordinate: nil)
+  	end
+
+  	def update_coordinates(x,y)
+  		update_attributes(:x_coordinate => x, :y_coordinate => y)
   	end
 
 	def friendly_piece?(piece)

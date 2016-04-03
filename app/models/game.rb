@@ -48,6 +48,35 @@ class Game < ActiveRecord::Base
 
 	end
 
+	def is_check?
+
+		if turn == white_player_id
+
+			king = find_king(black)
+			white_pieces = game.pieces.where(color: 'white')
+			white_pieces.each do |piece|
+				if piece.valid_move?(king.x_coordinate, king.y_coordinate)
+					return true
+				end
+			end
+		elsif turn == black_player_id
+			
+			king = find_king(white)
+			black_pieces = game.pieces.where(color: 'black')
+			black_pieces.each do |piece|
+				if piece.valid_move?(king.x_coordinate, king.y_coordinate)
+					return true
+				end
+			end 
+		else 
+			return false
+	end
+
+
+	def find_king(color)
+		game.pieces.where(type: 'King', color: color.to_s)
+	end
+
 	def set_white_player(user)
 	 	update_attributes(:white_player_id => user, :turn => user) if white_player_id.nil?
 	end
