@@ -70,6 +70,7 @@ class Game < ActiveRecord::Base
 			end 
 		else 
 			return false
+		end
 	end
 
 
