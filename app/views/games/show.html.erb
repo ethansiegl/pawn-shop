@@ -19,7 +19,7 @@
             	<% if piece = @game.pieces.detect { |piece| piece.x_coordinate == row && piece.y_coordinate == column } %>
 
                 <div class="piece" id="piece-<%= piece.id %>">
-                  <%= image_tag ("#{piece.color}#{piece.type.downcase}.png") %>
+                  <%= image_tag ("#{piece.color}#{piece.type.downcase}.png"), game_piece_path(@game,piece) %>
                 </div>
 
               <% end %>

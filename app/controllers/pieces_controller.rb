@@ -6,6 +6,7 @@ class PiecesController < ApplicationController
 
 	def update
 		current_piece.update(:x_coordinate => params[:row], y_coordinate => params[:column])
+		redirect_to game_path(current_game)
 	end
 
 	private
