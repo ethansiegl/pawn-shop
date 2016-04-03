@@ -31,19 +31,22 @@
 
 		<script>
 			$(function() {
-				$('.piece').draggable({ snap: ".square" });
+				$('.piece').draggable({ snap: '.square' });
 				$('.square').droppable({
 				  drop: function( event, ui ) {
+						var item_id = $('.piece').attr('id');
+						var location = $(this).attr('id');
+						$( this )
+	            alert(item_id + ' ' + location);
 						$.ajax({
 							type: 'PUT',
 							url: ui.item.data('update-url'),
 							dataType: 'json',
-							data: {  }
+							data: { item_id: {piece_params: location} }
 							})
 					}
 				});
 			});
-			var chessPiece = $('.piece').attr('id');
 
 		</script>
 
