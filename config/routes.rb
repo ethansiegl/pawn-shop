@@ -7,6 +7,7 @@ Pawnshop::Application.routes.draw do
   root 'pages#index'
   resources :games, only: [:create, :show, :index, :new, :update]
   resources :dashboard, only: [:show]
+  resources :pieces, only: [:show, :update]
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
