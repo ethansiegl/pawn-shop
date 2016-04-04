@@ -1,20 +1,12 @@
 class PiecesController < ApplicationController
 
 	def show
-		@piece = Piece.find(params[:id])
+		@piece = Game.Piece.find(params[:id])
 	end
 
 	def update
-		current_piece.update(:x_coordinate => params[:row], y_coordinate => params[:column])
-		redirect_to game_path(current_game)
-	end
-
-	private
-
-		helper_method :current_game, :current_piece
-
-	def piece_params
-		params.require(:piece).permit(:x_coordinate, :y_coordinate)
+		current_piece.update(:x_coordinate => params[:row], :y_coordinate => params[:column])
+		render text: 'Next Move!'
 	end
 
 	def current_game
@@ -23,6 +15,14 @@ class PiecesController < ApplicationController
 
 	def current_piece
 		@piece ||= Piece.find(params[:id])
+	end
+
+	private
+
+		helper_method :current_game, :current_piece
+
+	def piece_params
+		params.require(:piece).permit(:x_coordinate, :y_coordinate)
 	end
 
 end
