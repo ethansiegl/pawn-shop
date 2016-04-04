@@ -1,9 +1,9 @@
 class Piece < ActiveRecord::Base
+
 	belongs_to :game	
 	
 	def move_to!(x,y)
-		destination_piece = piece_at(x,y)
-
+		destination_piece = piece_at(x,y)	
 		return false if friendly_piece?(destination_piece)
 
 		if !destination_piece.present?
@@ -13,7 +13,8 @@ class Piece < ActiveRecord::Base
 			update_coordinates(x,y)
 		end
 	end
-  
+
+
 	def is_obstructed?(destination_x, destination_y)
 		# returns boolean
 		# does NOT work for knight movement
@@ -21,39 +22,39 @@ class Piece < ActiveRecord::Base
 		destination_piece = piece_at(destination_x, destination_y)
 
 		# check for piece on destination square
-		if destination_piece.present? 
+		if destination_piece.present?
 			return true
 		end
-		
-		# default return false 
-		found = false  
+
+		# default return false
+		found = false
 
 		# moving horizontally left => right
 		(self.x_coordinate + 1).upto(destination_x).each do |x|
 			between_squares = game.pieces.where(x_coordinate: x, y_coordinate: destination_y).first
-			if between_squares.present? 
+			if between_squares.present?
 				found = true
-				break 
+				break
 			end
 		end
 		found
 
-		# moving horizontally right => left 
+		# moving horizontally right => left
 		(self.x_coordinate - 1).downto(destination_x).each do |x|
 		between_squares = game.pieces.where(x_coordinate: x, y_coordinate: destination_y).first
-			if between_squares.present? 
+			if between_squares.present?
 				found = true
-				break 
+				break
 			end
 		end
 		found
 
-		# moving vertically bottom => top 
+		# moving vertically bottom => top
 		(self.y_coordinate + 1).upto(destination_y).each do |y|
 			between_squares = game.pieces.where(x_coordinate: destination_x, y_coordinate: y).first
-			if between_squares.present? 
+			if between_squares.present?
 				found = true
-				break 
+				break
 			end
 		end
 		found
@@ -61,9 +62,9 @@ class Piece < ActiveRecord::Base
 		# moving vertically top => bottom
 		(self.y_coordinate - 1).downto(destination_y).each do |y|
 			between_squares = game.pieces.where(x_coordinate: destination_x, y_coordinate: y).first
-			if between_squares.present? 
+			if between_squares.present?
 				found = true
-				break 
+				break
 			end
 		end
 		found
@@ -71,9 +72,9 @@ class Piece < ActiveRecord::Base
 		# moving diagonally right + up
 		(self.y_coordinate + 1).upto(destination_y).each do |y|
 			between_squares = game.pieces.where(x_coordinate: self.x_coordinate + 1, y_coordinate: y).first
-			if between_squares.present? 
+			if between_squares.present?
 				found = true
-				break 
+				break
 			end
 		end
 		found
@@ -81,9 +82,9 @@ class Piece < ActiveRecord::Base
 		# moving diagonally right + down
 		(self.y_coordinate - 1).downto(destination_y).each do |y|
 			between_squares = game.pieces.where(x_coordinate: self.x_coordinate + 1, y_coordinate: y).first
-			if between_squares.present? 
+			if between_squares.present?
 				found = true
-				break 
+				break
 			end
 		end
 		found
@@ -91,9 +92,9 @@ class Piece < ActiveRecord::Base
 		# moving diagonally left + up
 		(self.y_coordinate + 1).upto(destination_y).each do |y|
 			between_squares = game.pieces.where(x_coordinate: self.x_coordinate - 1, y_coordinate: y).first
-			if between_squares.present? 
+			if between_squares.present?
 				found = true
-				break 
+				break
 			end
 		end
 		found
@@ -101,14 +102,17 @@ class Piece < ActiveRecord::Base
 		# moving diagonally left + down
 		(self.y_coordinate - 1).downto(destination_y).each do |y|
 			between_squares = game.pieces.where(x_coordinate: self.x_coordinate - 1, y_coordinate: y).first
-			if between_squares.present? 
+			if between_squares.present?
 				found = true
-				break 
+				break
 			end
 		end
 		found
 	end
 
+	
+
+	
 	def piece_at(x, y)
 		game.pieces.where(x_coordinate: x, y_coordinate: y).take
 	end
@@ -118,7 +122,7 @@ class Piece < ActiveRecord::Base
   	end
 
   	def update_coordinates(x,y)
-  		update_attributes(:x_coordinate => x, :y_coordinate => y)
+  		update(x_coordinate: x, y_coordinate: y)
   	end
 
 	def friendly_piece?(piece)
@@ -150,3 +154,5 @@ class Piece < ActiveRecord::Base
  	end	
 
 end
+
+  	
