@@ -5,7 +5,7 @@ class Rook < Piece
 		return false if !on_board?(x,y)
  		return false if no_move?(x,y)
  
- 		if vertical_move(x,y) || horizontal_move(x,y)
+ 		if vertical_move?(x,y) || horizontal_move?(x,y)
  			return true
  		else
  			return false
