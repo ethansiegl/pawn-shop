@@ -1,6 +1,11 @@
 class Knight < Piece
 
-	def valid_move?
-	end
+	def valid_move?(x, y)
+		return false if !on_board?(x, y)
 
+		if ((x - x_coordinate).abs == 2 && (y - y_coordinate).abs == 1) ||
+			((x - x_coordinate).abs == 1 && (y - y_coordinate) == 2 ) &&
+			((x != x_coordinate) && (y != y_coordinate))
+		end
+	end
 end
