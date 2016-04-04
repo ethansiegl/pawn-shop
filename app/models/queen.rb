@@ -10,4 +10,5 @@ class Queen < Piece
 			return false
 		end
 	end
+	
 end

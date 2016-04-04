@@ -29,7 +29,7 @@
           <!-- Button Trigger -->
           <% if user_signed_in? %>
             <li><%= link_to 'NEW GAME', '#', :data => {:toggle => 'modal', :target => '#myModal'} %></li>
-          <% end %>  
+          <% end %>
         </ul>
 
 
@@ -52,7 +52,7 @@
     	<p class="alert alert-info"><%= notice %></p>
 
     <% end %>
-    
+
     <% if alert.present? %>
       <p class="alert alert-danger"><%= alert %></p>
     <% end %>
@@ -73,13 +73,13 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <%= f.submit 'Create', :class => 'btn btn-danger' %> 
+          <%= f.submit 'Create', :class => 'btn btn-danger' %>
         </div>
         <% end %>  
       </div>
     </div>
-  </div>  
-  <%= yield %>         
+  </div>
+  <%= yield %>
 </div>
 
 <div id="footer">
