@@ -9,6 +9,11 @@ class PiecesController < ApplicationController
 		render text: 'Next Move!'
 	end
 
+
+	private
+
+	helper_method :current_game, :current_piece
+
 	def current_game
 		@current_game ||= Game.find(params[:game_id])
 	end
@@ -16,10 +21,6 @@ class PiecesController < ApplicationController
 	def current_piece
 		@piece ||= Piece.find(params[:id])
 	end
-
-	private
-
-		helper_method :current_game, :current_piece
 
 	def piece_params
 		params.require(:piece).permit(:x_coordinate, :y_coordinate)

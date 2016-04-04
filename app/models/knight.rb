@@ -11,5 +11,4 @@ class Knight < Piece
 			return false
 		end
 	end
-
 end

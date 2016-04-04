@@ -115,56 +115,49 @@ class Piece < ActiveRecord::Base
 		found
 	end
 
-	def on_board?(x, y)
-  	if x > 8 || y > 8 || x < 1 || y < 1
- 			return false
- 		else
- 			return true
-	  end
- end
+	
 
-	def no_move?(x, y)
-		(x == x_coordinate) && (y == y_coordinate)
-	end
-
-	# helper methods
+	
 	def piece_at(x, y)
 		game.pieces.where(x_coordinate: x, y_coordinate: y).take
 	end
 
-  def update_coordinates(new_x, new_y)
-  	update(x_coordinate: new_x, y_coordinate: new_y)
-  end
+	def capture!(target_piece)
+  		target_piece.update(taken: true, x_coordinate: nil, y_coordinate: nil)
+  	end
 
-	def horizontal_move?(x, y)
-		return true if (x == x_coordinate) && (y != y_coordinate)
-	end
-
-	def vertical_move?(x, y)
-		return true if (x != x_coordinate) && (y == y_coordinate)
-	end
-
-	def diagonal_move?(x, y)
-		return true if (x - x_coordinate).abs == (y - y_coordinate).abs
-	end
-
-
-  def capture!(target_piece)
-  	target_piece.update(taken: true, x_coordinate: nil, y_coordinate: nil)
-  end
+  	def update_coordinates(x,y)
+  		update(x_coordinate: x, y_coordinate: y)
+  	end
 
 	def friendly_piece?(piece)
-		piece.present? && color == piece.color
+		return true if piece.present? && color == piece.color  
 	end
 
+  	def on_board?(x, y)
+    	(x > 8 || y > 8 || x < 1 || y < 1) ? false : true	
+  	end
 
-  def update_coordinates(new_x, new_y)
-  	update(x_coordinate: new_x, y_coordinate: new_y)
-	end
+  	def no_move?(x, y)
+ 		(x == x_coordinate) && (y == y_coordinate) ? true : false
+ 	end
+ 	
+ 	def horizontal_move?(x, y)
+ 		(x != x_coordinate) && (y == y_coordinate) ? true : false
+ 	end
 
-	def is_white?(piece)
-	 return false if piece.color == "black"
-		else return true
-	end
+ 	def vertical_move?(x, y)
+ 		(x == x_coordinate) && (y != y_coordinate) ? true : false
+ 	end
+
+ 	def diagonal_move?(x, y)
+ 		(x - x_coordinate).abs == (y - y_coordinate).abs ? true : false
+ 	end
+
+ 	def is_white?(piece)
+ 		piece.color == "white" ? true : false
+ 	end	
 
 end
+
+  	
