@@ -17,8 +17,8 @@ class Pawn < Piece
 	end
 
 	def capture_possible?(x,y)
-		x_diff = x-x_coordinate.abs
-		y_diff = y-y_coordinate.abs	
+		x_diff = (x-x_coordinate).abs
+		y_diff = (y-y_coordinate).abs	
 		return false if piece_at(x,y).nil?	
 		return false if piece_at(x,y).color == self.color
 		return true if x_diff == 1 && y_diff == 1			
