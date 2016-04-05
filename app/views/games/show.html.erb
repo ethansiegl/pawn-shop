@@ -19,7 +19,8 @@
               <% if piece = @game.pieces.detect { |piece| piece.x_coordinate == row && piece.y_coordinate == column } %>
 
                 <div class="piece" id="piece-<%= piece.id %>">
-                  <%= link_to image_tag("#{piece.color}#{piece.type.downcase}.png"), game_piece_path(@game,piece) %>
+                  <%= image_tag("#{piece.color}#{piece.type.downcase}.png") %>
+
                 </div>
 
               <% end %>
@@ -34,22 +35,16 @@
 				$('.piece').draggable({ snap: '.square' });
 				$('.square').droppable({
 				  drop: function( event, ui ) {
-						var piece_id = $('.piece').attr('id');
-						//var game_id = $('.game.id').attr('id');
+						var item_id = $('.piece').attr('id');
 						var location = $(this).attr('id');
 						$( this )
-	            alert(piece_id + ' ' + location);
+	            alert(item_id + ' ' + location);
 						$.ajax({
 							type: 'PUT',
-							url: 2 + '/pieces/' + piece_id,
+							url: ui.item.data('update-url'),
 							dataType: 'json',
-							data: {
-								piece: location
-							},
-							success: function(data) {
-								$(location).attr('href', data.update_url);
-							}
-						});
+							data: { item_id: {piece_params: location} }
+							})
 					}
 				});
 			});
