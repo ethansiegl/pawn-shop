@@ -16,14 +16,14 @@
           <% 1.upto(8) do |row| %>
             <td class=square id="<%= row %> <%= column %>">
               <!--check to see if there is a piece-->
-              <% if piece = @game.pieces.detect { |piece| piece.x_coordinate == row && piece.y_coordinate == column } %>
-
-                <div class="piece" id="<%= piece.id %>">
-                  <%= image_tag("#{piece.color}#{piece.type.downcase}.png") %>
-
-                </div>
-
-              <% end %>
+							<% piece = @piece %>
+							<div class="piece" id="<%= @piece_params %>">
+								<% @game.pieces.each do | piece | %>
+										<% if piece.x_coordinate == row && piece.y_coordinate == column %>
+											<%= image_tag("#{piece.color}#{piece.type.downcase}.png") %>
+										<% end %>
+	              <% end %>
+							</div>
             </td>
           <% end %>
         </tr>
@@ -37,6 +37,7 @@
 				  drop: function( event, ui ) {
 						var piece_id = $('.piece').attr('id');
 						var location = $(this).attr('id');
+						var game_id = $().attr('id');
 						$( this )
 	            alert(piece_id + ' ' + location);
 						$.ajax({
