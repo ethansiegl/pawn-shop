@@ -14,11 +14,11 @@
       <% 8.downto(1) do |column| %>
         <tr class="column <%= column %>">
           <% 1.upto(8) do |row| %>
-            <td class="<%= row %> <%= column %>">
+            <td class=square id="<%= row %> <%= column %>">
               <!--check to see if there is a piece-->
               <% if piece = @game.pieces.detect { |piece| piece.x_coordinate == row && piece.y_coordinate == column } %>
 
-                <div class="piece" id="piece-<%= piece.id %>">
+                <div class="piece" id="<%= piece.id %>">
                   <%= image_tag("#{piece.color}#{piece.type.downcase}.png") %>
 
                 </div>
@@ -35,16 +35,19 @@
 				$('.piece').draggable({ snap: '.square' });
 				$('.square').droppable({
 				  drop: function( event, ui ) {
-						var item_id = $('.piece').attr('id');
+						var piece_id = $('.piece').attr('id');
 						var location = $(this).attr('id');
 						$( this )
-	            alert(item_id + ' ' + location);
+	            alert(piece_id + ' ' + location);
 						$.ajax({
 							type: 'PUT',
-							url: ui.item.data('update-url'),
+							url: 3 + '/pieces/' + piece_id,
 							dataType: 'json',
-							data: { item_id: {piece_params: location} }
-							})
+							data: { piece_id: {piece_params: location} },
+							success: function(data) {
+ 								$(location).attr('href', data.update_url);
+ 							}
+						})
 					}
 				});
 			});

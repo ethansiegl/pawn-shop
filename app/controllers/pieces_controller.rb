@@ -13,7 +13,6 @@ class PiecesController < ApplicationController
 
 	helper_method :current_game, :current_piece
 
-
 	def piece_params
 		params.require(:piece).permit(:x_coordinate, :y_coordinate)
 	end
