@@ -9,8 +9,7 @@
 	<body>
 
 		<h1>Welcome to Pawn Shop</h1>
-
-		<table>
+		<table class="game" id="<%= current_game.id %>">
 			<% 8.downto(1) do |column| %>
         <tr class="column <%= column %>">
           <% 1.upto(8) do |row| %>
@@ -38,18 +37,21 @@
 				$('.square').droppable({
 				  drop: function( event, ui ) {
 						var piece_id = $('.piece').attr('id');
-						var location = $(this).attr('id');
+						var location = $('.square').attr('id');
 						var game_id = $('.game').attr('id');
 						$( this )
 	            alert(piece_id + ' ' + location);
 						$.ajax({
 							type: 'PUT',
-							url: '/games/' + 4 + '/pieces/' + piece_id,
+							url: '/games/' + game_id + '/pieces/' + piece_id,
 							dataType: 'json',
-							data: { piece_id: {piece_params: location} },
-							success: function(data) {
- 								$(location).attr('href', data.update_url);
- 							}
+							data: { piece_id, location }
+							//success: function(data) {
+ 								//$(location).attr('href', data.update_url);
+ 							//}
+							//error: function() {
+							//	alert('invalid move');
+							//}
 						})
 					}
 				});
