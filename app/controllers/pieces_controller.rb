@@ -1,7 +1,7 @@
 class PiecesController < ApplicationController
 
 	def show
-		@piece = Piece.find(params[:id])
+		# @piece = Piece.find(params[:id])
 	end
 
 	def update
@@ -22,7 +22,6 @@ class PiecesController < ApplicationController
 	end
 
 	def current_piece
-		@piece ||= Piece.find(params[:id])
+		#@piece ||= Piece.find(params[:id])
 	end
-
 end

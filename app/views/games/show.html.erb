@@ -35,14 +35,16 @@
 				$('.piece').draggable({ snap: '.square' });
 				$('.square').droppable({
 				  drop: function( event, ui ) {
-						var piece_id = $('.piece').attr('id');
+						var piece_id = $('#piece').attr('id');
 						var location = $(this).attr('id');
 						var game_id = $().attr('id');
+						
 						$( this )
 	            alert(piece_id + ' ' + location);
+						
 						$.ajax({
 							type: 'PUT',
-							url: 3 + '/pieces/' + piece_id,
+							url: 3 + '/pieces/' + 1,
 							dataType: 'json',
 							data: { piece_id: {piece_params: location} },
 							success: function(data) {
