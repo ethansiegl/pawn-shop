@@ -16,17 +16,7 @@ class Piece < ActiveRecord::Base
 
 
 	def is_obstructed?(x, y)
-		# returns boolean
-		# does NOT work for knight movement
-
-		# destination_piece = piece_at(destination_x, destination_y)
-
-		# check for piece on destination square
-		# if destination_piece.present?
-		# 	return true
-		# end
-
-		# default return false
+		
 		found = false
 
 		# moving horizontally left => right
