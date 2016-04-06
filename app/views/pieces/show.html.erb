@@ -4,40 +4,60 @@
 <head>
 
 
-</head>	
+</head>
 
 	<body>
 
 		<h1>Welcome to Pawn Shop</h1>
-		
+
 		<table>
 			<% 8.downto(1) do |column| %>
         <tr class="column <%= column %>">
           <% 1.upto(8) do |row| %>
-            <td class="<%= row %> <%= column %>">
+            <td class="square" id="<%= row %> <%= column %>">
               <!--check to see if there is a piece-->
-            	<% if piece = current_game.pieces.detect { |piece| piece.x_coordinate == row && piece.y_coordinate == column } %>           
+            	<% if piece = current_game.pieces.detect { |piece| piece.x_coordinate == row && piece.y_coordinate == column } %>
 
-                <div class="piece" id="piece-<%= piece.id %>">
+                <div class="piece" id="<%= piece.id %>">
                   <%= link_to image_tag ("#{piece.color}#{piece.type.downcase}.png") %>
-                  <%= link_to "move here", game_piece_path(current_game, current_piece, :piece => current_piece, :row => row, :column => column), :method => :put %>
-                </div> 
-                
-                <% else %>
-                <%= "#{row}, #{column}" %>
-                
-                <%= link_to "move here", game_piece_path(current_game, current_piece, :piece => current_piece, :row => row, :column => column), :method => :put %>
-                
-              <% end %>
-                
+                  <%= link_to "move here", game_piece_path(current_game, current_piece, :piece => current_piece, :row => row, :column => column)%>
+                </div>
+
+	              <% end %>
+							</div>
+
             </td>
           <% end %>
         </tr>
-      <% end %> 
+      <% end %>
     </table>
+
+		<script>
+			$(function() {
+				$('.piece').draggable({ snap: '.square' });
+				$('.square').droppable({
+				  drop: function( event, ui ) {
+						var piece_id = $('.piece').attr('id');
+						var location = $(this).attr('id');
+						var game_id = $('.game').attr('id');
+						$( this )
+	            alert(piece_id + ' ' + location);
+						$.ajax({
+							type: 'PUT',
+							url: '/games/' + 4 + '/pieces/' + piece_id,
+							dataType: 'json',
+							data: { piece_id: {piece_params: location} },
+							success: function(data) {
+ 								$(location).attr('href', data.update_url);
+ 							}
+						})
+					}
+				});
+			});
+
+		</script>
 
 	</body>
 
 
-</html>	
-	
+</html>

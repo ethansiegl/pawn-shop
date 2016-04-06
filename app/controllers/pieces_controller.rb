@@ -6,7 +6,7 @@ class PiecesController < ApplicationController
 
 	def update
 		current_piece.update(:x_coordinate => params[:row].to_i, :y_coordinate => params[:column].to_i)
-		render text: 'Next Move!'
+		render text: 'Opponent move'
 	end
 
 	private
