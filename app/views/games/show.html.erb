@@ -3,6 +3,43 @@
 
 <head>
 
+<script>
+    $(function() {
+
+        $('.piece').draggable({
+            snap: '.square'
+        });
+        $('.square').droppable({
+            drop: function(event, ui) {
+                var piece = $(ui.draggable).attr('id');
+                var row = $(this).attr('row_id')
+                var column = $(this).attr('column_id');
+                var game = <%= current_game.id %>
+                console.log("dropped " + piece + " on " + row + "," + column + " for " + game)
+
+                $.ajax({
+                    type: 'PUT',
+                    url: '/games/'+game+'/pieces/'+piece,
+                    dataType: 'html',
+                    data: {
+                        piece_id: piece,
+                        x: row,
+                        y: column
+                    },
+                    success: function() {
+                        console.log("success")
+                    },
+                    error: function() {
+                        console.log("fail")
+                    }
+                });
+
+
+            }
+        });
+    });
+</script>
+
 
 </head>
 
@@ -12,18 +49,16 @@
 
 		<table>
       <% 8.downto(1) do |column| %>
-        <tr class="column <%= column %>">
+        <tr class= "column <%= column %>">
           <% 1.upto(8) do |row| %>
-            <td class=square id="<%= row %> <%= column %>">
+            <td class= "square" row_id ="<%= row %>" column_id = "<%= column %>">
               <!--check to see if there is a piece-->
-							<% piece = @piece %>
-							<div class="piece" id="<%= @piece_params %>">
-								<% @game.pieces.each do | piece | %>
-										<% if piece.x_coordinate == row && piece.y_coordinate == column %>
-											<%= link_to image_tag("#{piece.color}#{piece.type.downcase}.png"), game_piece_path(@game,piece) %>
-										<% end %>
-	              <% end %>
-							</div>
+              <% if piece = @game.pieces.detect { |piece| piece.x_coordinate == row && piece.y_coordinate == column } %>
+
+                <div class="piece" id="<%= piece.id %>">
+                    <%= link_to image_tag("#{piece.color}#{piece.type.downcase}.png"),game_piece_path(@game,piece) %>
+                </div>
+              <% end %>
             </td>
           <% end %>
         </tr>

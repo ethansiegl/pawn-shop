@@ -3,6 +3,43 @@
 
 <head>
 
+ <script>
+    $(function() {
+
+        $('.piece').draggable({
+            snap: '.square'
+        });
+        $('.square').droppable({
+            drop: function(event, ui) {
+                var piece = $(ui.draggable).attr('id');
+                var row = $(this).attr('row_id')
+                var column = $(this).attr('column_id');
+                var game = <%= current_game.id %>
+                console.log("dropped " + piece + " on " + row + "," + column + " for " + game)
+
+                $.ajax({
+                    type: 'PUT',
+                    url: piece,
+                    dataType: 'html',
+                    data: {
+                        piece_id: piece,
+                        x: row,
+                        y: column
+                    },
+                    success: function() {
+                        console.log("success")
+                    },
+                    error: function() {
+                        console.log("fail")
+                    }
+                });
+
+
+            }
+        });
+    });
+</script>
+
 
 </head>
 
@@ -13,7 +50,8 @@
 			<% 8.downto(1) do |column| %>
         <tr class="column <%= column %>">
           <% 1.upto(8) do |row| %>
-            <td class="square" id="<%= row %> <%= column %>">
+
+            <td class= "square" row_id = "<%= row %>" column_id = "<%= column %>">
               <!--check to see if there is a piece-->
             	<% if piece = current_game.pieces.detect { |piece| piece.x_coordinate == row && piece.y_coordinate == column } %>
 
@@ -30,34 +68,6 @@
         </tr>
       <% end %>
     </table>
-
-		<script>
-			$(function() {
-				$('.piece').draggable({ snap: '.square' });
-				$('.square').droppable({
-				  drop: function( event, ui ) {
-						var piece_id = $('.piece').attr('id');
-						var location = $('.square').attr('id');
-						var game_id = $('.game').attr('id');
-						$( this )
-	            alert(piece_id + ' ' + location);
-						$.ajax({
-							type: 'PUT',
-							url: '/games/' + game_id + '/pieces/' + piece_id,
-							dataType: 'json',
-							data: { piece_id, location }
-							//success: function(data) {
- 								//$(location).attr('href', data.update_url);
- 							//}
-							//error: function() {
-							//	alert('invalid move');
-							//}
-						})
-					}
-				});
-			});
-
-		</script>
 
 	</body>
 
