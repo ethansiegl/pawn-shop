@@ -7,9 +7,11 @@
     $(function() {
 
         $('.piece').draggable({
-            snap: '.square'
+            snap: '.square',
+            revert: 'invalid'
         });
         $('.square').droppable({
+            accept: '.piece',
             drop: function(event, ui) {
                 var piece = $(ui.draggable).attr('id');
                 var row = $(this).attr('row_id')
@@ -29,7 +31,8 @@
                     success: function() {
                         console.log("success")
                     },
-                    error: function() {
+                    error: function() {   
+      
                         console.log("fail")
                     }
                 });
