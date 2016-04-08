@@ -11,6 +11,7 @@ class PiecesController < ApplicationController
 			current_piece.move_to!(params[:x], params[:y])
 			render text: 'updated!'
 		else
+			flash.now[:alert] = "Invald Move"
 			render '/games/current_game'
 			# redirect_to game_path(current_game)
 			# flash[:alert] = "Invalid Move"
