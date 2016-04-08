@@ -49,9 +49,7 @@ class Game < ActiveRecord::Base
 	end
 
 	def is_check?
-
 		if turn == white_player_id
-
 			king = self.pieces.find_by(type: 'King', color: 'black')
 			white_pieces = self.pieces.where(color: 'white')
 			white_pieces.each do |piece|
@@ -59,8 +57,8 @@ class Game < ActiveRecord::Base
 					return true
 				end
 			end
+		
 		elsif turn == black_player_id
-			
 			king = self.pieces.find_by(type: 'King', color: 'white')
 			black_pieces = self.pieces.where(color: 'black')
 			black_pieces.each do |piece|

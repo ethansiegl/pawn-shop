@@ -31,7 +31,6 @@ RSpec.describe King, type: :model do
     it "should return false if King moves more than one square in one direction" do
       expect(@white_king.valid_move?(3,7)).to eq false
     end
-
   end
 
 

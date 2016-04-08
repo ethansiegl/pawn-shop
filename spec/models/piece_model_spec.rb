@@ -12,6 +12,25 @@ RSpec.describe Piece, :type => :model do
 		)
 	end
 
+	describe "tests puts_in_check method," do 
+		it "should return false if King tries to move himself into check" do
+      @white_king = King.create(
+        x_coordinate: 2,
+        y_coordinate: 2,
+        game: @game,
+        color: "white"
+        )
+
+      @black_rook = Rook.create(
+        x_coordinate: 3,
+        y_coordinate: 8,
+        game: @game,
+        color: "black"
+        )
+      expect(@white_king.puts_in_check?(3,3)).to eq false
+    end
+	end
+
 	describe "tests 'move_to!' method," do
 		it "should return 'true' if there is no piece on the destination square" do
 			expect(@white_rook.move_to!(2,1)).to eq true
