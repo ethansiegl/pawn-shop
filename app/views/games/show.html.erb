@@ -20,25 +20,27 @@
             drop: function(event, ui) {
                 
                 var original_square_id = $(ui.draggable).parent().attr('id');
+                var captured_piece = $(this).children().attr('id');
                 var piece = $(ui.draggable).attr('id');
-                var row = $(this).attr('row_id')
+                var row = $(this).attr('row_id');
                 var column = $(this).attr('column_id');
                 var game = <%= current_game.id %>
                 
 
                 console.log("original row and column: " + original_square_id );
                 console.log("dropped " + piece + " on " + row + "," + column + " for " + game);
+                console.log("captured piece id : " + captured_piece)
 
                 $.ajax({
                     type: 'PUT',
                     url: '/games/'+game+'/pieces/'+piece,
                     dataType: 'html',
                     data: {
-                        piece_id: piece,
                         x: row,
                         y: column
                     },
                     success: function() {
+                        $('#'+captured_piece).fadeOut("slow");
                         console.log("success");
                     },
                     error: function() {                       
