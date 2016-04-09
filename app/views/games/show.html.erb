@@ -19,8 +19,6 @@
             accept: '.piece',
             drop: function(event, ui) {
                 
-                var original_row = $(ui.draggable).parent().attr('row_id');
-                var original_column = $(ui.draggable).parent().attr('column_id');
                 var original_square_id = $(ui.draggable).parent().attr('id');
                 var piece = $(ui.draggable).attr('id');
                 var row = $(this).attr('row_id')
@@ -43,8 +41,8 @@
                     success: function() {
                         console.log("success");
                     },
-                    error: function() {   
-                        $(ui.draggable).appendTo('');
+                    error: function() {                       
+                        $('#'+piece).css({'left': 0, 'top': 0});
                         alert('Invalid Move');
                         console.log("fail");
                     }
