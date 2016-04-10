@@ -3,30 +3,6 @@ class Piece < ActiveRecord::Base
 
 	belongs_to :game	
 	
-	def puts_in_check?(x,y)
-		if color == "white"
-			opponent_color = "black"
-		elsif color == "black"
-			opponent_color = "white"
-		end
-				
-		king = game.pieces.find_by(type: 'King', color: color)
-		byebug	
-    opponents = game.pieces.find_by(color: opponent_color)
-		opponents.each do |piece|
-			if piece.valid_move?(x,y) && king.valid_move?(x,y)
-				return true 
-				break
-			else
-				false
-			end
-		end
-		# loop through all pieces in game
-		# feed x,y coordinates into each piece's individual valid_move?(x,y) method
-		# if everything comes back false, move is legal. 
-		# should return true if the king is trying to move into check
-	end
-
 	def move_to!(x,y)
 		destination_piece = piece_at(x,y)	
 		return false if friendly_piece?(destination_piece)
@@ -40,7 +16,8 @@ class Piece < ActiveRecord::Base
 	end
 
 
-	def is_obstructed?(x, y)	
+	def is_obstructed?(x, y)
+		byebug
 		found = false
 
 		# moving horizontally left => right
@@ -132,7 +109,7 @@ class Piece < ActiveRecord::Base
 		target_piece.update(taken: true, x_coordinate: nil, y_coordinate: nil)
 	end
 
-	def update_coordinates(x,y)
+  def update_coordinates(x,y)
 		update(x_coordinate: x, y_coordinate: y)
 	end
 

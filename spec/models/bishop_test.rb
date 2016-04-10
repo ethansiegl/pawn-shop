@@ -19,8 +19,22 @@ RSpec.describe Piece, :type => :model do
 			expect(@white_bishop.valid_move?(3,3)).to eq true
 		end
 
-		it "should return false if move is off board" do
+		it "should return false if move is not on board" do
 			expect(@white_bishop.valid_move?(15,15)).to eq false
 		end
+
+		it "should return false if there is no move" do 
+			expect(@white_bishop.valid_move?(1,1)).to eq false
+		end
+
+		it "should return false if move is obstructed" do
+			@black_bishop = Bishop.create(
+			x_coordinate: 2,
+			y_coordinate: 2,
+			color: "black"
+			)
+			expect(@white_bishop.valid_move?(3,3)).to eq false
+		end
+
 	end
 end
