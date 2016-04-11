@@ -17,7 +17,6 @@ class GamesController < ApplicationController
 
 	def show
 		@game = Game.find(params[:id])
-		
 	end
 
 	def update
@@ -26,10 +25,18 @@ class GamesController < ApplicationController
 		redirect_to game_path(@game)
 	end
 
+
 	private
 	
+
+	helper_method :current_game
+
 	def game_params
 		params.require(:game).permit(:name, :white_player_id, :black_player_id)
+	end
+
+	def current_game
+		@game ||= Game.find(params[:id])
 	end
 
 

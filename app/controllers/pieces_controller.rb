@@ -4,8 +4,18 @@ class PiecesController < ApplicationController
 	end
 	
 	def update
-		current_piece.update(:x_coordinate => params[:row], :y_coordinate => params[:column])
-		redirect_to game_path(current_game)
+		# current_piece.update(:x_coordinate => params[:x], :y_coordinate => params[:y])
+		# render text: 'updated!'
+
+		if current_piece.valid_move?(params[:x].to_i, params[:y].to_i)
+			current_piece.move_to!(params[:x], params[:y])
+			render text: 'updated!'
+		else
+			flash.now[:alert] = "Invald Move"
+			render '/games/current_game'
+			# redirect_to game_path(current_game)
+			# flash[:alert] = "Invalid Move"
+		end
 	end	
 
 

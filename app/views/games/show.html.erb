@@ -3,23 +3,69 @@
 
 <head>
 
+<script>
+    $(function() {
+        $('.piece').draggable({
+            snap: '.square',
+            snapMode: 'outer',
+            snapTolerance: 40,
+            revert: 'invalid',
+            opacity: 0.20,
+            refreshPositions: true
+        });
+
+        $('.square').droppable({
+            accept: '.piece',
+            drop: function(event, ui) {
+                
+                var original_square_id = $(ui.draggable).parent().attr('id');
+                var captured_piece = $(this).children().attr('id');
+                var piece = $(ui.draggable).attr('id');
+                var row = $(this).attr('row_id');
+                var column = $(this).attr('column_id');
+                var game = <%= current_game.id %>
+                
+
+                console.log("original row and column: " + original_square_id );
+                console.log("dropped " + piece + " on " + row + "," + column + " for " + game);
+                console.log("captured piece id : " + captured_piece)
+
+                $.ajax({
+                    type: 'PUT',
+                    url: '/games/'+game+'/pieces/'+piece,
+                    dataType: 'html',
+                    data: {
+                        x: row,
+                        y: column
+                    },
+                    success: function() {
+                        $('#'+captured_piece).fadeOut("slow");
+                        console.log("success");
+                    },
+                    error: function() {                       
+                        $('#'+piece).css({'left': 0, 'top': 0});
+                        alert('Invalid Move');
+                        console.log("fail");
+                    }
+                });
+            }
+        });
+    });
+</script>
 
 </head>	
-
 	<body>
-
 		<h1>Welcome to Pawn Shop</h1>
-		
 		<table>
       <% 8.downto(1) do |column| %>
-        <tr class="column <%= column %>">
+        <tr class= "column <%= column %>">
           <% 1.upto(8) do |row| %>
-            <td class="<%= row %> <%= column %>">
+            <td class= "square" row_id ="<%= row %>" column_id = "<%= column %>" id = "<%= row %><%= column %>" >
               <!--check to see if there is a piece-->
               <% if piece = @game.pieces.detect { |piece| piece.x_coordinate == row && piece.y_coordinate == column } %>        
 
-                <div class="piece" id="piece-<%= piece.id %>">
-                  <%= link_to image_tag("#{piece.color}#{piece.type.downcase}.png"), game_piece_path(@game,piece) %>
+                <div class="piece" id="<%= piece.id %>">
+                    <%= image_tag("#{piece.color}#{piece.type.downcase}.png")%> 
                 </div>
             
               <% end %>

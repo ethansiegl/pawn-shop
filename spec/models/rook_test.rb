@@ -31,6 +31,17 @@ RSpec.describe Rook, :type => :model do
     	expect(@white_rook.valid_move?(2,5)).to eq false
     end
 
+    it "should return true if Rook is trying to capture opponent" do 
+      @black_pawn = Pawn.create(
+        x_coordinate: 2,
+        y_coordinate: 6,
+        game: @game,
+        color: "black"
+        )
+      expect(@white_rook.valid_move?(2,6)).to eq true
+    end
+
+
     it "should return false if Rook movement is off board" do 
       expect(@white_rook.valid_move?(15,2)).to eq false
     end
