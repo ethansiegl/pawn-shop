@@ -26,7 +26,7 @@ class GamesController < ApplicationController
 
 
 	private
-	
+
 	helper_method :current_game
 
 	def game_params
