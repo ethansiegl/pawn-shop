@@ -15,9 +15,24 @@ class Piece < ActiveRecord::Base
 		end
 	end
 
+	def puts_in_check?(x,y)
+		if color == "white"
+			opposite_color = "black"
+		elsif color == "black"
+			opposite_color = "white"
+		end
+				
+		opponents = game.pieces.where(color: opposite_color)
+		opponents.each do |piece|
+			if piece.valid_move?(x,y) 
+				return true 
+			else
+		  	return false
+		  end
+		end
+	end
 
 	def is_obstructed?(x, y)
-		byebug
 		found = false
 
 		# moving horizontally left => right
