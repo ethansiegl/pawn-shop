@@ -15,23 +15,6 @@ class Piece < ActiveRecord::Base
 		end
 	end
 
-	def puts_in_check?(x,y)
-		if color == "white"
-			opposite_color = "black"
-		elsif color == "black"
-			opposite_color = "white"
-		end
-				
-		opponents = game.pieces.where(color: opposite_color)
-		opponents.each do |piece|
-			if piece.valid_move?(x,y) 
-				return true 
-			else
-		  	return false
-		  end
-		end
-	end
-
 	def is_obstructed?(x, y)
 		found = false
 
@@ -155,6 +138,23 @@ class Piece < ActiveRecord::Base
  	def is_white?(piece)
  		piece.color == "white" ? true : false
  	end	
+
+ 	def puts_in_check?(x,y)
+		if color == "white"
+			opposite_color = "black"
+		elsif color == "black"
+			opposite_color = "white"
+		end
+				
+		opponents = game.pieces.where(color: opposite_color)
+		opponents.each do |piece|
+			if piece.valid_move?(x,y) 
+				return true 
+			else
+		  	return false
+		  end
+		end
+	end
 end
 
   	
