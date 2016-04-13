@@ -1,0 +1,81 @@
+<DOCTYPE html>
+<html>
+
+<head>
+
+ <script>
+    $(function() {
+
+        $('.piece').draggable({
+            snap: '.square'
+        });
+        $('.square').droppable({
+            drop: function(event, ui) {
+                var piece = $(ui.draggable).attr('id');
+                var row = $(this).attr('row_id')
+                var column = $(this).attr('column_id');
+                var game = <%= current_game.id %>
+                console.log("dropped " + piece + " on " + row + "," + column + " for " + game)
+
+                $.ajax({
+                    type: 'PUT',
+                    url: piece,
+                    dataType: 'html',
+                    data: {
+                        piece_id: piece,
+                        x: row,
+                        y: column
+                    },
+                    success: function() {
+                        console.log("success");
+                    },
+                    error: function() {
+                        ;
+                        console.log("fail");
+                    }
+                });
+
+
+            }
+        });
+    });
+</script>
+
+
+</head>	
+
+	<body>
+
+		<h1>Welcome to Pawn Shop</h1>
+		
+		<table>
+			<% 8.downto(1) do |column| %>
+        <tr class="column <%= column %>">
+          <% 1.upto(8) do |row| %>
+            <td class= "square" row_id = "<%= row %>" column_id = "<%= column %>">
+              <!--check to see if there is a piece-->
+            	<% if piece = current_game.pieces.detect { |piece| piece.x_coordinate == row && piece.y_coordinate == column } %>           
+
+                <div class="piece" id="<%= piece.id %>">
+                  <%= link_to image_tag ("#{piece.color}#{piece.type.downcase}.png") %>
+                  <%= link_to "move here", game_piece_path(current_game, current_piece, :piece => current_piece, :row => row, :column => column), :method => :put %>
+                </div> 
+                
+                <% else %>
+                <%= "#{row}, #{column}" %>
+                
+                <%= link_to "move here", game_piece_path(current_game, current_piece, :piece => current_piece, :row => row, :column => column), :method => :put %>
+                
+              <% end %>
+                
+            </td>
+          <% end %>
+        </tr>
+      <% end %> 
+    </table>
+
+	</body>
+
+
+</html>	
+	
