@@ -31,6 +31,16 @@ RSpec.describe Knight, type: :model do
     it "should return false if the knight moves off board" do
       expect(@white_knight.valid_move?(8,9)).to eq false
     end
+
+    it "2nd test should return true if the knight moves one horizontal space and two vertical spaces" do
+      @whiteknight = Knight.create(
+      x_coordinate: 2,
+      y_coordinate: 1,
+      game: @game,
+      color: "white"
+    )
+      expect(@whiteknight.valid_move?(3, 3)).to eq true
+    end
   end
 
 end

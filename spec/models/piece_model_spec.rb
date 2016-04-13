@@ -55,14 +55,14 @@ RSpec.describe Piece, :type => :model do
       expect(@white_rook.is_obstructed?(4,4)).to eq false
     end
 
-    it "should return 'true' if there is a piece ON the destination coordinate" do 
+    it "should return 'false' if there is a piece ON the destination coordinate" do 
     	black_rook = Rook.create(
 				x_coordinate: 6,
 				y_coordinate: 4,
 				game: @game, 
 				color: "black"
 			)
-    	expect(@white_rook.is_obstructed?(6,4)).to eq true
+    	expect(@white_rook.is_obstructed?(6,4)).to eq false
     end
 
     it "should return 'FALSE' if there is a piece on the destination coordinate in another game" do 
