@@ -20,8 +20,12 @@ class GamesController < ApplicationController
 
 	def update
 		@game = Game.find(params[:id])
-		@game.set_black_player(current_user.id)
-		redirect_to game_path(@game)
+		#@game.set_black_player(current_user.id)
+
+		#respond_to do | format |
+		#	format.html { redirect_to game_path }
+		#	format.json { render 'update.js.erb' }
+		#end
 	end
 
 

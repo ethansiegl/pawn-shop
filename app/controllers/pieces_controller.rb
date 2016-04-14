@@ -3,17 +3,20 @@ class PiecesController < ApplicationController
 
 	def show
 		@piece = Piece.find(params[:id])
+		#render :template => "games/show"
 	end
 
 
 	def update
-		if current_piece.valid_move?(params[:x].to_i, params[:y].to_i)
-			current_piece.move_to!(params[:x], params[:y])
-			 render text: 'updated!'
-		else
-			flash.now[:alert] = "Invald Move"
-			render '/games/current_game'
-		end
+	  if current_piece.valid_move?(params[:x].to_i, params[:y].to_i)
+	    current_piece.move_to!(params[:x], params[:y])
+			respond_to do | format |
+				format.html { render :show }
+				format.json { render json: { update_url: game_path(current_game) } }
+			end
+	  else
+	    flash.now[:alert] = "Invalid Move"
+	  end
 	end
 
 
