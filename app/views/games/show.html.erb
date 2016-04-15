@@ -36,11 +36,11 @@
                         x: row,
                         y: column
                     },
-                    success: function() {
+                    success: function(data) {
                       $('#'+capturedPiece).fadeOut("slow");
                     },
 
-                    error: function() {
+                    error: function(data) {
                         $('#'+piece).css({'left': 0, 'top': 0});
                         alert('Invalid Move');
                         console.log("fail");

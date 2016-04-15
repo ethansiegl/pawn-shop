@@ -16,6 +16,9 @@ class PiecesController < ApplicationController
 			end
 	  else
 	    flash.now[:alert] = "Invalid Move"
+			respond_to do | format |
+				format.html { render :nothing => true }
+			end
 	  end
 	end
 
