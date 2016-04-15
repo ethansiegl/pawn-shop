@@ -1,5 +1,4 @@
 require "rails_helper"
-
 RSpec.describe Piece, :type => :model do
 	before :each do 
 		@game = Game.create
