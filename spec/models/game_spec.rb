@@ -34,8 +34,32 @@ RSpec.describe Game, type: :model do
 	end	
 
 	describe "test checkmate method" do
-		it "should return true if the game is in checkmate" do 
-			@game = Game.new
+		# it "should return TRUE if the game is in checkmate" do 
+		# 	@game = Game.create 
+	 #    @game.pieces.each(&:delete)
+	 #    @white_king = King.create(
+	 #      x_coordinate: 1,
+	 #      y_coordinate: 1,
+	 #      game: @game,
+	 #      color: "white"
+	 #    )
+	 #    @black_rook = Rook.create(
+	 #    	x_coordinate: 7,
+	 #      y_coordinate: 1,
+	 #      game: @game,
+	 #      color: "black"	
+	 #    	)
+	 #    @black_rook = Rook.create(
+	 #    	x_coordinate: 7,
+	 #      y_coordinate: 2,
+	 #      game: @game,
+	 #      color: "black"	
+	 #    	)
+		# 	expect(@game.checkmate?("white")).to eq true
+		# end
+
+		it "should return false if the king is not in check" do
+			@game = Game.create
 	    @game.pieces.each(&:delete)
 	    @white_king = King.create(
 	      x_coordinate: 1,
@@ -43,31 +67,33 @@ RSpec.describe Game, type: :model do
 	      game: @game,
 	      color: "white"
 	    )
-	    @black_rook = Rook.create(
-	    	x_coordinate: 7,
-	      y_coordinate: 1,
-	      game: @game,
-	      color: "black"	
-	    	)
-	    @black_rook = Rook.create(
-	    	x_coordinate: 7,
-	      y_coordinate: 2,
-	      game: @game,
-	      color: "black"	
-	    	)
-			expect(@game.checkmate?).to eq true
+			expect(@game.checkmate?("white")).to eq false 
 		end
 
-		it "should return false if the king is not in check" do 
-			@game = Game.new
+		it "should return false if piece causing check can be captured by friendly piece" do
+			@game = Game.create
 	    @game.pieces.each(&:delete)
 	    @white_king = King.create(
-	      x_coordinate: 1,
-	      y_coordinate: 1,
-	      game: @game,
-	      color: "white"
+      	x_coordinate: 1,
+      	y_coordinate: 1,
+      	game: @game,
+      	color: "white"
 	    )
-		  expect(@game.checkmate?).to eq false
+      @black_rook = Rook.create(
+    		x_coordinate: 7,
+      	y_coordinate: 1,
+      	game: @game,
+      	color: "black"	
+    	)
+    	@white_rook = Rook.create(
+    		x_coordinate: 7,
+      	y_coordinate: 7,
+      	game: @game,
+      	color: "white"	
+  		)
+			expect(@game.checkmate?("white")).to eq false 
+
+			
 		end
 	end	
 end

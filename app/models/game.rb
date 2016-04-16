@@ -1,3 +1,4 @@
+require 'byebug'
 class Game < ActiveRecord::Base
 
 	after_create :initiate_new_board
@@ -72,26 +73,36 @@ class Game < ActiveRecord::Base
 	def in_check?(color)
 		king = pieces.find_by(type: 'King', color: color)
 
-		if color == "white"
-			opposite_color = "black"
-		elsif color == "black"
-			opposite_color = "white"
-		end
+		opponents = pieces_remaining(!color)
 
-		opponenets = game.pieces.where(color: opposite_color)
-		
-		opponenets.each do |piece|
+		opponents.each do |piece|
 			if piece.valid_move?(king.x_coordinate, king.y_coordinate)
+				@piece_causing_check = piece
 				return true
+				break
 			end
 		end
 		false
 	end
 
-	def checkmate?
-		true
-		# should return false if king is not in check
+	def checkmate?(color)
+		checked_king = pieces.find_by(type: 'King', color: color)
+
+		# should return false if king is not in check 
+		return false unless in_check?(color) 
+
 		# should check to see if another piece can capture checking piece
+		friendly_pieces = pieces_remaining(color)
+
+		friendly_pieces.each do |piece|
+			if piece.valid_move?(@piece_causing_check.x_coordinate, @piece_causing_check.y_coordinate)
+				return true
+				break
+			end
+		end
+		false
+
+		
 		# should check if king can move out of check
 		# should check if another piece can block check 
 	end
@@ -107,5 +118,10 @@ class Game < ActiveRecord::Base
 	def set_black_player(user)
 		update_attribute(:black_player_id, user) if black_player_id.nil?
 	end
+
+	def pieces_remaining(color)
+    pieces.includes(:game).where(
+      "color = ?", color).to_a
+  end
 end
 

@@ -14,10 +14,9 @@ RSpec.describe Pawn, type: :model do
 
   describe "valid move for Pawn piece" do
 
-     it "should return false if move is out of the board" do
+    it "should return false if move is out of the board" do
       expect(@white_pawn.valid_move?(2,10)).to eq false
     end
-
 
     it "should return true if Pawn moves one square vertically" do
       expect(@white_pawn.valid_move?(2, 3)).to eq true
@@ -30,7 +29,6 @@ RSpec.describe Pawn, type: :model do
      it "should return true if Pawn moves two squares on first turn" do
       expect(@white_pawn.valid_move?(2,4)).to eq true
     end
-
 
     it "should return false if Pawn moves two squares on second turn" do
       @white_pawn = Pawn.create(
@@ -81,13 +79,8 @@ RSpec.describe Pawn, type: :model do
       expect(@whitepawn.valid_move?(4,5)).to eq true
     end
 
-
-
     it "should return false if Pawn stays in one place" do
       expect(@white_pawn.valid_move?(2,2)).to eq false
     end
-
   end
-
-
 end
