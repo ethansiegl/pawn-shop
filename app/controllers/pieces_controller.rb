@@ -22,6 +22,10 @@ class PiecesController < ApplicationController
 	  end
 	end
 
+	def promote_pawn
+		
+	end
+
 
 	private
 

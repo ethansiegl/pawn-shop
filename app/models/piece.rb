@@ -1,15 +1,15 @@
 require 'byebug'
 class Piece < ActiveRecord::Base
 
-	belongs_to :game	
-	
+	belongs_to :game
+
 	def move_to!(x,y)
-		destination_piece = piece_at(x,y)	
+		destination_piece = piece_at(x,y)
 		return false if friendly_piece?(destination_piece)
 
 		if !destination_piece.present?
 			update_coordinates(x,y)
-		else 
+		else
 			capture!(destination_piece)
 			update_coordinates(x,y)
 		end
@@ -112,17 +112,17 @@ class Piece < ActiveRecord::Base
 	end
 
 	def friendly_piece?(piece)
-		return true if piece.present? && color == piece.color  
+		return true if piece.present? && color == piece.color
 	end
 
   def on_board?(x, y)
-  	(x > 8 || y > 8 || x < 1 || y < 1) ? false : true	
+  	(x > 8 || y > 8 || x < 1 || y < 1) ? false : true
 	end
 
 	def no_move?(x, y)
  		(x == x_coordinate) && (y == y_coordinate) ? true : false
  	end
- 	
+
  	def horizontal_move?(x, y)
  		(x != x_coordinate) && (y == y_coordinate) ? true : false
  	end
@@ -137,7 +137,7 @@ class Piece < ActiveRecord::Base
 
  	def is_white?(piece)
  		piece.color == "white" ? true : false
- 	end	
+ 	end
 
  	def puts_in_check?(x,y)
 		if color == "white"
@@ -145,16 +145,27 @@ class Piece < ActiveRecord::Base
 		elsif color == "black"
 			opposite_color = "white"
 		end
-				
+
 		opponents = game.pieces.where(color: opposite_color)
 		opponents.each do |piece|
-			if piece.valid_move?(x,y) 
-				return true 
+			if piece.valid_move?(x,y)
+				return true
 			else
 		  	return false
 		  end
 		end
 	end
-end
 
-  	
+	#def captured_pieces
+		#game.pieces.where(taken: = true)
+	#end
+
+	#def pawn_promotion(pawn)
+	#	black_pawn = self.pieces.find_by(type: 'Pawn', color: 'black')
+	#	white_pawn = self.pieces.find_by(type: 'Pawn', color: 'white')
+
+	#	pawn_promotion(white_pawn) if white_pawn.where(y_coordinate: 8)
+	#	pawn_promotion(black_pawn) if black_pawn.where(y_coordinate: 1)
+	#end
+
+end
