@@ -6,7 +6,6 @@ class PiecesController < ApplicationController
 		#render :template => "games/show"
 	end
 
-
 	def update
 	  if current_piece.valid_move?(params[:x].to_i, params[:y].to_i)
 	    current_piece.move_to!(params[:x], params[:y])
@@ -21,11 +20,6 @@ class PiecesController < ApplicationController
 			end
 	  end
 	end
-
-	def promote_pawn
-		
-	end
-
 
 	private
 

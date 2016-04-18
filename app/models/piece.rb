@@ -156,16 +156,21 @@ class Piece < ActiveRecord::Base
 		end
 	end
 
-	#def captured_pieces
-		#game.pieces.where(taken: = true)
-	#end
+	def captured_pieces
+		game.pieces.where(taken: true)
+	end
 
-	#def pawn_promotion(pawn)
-	#	black_pawn = self.pieces.find_by(type: 'Pawn', color: 'black')
-	#	white_pawn = self.pieces.find_by(type: 'Pawn', color: 'white')
+	def promote_pawn?(pawn)
+		black_pawn = self.pieces.find_by(type: "Pawn", color: "black")
+		white_pawn = self.pieces.find_by(type: "Pawn", color: "white")
 
-	#	pawn_promotion(white_pawn) if white_pawn.where(y_coordinate: 8)
-	#	pawn_promotion(black_pawn) if black_pawn.where(y_coordinate: 1)
-	#end
+		if white_pawn.where(y_coordinate: 8)
+			return captured_pieces.where(color: "white")
+		end
+
+		if black_pawn.where(y_coordinate: 1)
+			return captured_pieces.where(color: "black")
+		end
+	end
 
 end

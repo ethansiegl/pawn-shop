@@ -78,6 +78,31 @@
       <% end %>
     </table>
 
+    <!-- Modal -->
+    <div class="modal">
+      <input class="modal-state" id="pawn_promo" type="checkbox" />
+        <div class="modal-fade-screen">
+          <div class="modal-content">
+            <div class="modal-close" for="pawn_promo"></div>
+              <hgroup>
+                <h4>Promote your pawn!</h4>
+                <h6>Choose your piece:</h6>
+              </hgroup>
+              <form action="#" class="promotion-choice">
+                <div class="promo-selection-container">
+                  <!--
+                    <%= link_to image_tag("#{piece.color}#{piece.type.downcase}.png"), game_piece_path(@game,piece) %>
+                  -->
+                </div>
+                <div class="promo-selection-submit">
+                  <input type="submit">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
 
 	</body>
 
