@@ -33,7 +33,7 @@ class Game < ActiveRecord::Base
 	 			x_coordinate: n,
 	 			y_coordinate: 2,
 	 			color: 'white',
-	 			game: self)			
+	 			game: self)
  		end
 
 	 	#white pieces
@@ -56,7 +56,7 @@ class Game < ActiveRecord::Base
 					return true
 				end
 			end
-		
+
 		elsif turn == black_player_id
 			king = self.pieces.find_by(type: 'King', color: 'white')
 			black_pieces = self.pieces.where(color: 'black')
@@ -64,8 +64,8 @@ class Game < ActiveRecord::Base
 				if piece.valid_move?(king.x_coordinate, king.y_coordinate)
 					return true
 				end
-			end 
-		else 
+			end
+		else
 			return false
 		end
 	end
@@ -88,8 +88,8 @@ class Game < ActiveRecord::Base
 	def checkmate?(color)
 		checked_king = pieces.find_by(type: 'King', color: color)
 
-		# should return false if king is not in check 
-		return false unless in_check?(color) 
+		# should return false if king is not in check
+		return false unless in_check?(color)
 
 		# should check to see if another piece can capture checking piece
 		friendly_pieces = pieces_remaining(color)
@@ -100,11 +100,14 @@ class Game < ActiveRecord::Base
 				break
 			end
 		end
-		false
 
-		
 		# should check if king can move out of check
-		# should check if another piece can block check 
+		if checked_king.can_move_out_of_check?
+			return false
+		end
+
+		# should check if another piece can block check
+		# false
 	end
 
 	def find_king(color)
@@ -124,4 +127,3 @@ class Game < ActiveRecord::Base
       "color = ?", color).to_a
   end
 end
-
