@@ -1,103 +1,116 @@
 require 'byebug'
 class Piece < ActiveRecord::Base
 
-	belongs_to :game	
-	
+	belongs_to :game
+
 	def move_to!(x,y)
-		destination_piece = piece_at(x,y)	
+		destination_piece = piece_at(x,y)
 		return false if friendly_piece?(destination_piece)
 
 		if !destination_piece.present?
 			update_coordinates(x,y)
-		else 
+		else
 			capture!(destination_piece)
 			update_coordinates(x,y)
 		end
 	end
 
-	def is_obstructed?(x, y)
-		found = false
+  def obstructed_horizontally?(dest_x, dest_y)
+    if dest_x > x_coordinate
+      (x_coordinate + 1).upto(dest_x - 1) do |x|
+        return true if horizontal_move?(x, dest_y) && piece_at?(x, dest_y)
+      end
+    elsif dest_x < x_coordinate
+      (x_coordinate - 1).downto(dest_x + 1) do |x|
+        return true if horizontal_move?(x, y_coordinate) && piece_at?(x, dest_y)
+      end
+    end
+    false
+  end
 
-		# moving horizontally left => right
-		(x_coordinate + 1).upto(x - 1).each do |x_pos|
-			between_squares = game.pieces.where(x_coordinate: x_pos, y_coordinate: y).first
-			if between_squares.present?
-				found = true
-				break
-			end
-		end
-		found
-
-		# moving horizontally right => left
-		(x_coordinate - 1).downto(x + 1).each do |x_pos|
-		between_squares = game.pieces.where(x_coordinate: x_pos, y_coordinate: y).first
-			if between_squares.present?
-				found = true
-				break
-			end
-		end
-		found
-
-		# moving vertically bottom => top
-		(y_coordinate + 1).upto(y - 1).each do |y_pos|
-			between_squares = game.pieces.where(x_coordinate: x, y_coordinate: y_pos).first
-			if between_squares.present?
-				found = true
-				break
-			end
-		end
-		found
-
-		# moving vertically top => bottom
-		(y_coordinate - 1).downto(y + 1).each do |y_pos|
-			between_squares = game.pieces.where(x_coordinate: x, y_coordinate: y_pos).first
-			if between_squares.present?
-				found = true
-				break
-			end
-		end
-		found
-
-		# moving diagonally right + up
-		(y_coordinate + 1).upto(y - 1).each do |y_pos|
-			between_squares = game.pieces.where(x_coordinate: x_coordinate + 1, y_coordinate: y_pos).first
-			if between_squares.present?
-				found = true
-				break
-			end
-		end
-		found
-
-		# moving diagonally right + down
-		(y_coordinate - 1).downto(y + 1).each do |y_pos|
-			between_squares = game.pieces.where(x_coordinate: x_coordinate + 1, y_coordinate: y_pos).first
-			if between_squares.present?
-				found = true
-				break
-			end
-		end
-		found
-
-		# moving diagonally left + up
-		(y_coordinate + 1).upto(y - 1).each do |y_pos|
-			between_squares = game.pieces.where(x_coordinate: x_coordinate - 1, y_coordinate: y_pos).first
-			if between_squares.present?
-				found = true
-				break
-			end
-		end
-		found
-
-		# moving diagonally left + down
-		(y_coordinate - 1).downto(y + 1).each do |y_pos|
-			between_squares = game.pieces.where(x_coordinate: x_coordinate - 1, y_coordinate: y_pos).first
-			if between_squares.present?
-				found = true
-				break
-			end
-		end
-		return found
-	end
+	# def is_obstructed?(x, y)
+	# 	found = false
+	#
+	# 	# moving horizontally left => right
+	# 	(x_coordinate + 1).upto(x - 1).each do |x_pos|
+	# 		between_squares = game.pieces.where(x_coordinate: x_pos, y_coordinate: y).first
+	# 		if between_squares.present?
+	# 			found = true
+	# 			break
+	# 		end
+	# 	end
+	# 	found
+	#
+	# 	# moving horizontally right => left
+	# 	(x_coordinate - 1).downto(x + 1).each do |x_pos|
+	# 	between_squares = game.pieces.where(x_coordinate: x_pos, y_coordinate: y).first
+	# 		if between_squares.present?
+	# 			found = true
+	# 			break
+	# 		end
+	# 	end
+	# 	found
+	#
+	# 	# moving vertically bottom => top
+	# 	(y_coordinate + 1).upto(y - 1).each do |y_pos|
+	# 		between_squares = game.pieces.where(x_coordinate: x, y_coordinate: y_pos).first
+	# 		if between_squares.present?
+	# 			found = true
+	# 			break
+	# 		end
+	# 	end
+	# 	found
+	#
+	# 	# moving vertically top => bottom
+	# 	(y_coordinate - 1).downto(y + 1).each do |y_pos|
+	# 		between_squares = game.pieces.where(x_coordinate: x, y_coordinate: y_pos).first
+	# 		if between_squares.present?
+	# 			found = true
+	# 			break
+	# 		end
+	# 	end
+	# 	found
+	#
+	# 	# moving diagonally right + up
+	# 	(y_coordinate + 1).upto(y - 1).each do |y_pos|
+	# 		between_squares = game.pieces.where(x_coordinate: x_coordinate + 1, y_coordinate: y_pos).first
+	# 		if between_squares.present?
+	# 			found = true
+	# 			break
+	# 		end
+	# 	end
+	# 	found
+	#
+	# 	# moving diagonally right + down
+	# 	(y_coordinate - 1).downto(y + 1).each do |y_pos|
+	# 		between_squares = game.pieces.where(x_coordinate: x_coordinate + 1, y_coordinate: y_pos).first
+	# 		if between_squares.present?
+	# 			found = true
+	# 			break
+	# 		end
+	# 	end
+	# 	found
+	#
+	# 	# moving diagonally left + up
+	# 	(y_coordinate + 1).upto(y - 1).each do |y_pos|
+	# 		between_squares = game.pieces.where(x_coordinate: x_coordinate - 1, y_coordinate: y_pos).first
+	# 		if between_squares.present?
+	# 			found = true
+	# 			break
+	# 		end
+	# 	end
+	# 	found
+	#
+	# 	# moving diagonally left + down
+	# 	(y_coordinate - 1).downto(y + 1).each do |y_pos|
+	# 		between_squares = game.pieces.where(x_coordinate: x_coordinate - 1, y_coordinate: y_pos).first
+	# 		if between_squares.present?
+	# 			found = true
+	# 			break
+	# 		end
+	# 	end
+	# 	return found
+	# end
 
 	def piece_at(x, y)
 		game.pieces.where(x_coordinate: x, y_coordinate: y).take
@@ -112,17 +125,17 @@ class Piece < ActiveRecord::Base
 	end
 
 	def friendly_piece?(piece)
-		return true if piece.present? && color == piece.color  
+		return true if piece.present? && color == piece.color
 	end
 
   def on_board?(x, y)
-  	(x > 8 || y > 8 || x < 1 || y < 1) ? false : true	
+  	(x > 8 || y > 8 || x < 1 || y < 1) ? false : true
 	end
 
 	def no_move?(x, y)
  		(x == x_coordinate) && (y == y_coordinate) ? true : false
  	end
- 	
+
  	def horizontal_move?(x, y)
  		(x != x_coordinate) && (y == y_coordinate) ? true : false
  	end
@@ -137,7 +150,7 @@ class Piece < ActiveRecord::Base
 
  	def is_white?(piece)
  		piece.color == "white" ? true : false
- 	end	
+ 	end
 
  	def puts_in_check?(x,y)
 		if color == "white"
@@ -145,12 +158,10 @@ class Piece < ActiveRecord::Base
 		elsif color == "black"
 			opposite_color = "white"
 		end
-				
+
 		opponents = game.pieces.where(color: opposite_color)
 		opponents.each do |piece|
-			return true if piece.valid_move?(x,y) 
+			return true if piece.valid_move?(x,y)
 		end
 	end
 end
-
-  	
