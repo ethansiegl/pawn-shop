@@ -41,6 +41,35 @@ class Piece < ActiveRecord::Base
     false
   end
 
+	def obstructed_diagonally?(dest_x, dest_y)
+    if dest_x > x_coordinate && dest_y > y_coordinate
+      (x_coordinate + 1).upto(dest_x - 1) do |x|
+        (y_coordinate + 1).upto(dest_y - 1) do |y|
+          return true if diagonal_move?(x, y) && piece_at?(x, y)
+        end
+      end
+    elsif dest_x > x_coordinate && dest_y < y_coordinate
+      (x_coordinate + 1).upto(dest_x - 1) do |x|
+        (y_coordinate - 1).downto(dest_y + 1) do |y|
+          return true if diagonal_move?(x, y) && piece_at?(x, y)
+        end
+      end
+    elsif dest_x < x_coordinate && dest_y > y_coordinate
+      (x_coordinate - 1).downto(dest_x + 1) do |x|
+        (y_coordinate + 1).upto(dest_y - 1) do |y|
+          return true if diagonal_move?(x, y) && piece_at?(x, y)
+        end
+      end
+    elsif dest_x < x_coordinate && dest_y < y_coordinate
+      (position_x - 1).downto(dest_x + 1) do |x|
+        (position_y - 1).downto(dest_y + 1) do |y|
+          return true if diagonal_move?(x, y) && piece_at?(x, y)
+        end
+      end
+    end
+    false
+  end
+
 	# def is_obstructed?(x, y)
 	# 	found = false
 	#
