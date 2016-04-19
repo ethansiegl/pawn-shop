@@ -124,6 +124,8 @@ class Piece < ActiveRecord::Base
 		opponents = game.pieces.where(color: opposite_color)
 		opponents.each do |piece|
 			return true if piece.valid_move?(x,y)
+			break
 		end
+		false
 	end
 end
