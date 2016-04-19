@@ -90,9 +90,12 @@
               </hgroup>
               <form action="#" class="promotion-choice">
                 <div class="promo-selection-container">
-                  <!--
+                  <% (@game.captured_piece).each do | piece | %>
+                    <div class="promo-selection-choice">
                     <%= link_to image_tag("#{piece.color}#{piece.type.downcase}.png"), game_piece_path(@game,piece) %>
-                  -->
+                    <input type="radio" name="piece-type" value="<%= piece.type %>" id="<%= piece.type.downcase %>">
+                    </div>
+                  <% end %>
                 </div>
                 <div class="promo-selection-submit">
                   <input type="submit">
