@@ -61,8 +61,8 @@ class Piece < ActiveRecord::Base
         end
       end
     elsif dest_x < x_coordinate && dest_y < y_coordinate
-      (position_x - 1).downto(dest_x + 1) do |x|
-        (position_y - 1).downto(dest_y + 1) do |y|
+      (x_coordinate - 1).downto(dest_x + 1) do |x|
+        (x_coordinate - 1).downto(dest_y + 1) do |y|
           return true if diagonal_move?(x, y) && space_occupied?(x, y)
         end
       end

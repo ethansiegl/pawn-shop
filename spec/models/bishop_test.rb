@@ -11,6 +11,7 @@ RSpec.describe Piece, :type => :model do
 			color: "white"
 			)
 		end
+		
 	describe "tests Bishop valid_move method" do
 		it "should return false if move is vertical" do
 			expect(@white_bishop.valid_move?(1,6)).to eq false
