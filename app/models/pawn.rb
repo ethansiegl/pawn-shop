@@ -40,6 +40,42 @@ class Pawn < Piece
 		end
 	end
 
+	def can_be_promoted?(x,y)
+		#white pawn can be promoted if 
+		#they reach the other side
+		if (y_coordinate == 8 && is_white?(self)) || (y_coordinate == 1 && !is_white?(self))
+			return true
+		else
+			return false
+		end
+	end
+
+	def pawn_promotion
+		#this is where the changes to the pawn will be made. The pawn will be changed to 
+		#Rook, Knight, Bishop, Queen.
+
+		#This will work with first getting the information from the form. That way I will know which piece
+		#the pawn is changing to
+		x = params[:x].to_i 
+		y = params[:y].to_i
+		type = params[:type]
+		color = params[:color]
+
+		#Second I will change the attributes of the pawn piece since it will no longer exist
+		update_attributes(
+			x_coordinate: nil,
+			y_coordinate: nil,
+			 )
+
+		#Third, I will create the new piece in its place. 
+		game.pieces.create(
+			x_coordinate: x,
+			y_coordinate: y,
+			type: type,
+			color: color)
+		
+	end
+
 
 
 end

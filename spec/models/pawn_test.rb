@@ -87,6 +87,15 @@ RSpec.describe Pawn, type: :model do
       expect(@white_pawn.valid_move?(2,2)).to eq false
     end
 
+  
+  it "should return false since the pawn isn't on the last square of the board" do
+    @blackpawn = Pawn.create(
+      x_coordinate: 7,
+      y_cooridnate: 8,
+      game: @game,
+      color: "black"
+      )
+    expect(@blackpawn.can_be_promoted?(7,6)).to eq false
   end
 
 
