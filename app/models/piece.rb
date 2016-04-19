@@ -18,11 +18,11 @@ class Piece < ActiveRecord::Base
   def obstructed_horizontally?(dest_x, dest_y)
     if dest_x > x_coordinate
       (x_coordinate + 1).upto(dest_x - 1) do |x|
-        return true if horizontal_move?(x, dest_y) && piece_at?(x, dest_y)
+        return true if horizontal_move?(x, dest_y) && space_occupied?(x, dest_y)
       end
     elsif dest_x < x_coordinate
       (x_coordinate - 1).downto(dest_x + 1) do |x|
-        return true if horizontal_move?(x, y_coordinate) && piece_at?(x, dest_y)
+        return true if horizontal_move?(x, y_coordinate) && space_occupied?(x, dest_y)
       end
     end
     false
@@ -31,11 +31,11 @@ class Piece < ActiveRecord::Base
 	def obstructed_vertically?(dest_x, dest_y)
     if dest_y > y_coordinate
       (y_coordinate + 1).upto(dest_y - 1) do |y|
-        return true if vertical_move?(dest_x, y) && piece_at?(dest_x, y)
+        return true if vertical_move?(dest_x, y) && space_occupied?(dest_x, y)
       end
     elsif dest_y < y_coordinate
       (y_coordinate - 1).downto(dest_y + 1) do |y|
-        return true if vertical_move?(dest_x, y) && piece_at?(dest_x, y)
+        return true if vertical_move?(dest_x, y) && space_occupied?(dest_x, y)
       end
     end
     false
@@ -45,32 +45,32 @@ class Piece < ActiveRecord::Base
     if dest_x > x_coordinate && dest_y > y_coordinate
       (x_coordinate + 1).upto(dest_x - 1) do |x|
         (y_coordinate + 1).upto(dest_y - 1) do |y|
-          return true if diagonal_move?(x, y) && piece_at?(x, y)
+          return true if diagonal_move?(x, y) && space_occupied?(x, y)
         end
       end
     elsif dest_x > x_coordinate && dest_y < y_coordinate
       (x_coordinate + 1).upto(dest_x - 1) do |x|
         (y_coordinate - 1).downto(dest_y + 1) do |y|
-          return true if diagonal_move?(x, y) && piece_at?(x, y)
+          return true if diagonal_move?(x, y) && space_occupied?(x, y)
         end
       end
     elsif dest_x < x_coordinate && dest_y > y_coordinate
       (x_coordinate - 1).downto(dest_x + 1) do |x|
         (y_coordinate + 1).upto(dest_y - 1) do |y|
-          return true if diagonal_move?(x, y) && piece_at?(x, y)
+          return true if diagonal_move?(x, y) && space_occupied?(x, y)
         end
       end
     elsif dest_x < x_coordinate && dest_y < y_coordinate
       (position_x - 1).downto(dest_x + 1) do |x|
         (position_y - 1).downto(dest_y + 1) do |y|
-          return true if diagonal_move?(x, y) && piece_at?(x, y)
+          return true if diagonal_move?(x, y) && space_occupied?(x, y)
         end
       end
     end
     false
   end
 
-	def piece_at?(x, y)
+	def space_occupied?(x, y)
 		game.pieces.where(x_coordinate: x, y_coordinate: y).take.present?
 	end
 
@@ -125,6 +125,14 @@ class Piece < ActiveRecord::Base
 		opponents.each do |piece|
 			return true if piece.valid_move?(x,y)
 		end
+	end
+
+	def x_diff(dest_x)
+    (x_coordinate - dest_x).abs
+  end
+
+	def y_diff(dest_y)
+		(y_coordinate - dest_y).abs
 	end
 end
 

@@ -6,7 +6,7 @@ class Pawn < Piece
 		return false if backward_move?(x,y)
 		return false if horizontal_move?(x,y)
 		return false if diagonal_move?(x,y)
-		return true if capture_possible?(x,y)
+		# return true if capture_possible?(x,y)
 
 		if first_move?
 			return false if (y-y_coordinate).abs > 2 || (y-y_coordinate).abs < 1
@@ -16,12 +16,15 @@ class Pawn < Piece
 		true
 	end
 
-	def capture_possible?(x,y)
-		x_diff = (x-x_coordinate).abs
-		y_diff = (y-y_coordinate).abs
-		return false if piece_at(x,y).nil?
-		return false if piece_at(x,y).color == self.color
-		return true if x_diff == 1 && y_diff == 1
+	def within_movement_constraints?
+		correct_direction = color == 'white' ? 1 : -1
+	end
+
+	def valid_diagonal_capture?(dest_x, dest_y, correct_direction)
+		return false if x_diff(dest_x) != 1
+		return false if dest_y - y_coordinate != correct_direction
+		return false unless enemy_piece?(x,y)
+		true
 	end
 
 	def first_move?
@@ -32,6 +35,13 @@ class Pawn < Piece
 		end
 	end
 
+	def enemy_piece?(x, y)
+    piece = piece_at(x, y)
+    return false if piece.nil?
+    return true if color != piece.color
+    false
+  end
+
 	def backward_move?(x,y)
 		if (is_white?(self) && (y<y_coordinate)) || (!is_white?(self) && (y>y_coordinate))
 			return true
@@ -39,4 +49,12 @@ class Pawn < Piece
 			return false
 		end
 	end
+
+	# def capture_possible?(x,y)
+	# 	x_diff = (x-x_coordinate).abs
+	# 	y_diff = (y-y_coordinate).abs
+	# 	return false if piece_at(x,y).nil?
+	# 	return false if piece_at(x,y).color == self.color
+	# 	return true if x_diff == 1 && y_diff == 1
+	# end
 end
