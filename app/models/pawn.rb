@@ -16,17 +16,6 @@ class Pawn < Piece
 		true
 	end
 
-	def within_movement_constraints?
-		correct_direction = color == 'white' ? 1 : -1
-	end
-
-	def valid_diagonal_capture?(dest_x, dest_y, correct_direction)
-		return false if x_diff(dest_x) != 1
-		return false if dest_y - y_coordinate != correct_direction
-		return false unless enemy_piece?(x,y)
-		true
-	end
-
 	def first_move?
 		if (y_coordinate == 2 && is_white?(self)) || (y_coordinate == 7 && !is_white?(self))
 			return true

@@ -126,14 +126,6 @@ class Piece < ActiveRecord::Base
 			return true if piece.valid_move?(x,y)
 		end
 	end
-
-	def x_diff(dest_x)
-    (x_coordinate - dest_x).abs
-  end
-
-	def y_diff(dest_y)
-		(y_coordinate - dest_y).abs
-	end
 end
 
 # def is_obstructed?(x, y)
