@@ -74,6 +74,10 @@ class Piece < ActiveRecord::Base
 		game.pieces.where(x_coordinate: x, y_coordinate: y).take.present?
 	end
 
+	def piece_at(x, y)
+		game.pieces.where(x_coordinate: x, y_coordinate: y).take
+	end
+
 	def capture!(target_piece)
 		target_piece.update(taken: true, x_coordinate: nil, y_coordinate: nil)
 	end
@@ -86,8 +90,8 @@ class Piece < ActiveRecord::Base
 		return true if piece.present? && color == piece.color
 	end
 
-  def on_board?(x, y)
-  	(x > 8 || y > 8 || x < 1 || y < 1) ? false : true
+  def off_board?(x, y)
+  	(x > 8 || y > 8 || x < 1 || y < 1) ? true : false
 	end
 
 	def no_move?(x, y)
