@@ -1,12 +1,13 @@
 require "rails_helper"
 
 RSpec.describe Piece, :type => :model do
-	before :each do 
+	before :each do
 		@game = Game.create
 		@game.pieces.each(&:delete)
 		@white_bishop = Bishop.create(
 			x_coordinate: 1,
 			y_coordinate: 1,
+			game: @game,
 			color: "white"
 			)
 		end
@@ -23,7 +24,7 @@ RSpec.describe Piece, :type => :model do
 			expect(@white_bishop.valid_move?(15,15)).to eq false
 		end
 
-		it "should return false if there is no move" do 
+		it "should return false if there is no move" do
 			expect(@white_bishop.valid_move?(1,1)).to eq false
 		end
 
