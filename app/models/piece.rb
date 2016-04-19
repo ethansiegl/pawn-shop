@@ -154,8 +154,8 @@ class Piece < ActiveRecord::Base
 	# 	return found
 	# end
 
-	def piece_at(x, y)
-		game.pieces.where(x_coordinate: x, y_coordinate: y).take
+	def piece_at?(x, y)
+		game.pieces.where(x_coordinate: x, y_coordinate: y).take.present?
 	end
 
 	def capture!(target_piece)
