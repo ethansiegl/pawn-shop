@@ -52,9 +52,12 @@ RSpec.describe Pawn, type: :model do
       expect(@white_pawn.valid_move?(4,4)).to eq false
     end
 
+    it "should return false if Pawn stays in one place" do
+      expect(@white_pawn.valid_move?(2,2)).to eq false
+    end
 
     it "should return true if Pawn can capture an opponent diagonally in one move" do
-      @black_pawn = Pawn.create(  
+      @black_pawn = Pawn.create(
         x_coordinate: 3,
         y_coordinate: 3,
         game: @game,
@@ -64,23 +67,19 @@ RSpec.describe Pawn, type: :model do
     end
 
     it "return true if Pawn can capture an opponent diagonally in one move when it is not the first move" do
-      @black_pawn = Pawn.create(  
+      @black_pawn = Pawn.create(
         x_coordinate: 4,
         y_coordinate: 5,
         game: @game,
         color: "black"
         )
-      @whitepawn = Pawn.create(  
+      @whitepawn = Pawn.create(
         x_coordinate: 5,
         y_coordinate: 4,
         game: @game,
         color: "white"
         )
       expect(@whitepawn.valid_move?(4,5)).to eq true
-    end
-
-    it "should return false if Pawn stays in one place" do
-      expect(@white_pawn.valid_move?(2,2)).to eq false
     end
   end
 end
