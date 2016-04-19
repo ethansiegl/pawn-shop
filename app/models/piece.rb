@@ -28,6 +28,19 @@ class Piece < ActiveRecord::Base
     false
   end
 
+	def obstructed_vertically?(dest_x, dest_y)
+    if dest_y > y_coordinate
+      (y_coordinate + 1).upto(dest_y - 1) do |y|
+        return true if vertical_move?(dest_x, y) && piece_at?(dest_x, y)
+      end
+    elsif dest_y < y_coordinate
+      (y_coordinate - 1).downto(dest_y + 1) do |y|
+        return true if vertical_move?(dest_x, y) && piece_at?(dest_x, y)
+      end
+    end
+    false
+  end
+
 	# def is_obstructed?(x, y)
 	# 	found = false
 	#
