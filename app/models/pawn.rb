@@ -25,9 +25,11 @@ class Pawn < Piece
 	end
 
 	def first_move?
-		return true if color == 'white' && position_y == 2
-    return true if color == 'black' && position_y == 7
-    false
+		if (y_coordinate == 2 && is_white?(self)) || (y_coordinate == 7 && !is_white?(self))
+			return true
+		else
+			return false
+		end
 	end
 
 	def backward_move?(x,y)
