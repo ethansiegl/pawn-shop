@@ -46,8 +46,24 @@ class Game < ActiveRecord::Base
 	 	Rook.create(x_coordinate: 8, y_coordinate: 1, color: 'white', game: self)
 	end
 
+	def stalemate?(color)
+		your_pieces = pieces.where(color: color).to_a
+    available_moves = []
+    your_pieces.each do |piece|
+      1.upto(8) do |x|
+        1.upto(8) do |y|
+          if piece.valid_move?(x, y) && !piece.move_causes_check?(x, y)
+            available_moves << [x, y]
+          end
+        end
+      end
+    end
+    return false if available_moves.any?
+    true
+	end
+
 	def checkmate?(color)
-		checked_king = pieces.find_by(type: 'King', color: color)
+		checked_king = find_king(color)
 		return false unless in_check?(color)
 		return false if can_block_check?(color)
 		return false if can_capture_checking_piece?(color)
