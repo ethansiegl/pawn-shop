@@ -6,7 +6,6 @@ class Game < ActiveRecord::Base
 	has_many :pieces
 	belongs_to :user
 
-
   def initiate_new_board
 	 	#black pawns
 	 	(1..8).each do |n|
@@ -47,27 +46,13 @@ class Game < ActiveRecord::Base
 	 	Rook.create(x_coordinate: 8, y_coordinate: 1, color: 'white', game: self)
 	end
 
-	def is_check?
-		if turn == white_player_id
-			king = self.pieces.find_by(type: 'King', color: 'black')
-			white_pieces = self.pieces.where(color: 'white')
-			white_pieces.each do |piece|
-				if piece.valid_move?(king.x_coordinate, king.y_coordinate)
-					return true
-				end
-			end
-
-		elsif turn == black_player_id
-			king = self.pieces.find_by(type: 'King', color: 'white')
-			black_pieces = self.pieces.where(color: 'black')
-			black_pieces.each do |piece|
-				if piece.valid_move?(king.x_coordinate, king.y_coordinate)
-					return true
-				end
-			end
-		else
-			return false
-		end
+	def checkmate?(color)
+		checked_king = pieces.find_by(type: 'King', color: color)
+		return false unless in_check?(color)
+		return false if can_block_check?(color)
+		return false if can_capture_checking_piece?(color)
+		return false if checked_king.can_move_out_of_check?
+		true
 	end
 
 	def in_check?(color)
@@ -82,50 +67,7 @@ class Game < ActiveRecord::Base
 		false
 	end
 
-	def opponents_on_board(color)
-		opposite_color = color == 'black' ? 'white' : 'black'
-		pieces.where(x_coordinate: 1..8, y_coordinate: 1..8, color: opposite_color).to_a
-	end
-
-	def can_capture_checking_piece?(color)
-		friendly_pieces = pieces_remaining(color)
-
-		friendly_pieces.each do |piece|
-			if piece.valid_move?(@piece_causing_check.x_coordinate, @piece_causing_check.y_coordinate)
-				return true
-			end
-		end
-		false
-	end
-
-	def checkmate?(color)
-		checked_king = pieces.find_by(type: 'King', color: color)
-
-		return false unless in_check?(color)
-		return false if can_block_check?(color)
-		return false if can_capture_checking_piece?(color)
-		return false if checked_king.can_move_out_of_check?
-		true
-	end
-
-	def find_king(color)
-		pieces.where(type: 'King', color: color).first
-	end
-
-	def set_white_player(user)
-	 	update_attributes(:white_player_id => user, :turn => user) if white_player_id.nil?
-	end
-
-	def set_black_player(user)
-		update_attribute(:black_player_id, user) if black_player_id.nil?
-	end
-
-	def pieces_remaining(color)
-    pieces.where(color: color).to_a
-  end
-
 	def can_block_check?(color)
-		#byebug
 		king = find_king(color)
 		friends = pieces.where(color: color).to_a
 		enemies = opponents_on_board(color)
@@ -159,41 +101,96 @@ class Game < ActiveRecord::Base
 
 		#diagonal moves
 		if king.x_coordinate < @piece_causing_check.x_coordinate
-		  if king.y_coordinate < @piece_causing_check.y_coordinate
-			  (king.x_coordinate + 1).upto(@piece_causing_check.x_coordinate - 1) do |x|
-				  (king.y_coordinate + 1).upto(@piece_causing_check.x_coordinate - 1) do |y|
+			if king.y_coordinate < @piece_causing_check.y_coordinate
+				(king.x_coordinate + 1).upto(@piece_causing_check.x_coordinate - 1) do |x|
+					(king.y_coordinate + 1).upto(@piece_causing_check.x_coordinate - 1) do |y|
 						@blockable_coordinates << [x, y]
-				  end
-			  end
+					end
+				end
 			elsif king.y_coordinate > @piece_causing_check.y_coordinate
 				(king.x_coordinate + 1).upto(@piece_causing_check.x_coordinate - 1) do |x|
-				  (king.y_coordinate - 1).downto(@piece_causing_check.x_coordinate + 1) do |y|
+					(king.y_coordinate - 1).downto(@piece_causing_check.x_coordinate + 1) do |y|
 						@blockable_coordinates << [x, y]
-				  end
-			  end
+					end
+				end
 			end
 		if king.x_coordinate > @piece_causing_check.x_coordinate
 			if king.y_coordinate > @piece_causing_check.y_coordinate
 				(king.x_coordinate - 1).downto(@piece_causing_check.x_coordinate + 1) do |x|
-				  (king.y_coordinate - 1).downto(@piece_causing_check.x_coordinate + 1) do |y|
+					(king.y_coordinate - 1).downto(@piece_causing_check.x_coordinate + 1) do |y|
 						@blockable_coordinates << [x, y]
-				  end
-			  end
+					end
+				end
 			elsif king.y_coordinate < @piece_causing_check.y_coordinate
 				(king.x_coordinate - 1).downto(@piece_causing_check.x_coordinate + 1) do |x|
-				  (king.y_coordinate + 1).upto(@piece_causing_check.x_coordinate - 1) do |y|
+					(king.y_coordinate + 1).upto(@piece_causing_check.x_coordinate - 1) do |y|
 						@blockable_coordinates << [x, y]
-				  end
-			  end
+					end
+				end
 			end
 		end
 	 end
 		return false unless @blockable_coordinates.any?
 		friends.each do |piece|
-	    @blockable_coordinates.each do |position|
-	      return true if piece.valid_move?(position[0], position[1])
-	    end
-	  end
-	  false
+			@blockable_coordinates.each do |position|
+				return true if piece.valid_move?(position[0], position[1])
+			end
+		end
+		false
+	end
+
+	def opponents_on_board(color)
+		opposite_color = color == 'black' ? 'white' : 'black'
+		pieces.where(x_coordinate: 1..8, y_coordinate: 1..8, color: opposite_color).to_a
+	end
+
+	def can_capture_checking_piece?(color)
+		friendly_pieces = pieces_remaining(color)
+
+		friendly_pieces.each do |piece|
+			if piece.valid_move?(@piece_causing_check.x_coordinate, @piece_causing_check.y_coordinate)
+				return true
+			end
+		end
+		false
+	end
+
+	def find_king(color)
+		pieces.where(type: 'King', color: color).first
+	end
+
+	def set_white_player(user)
+	 	update_attributes(:white_player_id => user, :turn => user) if white_player_id.nil?
+	end
+
+	def set_black_player(user)
+		update_attribute(:black_player_id, user) if black_player_id.nil?
+	end
+
+	def pieces_remaining(color)
+    pieces.where(color: color).to_a
+  end
+
+	def is_check?
+		if turn == white_player_id
+			king = self.pieces.find_by(type: 'King', color: 'black')
+			white_pieces = self.pieces.where(color: 'white')
+			white_pieces.each do |piece|
+				if piece.valid_move?(king.x_coordinate, king.y_coordinate)
+					return true
+				end
+			end
+
+		elsif turn == black_player_id
+			king = self.pieces.find_by(type: 'King', color: 'white')
+			black_pieces = self.pieces.where(color: 'black')
+			black_pieces.each do |piece|
+				if piece.valid_move?(king.x_coordinate, king.y_coordinate)
+					return true
+				end
+			end
+		else
+			return false
+		end
 	end
 end
