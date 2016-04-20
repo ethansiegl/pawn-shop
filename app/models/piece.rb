@@ -1,6 +1,5 @@
 require 'byebug'
 class Piece < ActiveRecord::Base
-
 	belongs_to :game
 
 	def move_to!(x,y)
@@ -13,6 +12,17 @@ class Piece < ActiveRecord::Base
 			capture!(destination_piece)
 			update_coordinates(x,y)
 		end
+	end
+
+	def move_causes_check?(x,y)
+		state = false
+    ActiveRecord::Base.transaction do
+      move_to!(x, y)
+      state = game.check?(color)
+      raise ActiveRecord::Rollback
+    end
+    reload
+    state
 	end
 
   def obstructed_horizontally?(dest_x, dest_y)

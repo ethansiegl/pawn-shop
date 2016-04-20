@@ -111,4 +111,29 @@ RSpec.describe Game, type: :model do
 			expect(@game.checkmate?("white")).to eq false
 		end
 	end
+	describe "test stalemate method" do
+		it "should return true if the game is in stalemate" do
+			@game = Game.create
+	    @game.pieces.each(&:delete)
+	    @white_king = King.create(
+	      x_coordinate: 1,
+	      y_coordinate: 1,
+	      game: @game,
+	      color: "white"
+	    )
+	    @black_rook = Rook.create(
+	    	x_coordinate: 7,
+	      y_coordinate: 2,
+	      game: @game,
+	      color: "black"
+	    	)
+	    @black_rook = Rook.create(
+	    	x_coordinate: 2,
+	      y_coordinate: 7,
+	      game: @game,
+	      color: "black"
+	    	)
+			expect(@game.stalemate?("white")).to eq true
+		end
+	end
 end

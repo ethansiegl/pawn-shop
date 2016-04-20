@@ -47,9 +47,10 @@ class Game < ActiveRecord::Base
 	end
 
 	def stalemate?(color)
-		your_pieces = pieces.where(color: color).to_a
+		byebug
+		friendly_pieces = pieces.where(color: color).to_a
     available_moves = []
-    your_pieces.each do |piece|
+    friendly_pieces.each do |piece|
       1.upto(8) do |x|
         1.upto(8) do |y|
           if piece.valid_move?(x, y) && !piece.move_causes_check?(x, y)
@@ -208,5 +209,20 @@ class Game < ActiveRecord::Base
 		else
 			return false
 		end
+	end
+
+	def check?(color)
+		king = find_king(color)
+		square_under_attack?(king.x_coordinate, king.y_coordinate, color)
+	end
+
+	def square_under_attack?(x, y, color)
+		enemies = opponents_on_board(color)
+		@enemies_causing_check = []
+	 	enemies.each do |enemy|
+		@enemies_causing_check << enemy if enemy.valid_move?(x, y) == true
+	 end
+	 return true if @enemies_causing_check.any?
+	 false
 	end
 end
