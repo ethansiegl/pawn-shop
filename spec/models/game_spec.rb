@@ -7,7 +7,7 @@ RSpec.describe Game, type: :model do
 			expect(@game.pieces.count).to eq 32
 		end
 
-		it "should return true if queen or rook can capture the king" do
+		it "should return true if game is in check" do
 			@game = Game.create
 			@game.pieces.each(&:delete)
 			@white_queen = Queen.create(
@@ -28,7 +28,7 @@ RSpec.describe Game, type: :model do
 		      game: @game,
 		      color: "black"
 		    )
-		    expect(@game.is_check?).to eq true
+		    expect(@game.check?("black")).to eq true
 		end
 	end
 
