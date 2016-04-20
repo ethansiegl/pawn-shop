@@ -72,14 +72,27 @@ class Game < ActiveRecord::Base
 
 	def in_check?(color)
 		king = pieces.find_by(type: 'King', color: color)
-
-		opponents = pieces_remaining(!color)
-
+		opponents = opponents_on_board(color)
 		opponents.each do |piece|
 			if piece.valid_move?(king.x_coordinate, king.y_coordinate)
 				@piece_causing_check = piece
 				return true
-				break
+			end
+		end
+		false
+	end
+
+	def opponents_on_board(color)
+		opposite_color = color == 'black' ? 'white' : 'black'
+		pieces.where(x_coordinate: 1..8, y_coordinate: 1..8, color: opposite_color).to_a
+	end
+
+	def can_capture_checking_piece?(color)
+		friendly_pieces = pieces_remaining(color)
+
+		friendly_pieces.each do |piece|
+			if piece.valid_move?(@piece_causing_check.x_coordinate, @piece_causing_check.y_coordinate)
+				return true
 			end
 		end
 		false
@@ -88,41 +101,15 @@ class Game < ActiveRecord::Base
 	def checkmate?(color)
 		checked_king = pieces.find_by(type: 'King', color: color)
 
-		# if in_check?(color) &&
-		# 	friendly_pieces.can_capture_checking_piece? == false &&
-		# 	checked_king.can_move_out_of_check? == false &&
-		# 	another_piece.can_block_check? == false
-		# return
-		# 	true
-		# 	break
-		# else
-		# 	false
-		# end
-
-		# should return false if king is not in check
 		return false unless in_check?(color)
-
-		# should check to see if another piece can capture checking piece
-		friendly_pieces = pieces_remaining(color)
-
-		friendly_pieces.each do |piece|
-			if piece.valid_move?(@piece_causing_check.x_coordinate, @piece_causing_check.y_coordinate)
-				return true
-				break
-			end
-		end
-
-		# should check if king can move out of check
-		if checked_king.can_move_out_of_check?
-			return false
-		end
-
-		# should check if another piece can block check
-		# false
+		return false if can_block_check?(color)
+		return false if can_capture_checking_piece?(color)
+		return false if checked_king.can_move_out_of_check?
+		true
 	end
 
 	def find_king(color)
-		game.pieces.find_by(type: 'King', color: color.to_s)
+		pieces.where(type: 'King', color: color).first
 	end
 
 	def set_white_player(user)
@@ -136,4 +123,77 @@ class Game < ActiveRecord::Base
 	def pieces_remaining(color)
     pieces.where(color: color).to_a
   end
+
+	def can_block_check?(color)
+		#byebug
+		king = find_king(color)
+		friends = pieces.where(color: color).to_a
+		enemies = opponents_on_board(color)
+		@blockable_coordinates = []
+
+		# horizontal cases
+		if king.y_coordinate == @piece_causing_check.y_coordinate
+			if king.x_coordinate < @piece_causing_check.x_coordinate
+				(king.x_coordinate + 1).upto(@piece_causing_check.x_coordinate - 1).each do |x|
+					@blockable_coordinates << [x, king.y_coordinate]
+				end
+			elsif king.x_coordinate > @piece_causing_check.x_coordinate
+				(king.x_coordinate - 1).downto(@piece_causing_check + 1).each do |x|
+					@blockable_coordinates << [x, king.y_coordinate]
+				end
+			end
+		end
+
+		# vertical cases
+		if king.x_coordinate == @piece_causing_check.x_coordinate
+			if king.y_coordinate < @piece_causing_check.y_coordinate
+				(king.y_coordinate + 1).upto(@piece_causing_check.y_coordinate - 1).each do |y|
+					@blockable_coordinates << [king.x_coordinate, y]
+				end
+			elsif king.y_coordinate > @piece_causing_check.y_coordinate
+				(king.y_coordinate - 1).downto(@piece_causing_check + 1).each do |y|
+					@blockable_coordinates << [king.x_coordinate, y]
+				end
+			end
+		end
+
+		#diagonal moves
+		if king.x_coordinate < @piece_causing_check.x_coordinate
+		  if king.y_coordinate < @piece_causing_check.y_coordinate
+			  (king.x_coordinate + 1).upto(@piece_causing_check.x_coordinate - 1) do |x|
+				  (king.y_coordinate + 1).upto(@piece_causing_check.x_coordinate - 1) do |y|
+						@blockable_coordinates << [x, y]
+				  end
+			  end
+			elsif king.y_coordinate > @piece_causing_check.y_coordinate
+				(king.x_coordinate + 1).upto(@piece_causing_check.x_coordinate - 1) do |x|
+				  (king.y_coordinate - 1).downto(@piece_causing_check.x_coordinate + 1) do |y|
+						@blockable_coordinates << [x, y]
+				  end
+			  end
+			end
+		if king.x_coordinate > @piece_causing_check.x_coordinate
+			if king.y_coordinate > @piece_causing_check.y_coordinate
+				(king.x_coordinate - 1).downto(@piece_causing_check.x_coordinate + 1) do |x|
+				  (king.y_coordinate - 1).downto(@piece_causing_check.x_coordinate + 1) do |y|
+						@blockable_coordinates << [x, y]
+				  end
+			  end
+			elsif king.y_coordinate < @piece_causing_check.y_coordinate
+				(king.x_coordinate - 1).downto(@piece_causing_check.x_coordinate + 1) do |x|
+				  (king.y_coordinate + 1).upto(@piece_causing_check.x_coordinate - 1) do |y|
+						@blockable_coordinates << [x, y]
+				  end
+			  end
+			end
+		end
+	 end
+		return false unless @blockable_coordinates.any?
+		friends.each do |piece|
+	    @blockable_coordinates.each do |position|
+	      return true if piece.valid_move?(position[0], position[1])
+	    end
+	  end
+	  false
+	end
 end

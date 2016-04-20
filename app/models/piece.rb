@@ -90,6 +90,11 @@ class Piece < ActiveRecord::Base
 		return true if piece.present? && color == piece.color
 	end
 
+	def opponents_on_board(color)
+		opposite_color = color == 'black' ? 'white' : 'black'
+		game.pieces.where(x_coordinate: 1..8, y_coordinate: 1..8, color: opposite_color).to_a
+	end
+
   def off_board?(x, y)
   	(x > 8 || y > 8 || x < 1 || y < 1) ? true : false
 	end
