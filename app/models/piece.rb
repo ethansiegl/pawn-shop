@@ -1,6 +1,5 @@
 require 'byebug'
 class Piece < ActiveRecord::Base
-
 	belongs_to :game
 
 	def move_to!(x,y)
@@ -13,6 +12,17 @@ class Piece < ActiveRecord::Base
 			capture!(destination_piece)
 			update_coordinates(x,y)
 		end
+	end
+
+	def move_causes_check?(x,y)
+		state = false
+    ActiveRecord::Base.transaction do
+      move_to!(x, y)
+      state = game.check?(color)
+      raise ActiveRecord::Rollback
+    end
+    reload
+    state
 	end
 
   def obstructed_horizontally?(dest_x, dest_y)
@@ -88,6 +98,11 @@ class Piece < ActiveRecord::Base
 
 	def friendly_piece?(piece)
 		return true if piece.present? && color == piece.color
+	end
+
+	def opponents_on_board(color)
+		opposite_color = color == 'black' ? 'white' : 'black'
+		game.pieces.where(x_coordinate: 1..8, y_coordinate: 1..8, color: opposite_color).to_a
 	end
 
   def off_board?(x, y)

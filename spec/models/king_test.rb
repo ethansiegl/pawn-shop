@@ -42,6 +42,4 @@ RSpec.describe King, type: :model do
     #   expect(@white_king.puts_in_check?(3,3)).to eq false
     # end
   end
-
-
 end
