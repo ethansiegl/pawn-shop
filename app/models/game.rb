@@ -1,4 +1,3 @@
-require 'byebug'
 class Game < ActiveRecord::Base
 	after_create :initiate_new_board
 	has_many :pieces
