@@ -17,35 +17,34 @@
         $('.square').droppable({
             accept: '.piece',
             drop: function(event, ui) {
-                
-                var original_square_id = $(ui.draggable).parent().attr('id');
-                var captured_piece = $(this).children().attr('id');
+                var originalSquare_id = $(ui.draggable).parent().attr('id');
+                var capturedPiece = $(this).children().attr('id');
                 var piece = $(ui.draggable).attr('id');
                 var row = $(this).attr('row_id');
                 var column = $(this).attr('column_id');
                 var game = <%= current_game.id %>
-                
 
-                console.log("original row and column: " + original_square_id );
+                console.log("original row and column: " + originalSquare_id );
                 console.log("dropped " + piece + " on " + row + "," + column + " for " + game);
-                console.log("captured piece id : " + captured_piece)
+                console.log("captured piece id : " + capturedPiece)
 
                 $.ajax({
                     type: 'PUT',
                     url: '/games/'+game+'/pieces/'+piece,
-                    dataType: 'html',
+                    dataType: 'json',
                     data: {
                         x: row,
                         y: column
                     },
-                    success: function() {
-                        $('#'+captured_piece).fadeOut("slow");
-                        console.log("success");
+                    success: function(data) {
+                      $('#'+capturedPiece).fadeOut("slow");
                     },
-                    error: function() {                       
+
+                    error: function(data) {
                         $('#'+piece).css({'left': 0, 'top': 0});
                         alert('Invalid Move');
                         console.log("fail");
+
                     }
                 });
             }
@@ -53,21 +52,25 @@
     });
 </script>
 
-</head>	
+
+</head>
+
 	<body>
 		<h1>Welcome to Pawn Shop</h1>
+
 		<table>
       <% 8.downto(1) do |column| %>
         <tr class= "column <%= column %>">
           <% 1.upto(8) do |row| %>
             <td class= "square" row_id ="<%= row %>" column_id = "<%= column %>" id = "<%= row %><%= column %>" >
               <!--check to see if there is a piece-->
-              <% if piece = @game.pieces.detect { |piece| piece.x_coordinate == row && piece.y_coordinate == column } %>        
+              <% if piece = @game.pieces.detect { |piece| piece.x_coordinate == row && piece.y_coordinate == column } %>
 
                 <div class="piece" id="<%= piece.id %>">
-                    <%= image_tag("#{piece.color}#{piece.type.downcase}.png")%> 
+
+                    <%= link_to image_tag("#{piece.color}#{piece.type.downcase}.png"), game_piece_path(@game,piece), remote: true %>
+
                 </div>
-            
               <% end %>
             </td>
           <% end %>
@@ -75,8 +78,8 @@
       <% end %>
     </table>
 
+
 	</body>
 
 
-</html>	
-	
+</html>

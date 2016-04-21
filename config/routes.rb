@@ -9,6 +9,7 @@ Pawnshop::Application.routes.draw do
     resources :pieces, only: [:show, :update]
   end
   resources :dashboard, only: [:show]
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

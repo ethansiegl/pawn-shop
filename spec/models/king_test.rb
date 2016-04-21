@@ -32,15 +32,15 @@ RSpec.describe King, type: :model do
       expect(@white_king.valid_move?(3,7)).to eq false
     end
 
-    it "should return false if King tries to move himself into check" do
-      @black_rook = Rook.create(
-        x_coordinate: 3,
-        y_coordinate: 8,
-        game: @game,
-        color: "black"
-        )
-      expect(@white_king.puts_in_check?(3,3)).to eq false
-    end
+    # it "should return false if King tries to move himself into check" do
+    #   @black_rook = Rook.create(
+    #     x_coordinate: 3,
+    #     y_coordinate: 8,
+    #     game: @game,
+    #     color: "black"
+    #     )
+    #   expect(@white_king.puts_in_check?(3,3)).to eq false
+    # end
   end
 
 
