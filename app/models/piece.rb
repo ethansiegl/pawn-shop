@@ -1,4 +1,3 @@
-require 'byebug'
 class Piece < ActiveRecord::Base
 	belongs_to :game
 

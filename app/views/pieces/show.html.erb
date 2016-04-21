@@ -1,8 +1,6 @@
 <DOCTYPE html>
 <html>
-
 <head>
-
  <script>
     $(function() {
 
@@ -34,48 +32,36 @@
                         console.log("fail");
                     }
                 });
-
-
             }
         });
     });
 </script>
 
-
-</head>	
-
+</head>
 	<body>
-
 		<h1>Welcome to Pawn Shop</h1>
-		
 		<table>
 			<% 8.downto(1) do |column| %>
         <tr class="column <%= column %>">
           <% 1.upto(8) do |row| %>
             <td class= "square" row_id = "<%= row %>" column_id = "<%= column %>">
               <!--check to see if there is a piece-->
-            	<% if piece = current_game.pieces.detect { |piece| piece.x_coordinate == row && piece.y_coordinate == column } %>           
-
+            	<% if piece = current_game.pieces.detect { |piece| piece.x_coordinate == row && piece.y_coordinate == column } %>
                 <div class="piece" id="<%= piece.id %>">
                   <%= link_to image_tag ("#{piece.color}#{piece.type.downcase}.png") %>
                   <%= link_to "move here", game_piece_path(current_game, current_piece, :piece => current_piece, :row => row, :column => column), :method => :put %>
-                </div> 
-                
+                </div>
                 <% else %>
                 <%= "#{row}, #{column}" %>
-                
                 <%= link_to "move here", game_piece_path(current_game, current_piece, :piece => current_piece, :row => row, :column => column), :method => :put %>
-                
               <% end %>
-                
             </td>
           <% end %>
         </tr>
-      <% end %> 
+      <% end %>
     </table>
 
 	</body>
 
 
-</html>	
-	
+</html>
