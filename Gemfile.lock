@@ -165,6 +165,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootstrap-sass (~> 3.3.5.1)
+  byebug
   coffee-rails (~> 4.0.0)
   devise (>= 3.2.4)
   factory_girl_rails (~> 4.0)
