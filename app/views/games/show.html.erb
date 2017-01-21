@@ -1,15 +1,64 @@
 <DOCTYPE html>
 <html>
 <head>
-
-
 </head>
+
+<script>
+    $(function() {
+        $('.piece').draggable({
+            snap: '.square',
+            snapMode: 'outer',
+            snapTolerance: 40,
+            revert: 'invalid',
+            opacity: 0.20,
+            refreshPositions: true
+        });
+
+        $('.square').droppable({
+            accept: '.piece',
+            drop: function(event, ui) {
+                var originalSquare_id = $(ui.draggable).parent().attr('id');
+                var capturedPiece = $(this).children().attr('id');
+                var piece = $(ui.draggable).attr('id'); 
+                var row = $(this).attr('data-row-id');
+                var column = $(this).attr('data-column-id');
+                var game = <%= current_game.id %>
+
+                console.log("original row and column: " + originalSquare_id );
+                console.log("dropped " + piece + " on " + row + "," + column + " for " + game);
+                console.log("captured piece id : " + capturedPiece)
+
+                // $.ajax({
+                //     type: 'PUT',
+                //     url: '/games/'+game+'/pieces/'+piece,
+                //     dataType: 'json',
+                //     data: {
+                //         x: row,
+                //         y: column
+                //     },
+                //     success: function(data) {
+                //       $('#'+capturedPiece).fadeOut("slow");
+                //       location.reload();
+                //     },
+                //
+                //     error: function(data) {
+                //         $('#'+piece).css({'left': 0, 'top': 0});
+                //         alert('Invalid Move');
+                //         console.log("fail");
+                //
+                //     }
+                // });
+            }
+        });
+    });
+</script>
+
 	<body>
 		<table>
       <% 8.downto(1) do |column| %>
         <tr class= "column <%= column %>">
           <% 1.upto(8) do |row| %>
-            <td class= "square" row_id ="<%= row %>" column_id = "<%= column %>" id = "<%= row %><%= column %>" >
+            <td class= "square" data-row-id ="<%= row %>" data-column-id = "<%= column %>" id = "<%= row %><%= column %>" >
               <!--check to see if there is a piece-->
               <% if piece = @game.pieces.detect { |piece| piece.x_coordinate == row && piece.y_coordinate == column } %>
                 <div class="piece" id="<%= piece.id %>">
